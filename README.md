@@ -1,9 +1,9 @@
 # ShockWave Auto-Agent
 ShopWave Auto-Agent is an autonomous support resolution system for the ShopWave e-commerce platform. It ingests customer support tickets, classifies them, resolves them using a multi-step ReAct (Reason + Act) agent loop, escalates intelligently when needed, and maintains an immutable audit trail of every decision.
 
-##1. System Architecture
+## 1. System Architecture
 
-###1.1 High-Level Component Map
+### 1.1 High-Level Component Map
 
 ```bash
 ┌─────────────────────────────────────────────────────────────────────┐
