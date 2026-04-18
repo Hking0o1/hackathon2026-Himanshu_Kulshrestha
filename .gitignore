@@ -1,0 +1,13 @@
+.env
+__pycache__/
+*.pyc
+.pytest_cache/
+.docx_extracted/
+shopwave_trd.zip
+node_modules/
+dist/
+build/
+.venv/
+pgdata/
+
+
