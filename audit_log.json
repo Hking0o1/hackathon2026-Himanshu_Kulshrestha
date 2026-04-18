@@ -1,2311 +1,43 @@
 [
   {
-    "ticket_id": "TKT-001",
-    "processed_at": "2026-04-18T06:31:57Z",
-    "worker_id": 1,
-    "triage": {
-      "category": "REFUND_REQUEST",
-      "confidence": 0.89,
-      "provider": "huggingface-bart-mock"
-    },
-    "react_loop": {
-      "iterations": 6,
-      "thoughts": [
-        "I need to gather enough verified evidence for the customer before taking any irreversible action.",
-        "I need to gather enough verified evidence for Alice Turner before taking any irreversible action.",
-        "I need to gather enough verified evidence for Alice Turner before taking any irreversible action.",
-        "I need to gather enough verified evidence for Alice Turner before taking any irreversible action.",
-        "I need to gather enough verified evidence for Alice Turner before taking any irreversible action.",
-        "I need to gather enough verified evidence for Alice Turner before taking any irreversible action."
-      ],
-      "tool_calls": [
-        {
-          "tool": "get_customer",
-          "input": {
-            "email": "alice.turner@email.com"
-          },
-          "output": {
-            "customer_id": "C001",
-            "name": "Alice Turner",
-            "email": "alice.turner@email.com",
-            "tier": "vip",
-            "member_since": "2019-03-12",
-            "total_orders": 47,
-            "total_spent": 6840.5,
-            "notes": "Long-standing VIP. Two approved refunds in the last year. High trust account.",
-            "found": true
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "get_order",
-          "input": {
-            "order_id": "ORD-1001"
-          },
-          "output": {
-            "order_id": "ORD-1001",
-            "customer_id": "C001",
-            "product_id": "P001",
-            "amount": 129.99,
-            "status": "delivered",
-            "order_date": "2026-03-28",
-            "delivery_date": "2026-04-02",
-            "return_deadline": "2026-05-02",
-            "refund_status": null,
-            "tracking_number": "TRK-11001",
-            "notes": "Defective audio reported. No delivery issues logged.",
-            "found": true,
-            "days_since_delivery": 16
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "get_product",
-          "input": {
-            "product_id": "P001"
-          },
-          "output": {
-            "product_id": "P001",
-            "name": "ProSound Wireless Headphones",
-            "category": "electronics",
-            "price": 129.99,
-            "warranty_months": 12,
-            "return_window_days": 30,
-            "returnable": true,
-            "notes": "Return not accepted if seal is broken unless the item is defective."
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "check_refund_eligibility",
-          "input": {
-            "order_id": "ORD-1001"
-          },
-          "output": {
-            "order_id": "ORD-1001",
-            "eligible": true,
-            "reason": "Within the allowed policy window. No duplicate refund was found.",
-            "amount": 129.99,
-            "policy_flags": [],
-            "requires_escalation": false
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "issue_refund",
-          "input": {
-            "order_id": "ORD-1001",
-            "amount": 129.99
-          },
-          "output": {
-            "order_id": "ORD-1001",
-            "amount_refunded": 129.99,
-            "transaction_id": "TXN-782f0912-5660-4359-8bd4-3d245c02adcb",
-            "status": "processed",
-            "processing_time": "5-7 business days",
-            "timestamp": "2026-04-18T06:31:57Z"
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "send_reply",
-          "input": {
-            "ticket_id": "TKT-001",
-            "message": "Hi Alice, I verified order ORD-1001 and confirmed the request qualifies under our policy. I've processed the next step for you and you'll receive confirmation shortly."
-          },
-          "output": {
-            "ticket_id": "TKT-001",
-            "delivered": true,
-            "message_preview": "Hi Alice, I verified order ORD-1001 and confirmed the request qualifies under our policy. I've processed the next step for you and you'll receive confirmation s",
-            "timestamp": "2026-04-18T06:31:57Z"
-          },
-          "latency_ms": 0,
-          "error": null
-        }
-      ]
-    },
-    "confidence_final": 0.856,
-    "decision": "RESOLVED",
-    "resolution_type": "AUTO",
-    "flags": [],
-    "llm_providers_used": [
-      "huggingface-bart-mock",
-      "groq-mock"
-    ],
-    "total_latency_ms": 0,
-    "policy_explanation": "Customer tier verified as vip. Order ORD-1001 status is delivered. Product policy uses a 30-day return window and 12-month warranty. Within the allowed policy window. No duplicate refund was found. The case was handled automatically because the verified facts matched a supported workflow."
-  },
-  {
-    "ticket_id": "TKT-005",
-    "processed_at": "2026-04-18T06:31:58Z",
-    "worker_id": 2,
-    "triage": {
-      "category": "RETURN_REQUEST",
-      "confidence": 0.85,
-      "provider": "huggingface-bart-mock"
-    },
-    "react_loop": {
-      "iterations": 6,
-      "thoughts": [
-        "I need to gather enough verified evidence for the customer before taking any irreversible action.",
-        "I need to gather enough verified evidence for Emma Collins before taking any irreversible action.",
-        "I need to gather enough verified evidence for Emma Collins before taking any irreversible action.",
-        "I need to gather enough verified evidence for Emma Collins before taking any irreversible action.",
-        "I need to gather enough verified evidence for Emma Collins before taking any irreversible action.",
-        "I need to gather enough verified evidence for Emma Collins before taking any irreversible action."
-      ],
-      "tool_calls": [
-        {
-          "tool": "get_customer",
-          "input": {
-            "email": "emma.collins@email.com"
-          },
-          "output": {
-            "customer_id": "C005",
-            "name": "Emma Collins",
-            "email": "emma.collins@email.com",
-            "tier": "vip",
-            "member_since": "2018-05-17",
-            "total_orders": 61,
-            "total_spent": 9011.85,
-            "notes": "VIP exception note: one expired apparel return may be manually approved if unworn and packaging intact.",
-            "found": true
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "get_order",
-          "input": {
-            "order_id": "ORD-1005"
-          },
-          "output": {
-            "order_id": "ORD-1005",
-            "customer_id": "C005",
-            "product_id": "P002",
-            "amount": 89.99,
-            "status": "delivered",
-            "order_date": "2026-03-01",
-            "delivery_date": "2026-03-05",
-            "return_deadline": "2026-04-04",
-            "refund_status": null,
-            "tracking_number": "TRK-11005",
-            "notes": "Packaging appears intact. Candidate for vip_exception review.",
-            "found": true,
-            "days_since_delivery": 44
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "get_product",
-          "input": {
-            "product_id": "P002"
-          },
-          "output": {
-            "product_id": "P002",
-            "name": "AeroFit Running Shoes",
-            "category": "apparel",
-            "price": 89.99,
-            "warranty_months": 0,
-            "return_window_days": 30,
-            "returnable": true,
-            "notes": "Unworn apparel can be refunded or exchanged within the return window."
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "check_refund_eligibility",
-          "input": {
-            "order_id": "ORD-1005"
-          },
-          "output": {
-            "order_id": "ORD-1005",
-            "eligible": false,
-            "reason": "Refund is not eligible under the current order and product policy checks.",
-            "amount": 89.99,
-            "policy_flags": [
-              "OUT_OF_WINDOW"
-            ],
-            "requires_escalation": false
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "search_knowledge_base",
-          "input": {
-            "query": "vip exception expired return pre approval"
-          },
-          "output": {
-            "query": "vip exception expired return pre approval",
-            "results": [
-              {
-                "section": "VIP Exceptions",
-                "content": "VIP notes in the customer profile must be checked before denying an expired return. If a profile note mentions a pre-approval or exception, escalate to confirm the exception rather than rejecting the case automatically.",
-                "relevance_score": 0.99
-              },
-              {
-                "section": "Device Registration Restriction",
-                "content": "Devices registered online are no longer eligible for automatic return approval. If the return window is also expired, explain both reasons clearly.",
-                "relevance_score": 0.81
-              },
-              {
-                "section": "Category-Specific Return Windows",
-                "content": "Standard electronics can be returned within 30 days of delivery. High-value electronics like smartwatches have a 15-day return window only. Outdoor gear such as tents has an extended 60-day return window.",
-                "relevance_score": 0.57
-              }
-            ],
-            "result_count": 3
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "escalate",
-          "input": {
-            "ticket_id": "TKT-005",
-            "summary": {
-              "issue_summary": "Ticket requires a manual exception or unsupported replacement workflow.",
-              "what_was_verified": [
-                "Refund is not eligible under the current order and product policy checks."
-              ],
-              "what_was_attempted": [
-                "Called get_customer",
-                "Called get_order",
-                "Called get_product",
-                "Called check_refund_eligibility",
-                "Called search_knowledge_base"
-              ],
-              "recommended_path": "A human agent should review the exception and replacement options.",
-              "priority": "high",
-              "confidence_at_escalation": 0.938
-            },
-            "priority": "high"
-          },
-          "output": {
-            "ticket_id": "TKT-005",
-            "escalation_id": "ESC-b31dc2f8-8c31-4e2f-8339-811998e1151e",
-            "routed_to": "tier-2-support",
-            "timestamp": "2026-04-18T06:31:58Z"
-          },
-          "latency_ms": 0,
-          "error": null
-        }
-      ]
-    },
-    "confidence_final": 0.938,
-    "decision": "ESCALATED",
-    "resolution_type": "ESCALATED",
-    "flags": [],
-    "llm_providers_used": [
-      "huggingface-bart-mock",
-      "groq-mock"
-    ],
-    "total_latency_ms": 0,
-    "policy_explanation": "Customer tier verified as vip. Order ORD-1005 status is delivered. Product policy uses a 30-day return window and 0-month warranty. Refund is not eligible under the current order and product policy checks. Knowledge base match: VIP Exceptions. The case was escalated because the verified facts required human judgment or a protected workflow."
-  },
-  {
-    "ticket_id": "TKT-011",
-    "processed_at": "2026-04-18T06:31:58Z",
-    "worker_id": 3,
-    "triage": {
-      "category": "RETURN_REQUEST",
-      "confidence": 0.85,
-      "provider": "huggingface-bart-mock"
-    },
-    "react_loop": {
-      "iterations": 5,
-      "thoughts": [
-        "I need to gather enough verified evidence for the customer before taking any irreversible action.",
-        "I need to gather enough verified evidence for Alice Turner before taking any irreversible action.",
-        "I need to gather enough verified evidence for Alice Turner before taking any irreversible action.",
-        "I need to gather enough verified evidence for Alice Turner before taking any irreversible action.",
-        "I need to gather enough verified evidence for Alice Turner before taking any irreversible action."
-      ],
-      "tool_calls": [
-        {
-          "tool": "get_customer",
-          "input": {
-            "email": "alice.turner@email.com"
-          },
-          "output": {
-            "customer_id": "C001",
-            "name": "Alice Turner",
-            "email": "alice.turner@email.com",
-            "tier": "vip",
-            "member_since": "2019-03-12",
-            "total_orders": 47,
-            "total_spent": 6840.5,
-            "notes": "Long-standing VIP. Two approved refunds in the last year. High trust account.",
-            "found": true
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "get_order",
-          "input": {
-            "order_id": "ORD-1011"
-          },
-          "output": {
-            "order_id": "ORD-1011",
-            "customer_id": "C001",
-            "product_id": "P006",
-            "amount": 249.99,
-            "status": "delivered",
-            "order_date": "2026-04-07",
-            "delivery_date": "2026-04-10",
-            "return_deadline": "2026-04-25",
-            "refund_status": null,
-            "tracking_number": "TRK-11011",
-            "notes": "Wrong colour variant delivered.",
-            "found": true,
-            "days_since_delivery": 8
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "get_product",
-          "input": {
-            "product_id": "P006"
-          },
-          "output": {
-            "product_id": "P006",
-            "name": "PulseX Smartwatch",
-            "category": "electronics",
-            "price": 249.99,
-            "warranty_months": 12,
-            "return_window_days": 15,
-            "returnable": true,
-            "notes": "High-value electronics have a strict 15-day return window."
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "check_refund_eligibility",
-          "input": {
-            "order_id": "ORD-1011"
-          },
-          "output": {
-            "order_id": "ORD-1011",
-            "eligible": true,
-            "reason": "Within the allowed policy window. No duplicate refund was found.",
-            "amount": 249.99,
-            "policy_flags": [],
-            "requires_escalation": true
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "escalate",
-          "input": {
-            "ticket_id": "TKT-011",
-            "summary": {
-              "issue_summary": "Ticket requires a manual exception or unsupported replacement workflow.",
-              "what_was_verified": [
-                "Within the allowed policy window. No duplicate refund was found."
-              ],
-              "what_was_attempted": [
-                "Called get_customer",
-                "Called get_order",
-                "Called get_product",
-                "Called check_refund_eligibility"
-              ],
-              "recommended_path": "A human agent should review the exception and replacement options.",
-              "priority": "high",
-              "confidence_at_escalation": 0.84
-            },
-            "priority": "high"
-          },
-          "output": {
-            "ticket_id": "TKT-011",
-            "escalation_id": "ESC-4e03ac30-1686-4ccb-a19a-0cfb3cb65239",
-            "routed_to": "tier-2-support",
-            "timestamp": "2026-04-18T06:31:58Z"
-          },
-          "latency_ms": 0,
-          "error": null
-        }
-      ]
-    },
-    "confidence_final": 0.84,
-    "decision": "ESCALATED",
-    "resolution_type": "ESCALATED",
-    "flags": [],
-    "llm_providers_used": [
-      "huggingface-bart-mock",
-      "groq-mock"
-    ],
-    "total_latency_ms": 0,
-    "policy_explanation": "Customer tier verified as vip. Order ORD-1011 status is delivered. Product policy uses a 15-day return window and 12-month warranty. Within the allowed policy window. No duplicate refund was found. The case was escalated because the verified facts required human judgment or a protected workflow."
-  },
-  {
-    "ticket_id": "TKT-015",
-    "processed_at": "2026-04-18T06:31:58Z",
-    "worker_id": 4,
-    "triage": {
-      "category": "REFUND_REQUEST",
-      "confidence": 0.89,
-      "provider": "huggingface-bart-mock"
-    },
-    "react_loop": {
-      "iterations": 5,
-      "thoughts": [
-        "I need to gather enough verified evidence for the customer before taking any irreversible action.",
-        "I need to gather enough verified evidence for Emma Collins before taking any irreversible action.",
-        "I need to gather enough verified evidence for Emma Collins before taking any irreversible action.",
-        "I need to gather enough verified evidence for Emma Collins before taking any irreversible action.",
-        "I need to gather enough verified evidence for Emma Collins before taking any irreversible action."
-      ],
-      "tool_calls": [
-        {
-          "tool": "get_customer",
-          "input": {
-            "email": "emma.collins@email.com"
-          },
-          "output": {
-            "customer_id": "C005",
-            "name": "Emma Collins",
-            "email": "emma.collins@email.com",
-            "tier": "vip",
-            "member_since": "2018-05-17",
-            "total_orders": 61,
-            "total_spent": 9011.85,
-            "notes": "VIP exception note: one expired apparel return may be manually approved if unworn and packaging intact.",
-            "found": true
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "get_order",
-          "input": {
-            "order_id": "ORD-1014"
-          },
-          "output": {
-            "order_id": "ORD-1014",
-            "customer_id": "C005",
-            "product_id": "P005",
-            "amount": 109.99,
-            "status": "delivered",
-            "order_date": "2026-04-09",
-            "delivery_date": "2026-04-12",
-            "return_deadline": "2026-05-12",
-            "refund_status": null,
-            "tracking_number": "TRK-11014",
-            "notes": "Outer casing damaged. Customer asked for replacement.",
-            "found": true,
-            "days_since_delivery": 6
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "get_product",
-          "input": {
-            "product_id": "P005"
-          },
-          "output": {
-            "product_id": "P005",
-            "name": "KitchenPro Mixer",
-            "category": "home_appliance",
-            "price": 109.99,
-            "warranty_months": 12,
-            "return_window_days": 30,
-            "returnable": true,
-            "notes": "Replacement requests require a human specialist because there is no automated replacement workflow."
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "check_refund_eligibility",
-          "input": {
-            "order_id": "ORD-1014"
-          },
-          "output": {
-            "order_id": "ORD-1014",
-            "eligible": true,
-            "reason": "Within the allowed policy window. No duplicate refund was found.",
-            "amount": 109.99,
-            "policy_flags": [],
-            "requires_escalation": false
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "escalate",
-          "input": {
-            "ticket_id": "TKT-015",
-            "summary": {
-              "issue_summary": "Ticket requires a manual exception or unsupported replacement workflow.",
-              "what_was_verified": [
-                "Within the allowed policy window. No duplicate refund was found."
-              ],
-              "what_was_attempted": [
-                "Called get_customer",
-                "Called get_order",
-                "Called get_product",
-                "Called check_refund_eligibility"
-              ],
-              "recommended_path": "A human agent should review the exception and replacement options.",
-              "priority": "high",
-              "confidence_at_escalation": 0.856
-            },
-            "priority": "high"
-          },
-          "output": {
-            "ticket_id": "TKT-015",
-            "escalation_id": "ESC-691aa837-9672-42ef-aaed-f0079e553166",
-            "routed_to": "tier-2-support",
-            "timestamp": "2026-04-18T06:31:58Z"
-          },
-          "latency_ms": 0,
-          "error": null
-        }
-      ]
-    },
-    "confidence_final": 0.856,
-    "decision": "ESCALATED",
-    "resolution_type": "ESCALATED",
-    "flags": [],
-    "llm_providers_used": [
-      "huggingface-bart-mock",
-      "groq-mock"
-    ],
-    "total_latency_ms": 0,
-    "policy_explanation": "Customer tier verified as vip. Order ORD-1014 status is delivered. Product policy uses a 30-day return window and 12-month warranty. Within the allowed policy window. No duplicate refund was found. The case was escalated because the verified facts required human judgment or a protected workflow."
-  },
-  {
-    "ticket_id": "TKT-003",
-    "processed_at": "2026-04-18T06:31:58Z",
-    "worker_id": 5,
-    "triage": {
-      "category": "WARRANTY_CLAIM",
-      "confidence": 0.91,
-      "provider": "huggingface-bart-mock"
-    },
-    "react_loop": {
-      "iterations": 6,
-      "thoughts": [
-        "I need to gather enough verified evidence for the customer before taking any irreversible action.",
-        "I need to gather enough verified evidence for Carol Mendes before taking any irreversible action.",
-        "I need to gather enough verified evidence for Carol Mendes before taking any irreversible action.",
-        "I need to gather enough verified evidence for Carol Mendes before taking any irreversible action.",
-        "I need to gather enough verified evidence for Carol Mendes before taking any irreversible action.",
-        "I need to gather enough verified evidence for Carol Mendes before taking any irreversible action."
-      ],
-      "tool_calls": [
-        {
-          "tool": "get_customer",
-          "input": {
-            "email": "carol.mendes@email.com"
-          },
-          "output": {
-            "customer_id": "C003",
-            "name": "Carol Mendes",
-            "email": "carol.mendes@email.com",
-            "tier": "premium",
-            "member_since": "2021-07-22",
-            "total_orders": 18,
-            "total_spent": 2924.0,
-            "notes": "Premium customer. Usually low-friction handling when policy allows.",
-            "found": true
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "get_order",
-          "input": {
-            "order_id": "ORD-1003"
-          },
-          "output": {
-            "order_id": "ORD-1003",
-            "customer_id": "C003",
-            "product_id": "P003",
-            "amount": 179.99,
-            "status": "delivered",
-            "order_date": "2026-01-12",
-            "delivery_date": "2026-01-16",
-            "return_deadline": "2026-02-15",
-            "refund_status": null,
-            "tracking_number": "TRK-11003",
-            "notes": "Motor failure reported after regular use.",
-            "found": true,
-            "days_since_delivery": 92
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "get_product",
-          "input": {
-            "product_id": "P003"
-          },
-          "output": {
-            "product_id": "P003",
-            "name": "BlendMax Smart Blender",
-            "category": "home_appliance",
-            "price": 179.99,
-            "warranty_months": 24,
-            "return_window_days": 30,
-            "returnable": true,
-            "notes": "Warranty covers verified motor and electronics faults after the return window."
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "search_knowledge_base",
-          "input": {
-            "query": "warranty claim policy defect outside return window"
-          },
-          "output": {
-            "query": "warranty claim policy defect outside return window",
-            "results": [
-              {
-                "section": "Warranty Coverage",
-                "content": "When a defect appears after the return window but inside the product warranty period, the case should be routed to the warranty team. Warranty handling is not the same as a normal refund flow.",
-                "relevance_score": 0.93
-              },
-              {
-                "section": "Category-Specific Return Windows",
-                "content": "Standard electronics can be returned within 30 days of delivery. High-value electronics like smartwatches have a 15-day return window only. Outdoor gear such as tents has an extended 60-day return window.",
-                "relevance_score": 0.69
-              },
-              {
-                "section": "Device Registration Restriction",
-                "content": "Devices registered online are no longer eligible for automatic return approval. If the return window is also expired, explain both reasons clearly.",
-                "relevance_score": 0.69
-              }
-            ],
-            "result_count": 3
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "check_refund_eligibility",
-          "input": {
-            "order_id": "ORD-1003"
-          },
-          "output": {
-            "order_id": "ORD-1003",
-            "eligible": false,
-            "reason": "Refund is not eligible under the current order and product policy checks.",
-            "amount": 179.99,
-            "policy_flags": [
-              "OUT_OF_WINDOW"
-            ],
-            "requires_escalation": false
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "escalate",
-          "input": {
-            "ticket_id": "TKT-003",
-            "summary": {
-              "issue_summary": "Warranty path requires manual handling beyond the return flow.",
-              "what_was_verified": [
-                "Warranty months: 24",
-                "Eligibility reason: Refund is not eligible under the current order and product policy checks."
-              ],
-              "what_was_attempted": [
-                "Called get_customer",
-                "Called get_order",
-                "Called get_product",
-                "Called search_knowledge_base",
-                "Called check_refund_eligibility"
-              ],
-              "recommended_path": "Move this case to the warranty team.",
-              "priority": "medium",
-              "confidence_at_escalation": 0.95
-            },
-            "priority": "medium"
-          },
-          "output": {
-            "ticket_id": "TKT-003",
-            "escalation_id": "ESC-566b1b71-6aaf-4378-87bb-aaacbfc09462",
-            "routed_to": "tier-2-support",
-            "timestamp": "2026-04-18T06:31:58Z"
-          },
-          "latency_ms": 0,
-          "error": null
-        }
-      ]
-    },
-    "confidence_final": 0.95,
-    "decision": "ESCALATED",
-    "resolution_type": "ESCALATED",
-    "flags": [],
-    "llm_providers_used": [
-      "huggingface-bart-mock",
-      "groq-mock"
-    ],
-    "total_latency_ms": 0,
-    "policy_explanation": "Customer tier verified as premium. Order ORD-1003 status is delivered. Product policy uses a 30-day return window and 24-month warranty. Refund is not eligible under the current order and product policy checks. Knowledge base match: Warranty Coverage. The case was escalated because the verified facts required human judgment or a protected workflow."
-  },
-  {
-    "ticket_id": "TKT-007",
-    "processed_at": "2026-04-18T06:32:02Z",
-    "worker_id": 1,
-    "triage": {
-      "category": "RETURN_REQUEST",
-      "confidence": 0.85,
-      "provider": "huggingface-bart-mock"
-    },
-    "react_loop": {
-      "iterations": 5,
-      "thoughts": [
-        "I need to gather enough verified evidence for the customer before taking any irreversible action.",
-        "I need to gather enough verified evidence for Grace Patel before taking any irreversible action.",
-        "I need to gather enough verified evidence for Grace Patel before taking any irreversible action.",
-        "I need to gather enough verified evidence for Grace Patel before taking any irreversible action.",
-        "I need to gather enough verified evidence for Grace Patel before taking any irreversible action."
-      ],
-      "tool_calls": [
-        {
-          "tool": "get_customer",
-          "input": {
-            "email": "grace.patel@email.com"
-          },
-          "output": {
-            "customer_id": "C007",
-            "name": "Grace Patel",
-            "email": "grace.patel@email.com",
-            "tier": "premium",
-            "member_since": "2020-10-30",
-            "total_orders": 24,
-            "total_spent": 4115.6,
-            "notes": "Premium outdoor and electronics buyer.",
-            "found": true
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "get_order",
-          "input": {
-            "order_id": "ORD-1007"
-          },
-          "output": {
-            "order_id": "ORD-1007",
-            "customer_id": "C007",
-            "product_id": "P004",
-            "amount": 149.99,
-            "status": "delivered",
-            "order_date": "2026-03-02",
-            "delivery_date": "2026-03-06",
-            "return_deadline": "2026-05-05",
-            "refund_status": null,
-            "tracking_number": "TRK-11007",
-            "notes": "Outdoor gear still inside the extended 60-day window.",
-            "found": true,
-            "days_since_delivery": 43
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "get_product",
-          "input": {
-            "product_id": "P004"
-          },
-          "output": {
-            "product_id": "P004",
-            "name": "Summit Trail Tent",
-            "category": "outdoor",
-            "price": 149.99,
-            "warranty_months": 6,
-            "return_window_days": 60,
-            "returnable": true,
-            "notes": "Outdoor gear gets an extended 60-day return policy."
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "check_refund_eligibility",
-          "input": {
-            "order_id": "ORD-1007"
-          },
-          "output": {
-            "order_id": "ORD-1007",
-            "eligible": true,
-            "reason": "Within the allowed policy window. No duplicate refund was found.",
-            "amount": 149.99,
-            "policy_flags": [],
-            "requires_escalation": false
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "send_reply",
-          "input": {
-            "ticket_id": "TKT-007",
-            "message": "Hi Grace, I verified order ORD-1007 and confirmed the request qualifies under our policy. I've processed the next step for you and you'll receive confirmation shortly."
-          },
-          "output": {
-            "ticket_id": "TKT-007",
-            "delivered": true,
-            "message_preview": "Hi Grace, I verified order ORD-1007 and confirmed the request qualifies under our policy. I've processed the next step for you and you'll receive confirmation s",
-            "timestamp": "2026-04-18T06:32:02Z"
-          },
-          "latency_ms": 0,
-          "error": null
-        }
-      ]
-    },
-    "confidence_final": 0.84,
-    "decision": "RESOLVED",
-    "resolution_type": "AUTO",
-    "flags": [],
-    "llm_providers_used": [
-      "huggingface-bart-mock",
-      "groq-mock"
-    ],
-    "total_latency_ms": 0,
-    "policy_explanation": "Customer tier verified as premium. Order ORD-1007 status is delivered. Product policy uses a 60-day return window and 6-month warranty. Within the allowed policy window. No duplicate refund was found. The case was handled automatically because the verified facts matched a supported workflow."
-  },
-  {
-    "ticket_id": "TKT-009",
-    "processed_at": "2026-04-18T06:32:02Z",
-    "worker_id": 2,
-    "triage": {
-      "category": "REFUND_REQUEST",
-      "confidence": 0.89,
-      "provider": "huggingface-bart-mock"
-    },
-    "react_loop": {
-      "iterations": 5,
-      "thoughts": [
-        "I need to gather enough verified evidence for the customer before taking any irreversible action.",
-        "I need to gather enough verified evidence for Irene Park before taking any irreversible action.",
-        "I need to gather enough verified evidence for Irene Park before taking any irreversible action.",
-        "I need to gather enough verified evidence for Irene Park before taking any irreversible action.",
-        "I need to gather enough verified evidence for Irene Park before taking any irreversible action."
-      ],
-      "tool_calls": [
-        {
-          "tool": "get_customer",
-          "input": {
-            "email": "irene.park@email.com"
-          },
-          "output": {
-            "customer_id": "C009",
-            "name": "Irene Park",
-            "email": "irene.park@email.com",
-            "tier": "premium",
-            "member_since": "2019-12-11",
-            "total_orders": 33,
-            "total_spent": 5230.9,
-            "notes": "Reliable customer. Prefers detailed policy explanations.",
-            "found": true
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "get_order",
-          "input": {
-            "order_id": "ORD-1009"
-          },
-          "output": {
-            "order_id": "ORD-1009",
-            "customer_id": "C009",
-            "product_id": "P001",
-            "amount": 129.99,
-            "status": "delivered",
-            "order_date": "2026-03-26",
-            "delivery_date": "2026-04-01",
-            "return_deadline": "2026-05-01",
-            "refund_status": "refunded",
-            "tracking_number": "TRK-11009",
-            "notes": "Refund processed on 2026-04-16.",
-            "found": true,
-            "days_since_delivery": 17
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "get_product",
-          "input": {
-            "product_id": "P001"
-          },
-          "output": {
-            "product_id": "P001",
-            "name": "ProSound Wireless Headphones",
-            "category": "electronics",
-            "price": 129.99,
-            "warranty_months": 12,
-            "return_window_days": 30,
-            "returnable": true,
-            "notes": "Return not accepted if seal is broken unless the item is defective."
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "check_refund_eligibility",
-          "input": {
-            "order_id": "ORD-1009"
-          },
-          "output": {
-            "order_id": "ORD-1009",
-            "eligible": false,
-            "reason": "Refund is not eligible under the current order and product policy checks.",
-            "amount": 129.99,
-            "policy_flags": [
-              "ALREADY_REFUNDED"
-            ],
-            "requires_escalation": false
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "send_reply",
-          "input": {
-            "ticket_id": "TKT-009",
-            "message": "Hi Irene, I checked order ORD-1009 and confirmed that the refund has already been processed. You should see the funds within 5-7 business days."
-          },
-          "output": {
-            "ticket_id": "TKT-009",
-            "delivered": true,
-            "message_preview": "Hi Irene, I checked order ORD-1009 and confirmed that the refund has already been processed. You should see the funds within 5-7 business days.",
-            "timestamp": "2026-04-18T06:32:02Z"
-          },
-          "latency_ms": 0,
-          "error": null
-        }
-      ]
-    },
-    "confidence_final": 0.856,
-    "decision": "RESOLVED",
-    "resolution_type": "AUTO",
-    "flags": [],
-    "llm_providers_used": [
-      "huggingface-bart-mock",
-      "groq-mock"
-    ],
-    "total_latency_ms": 0,
-    "policy_explanation": "Customer tier verified as premium. Order ORD-1009 status is delivered. Product policy uses a 30-day return window and 12-month warranty. Refund is not eligible under the current order and product policy checks. The case was handled automatically because the verified facts matched a supported workflow."
-  },
-  {
-    "ticket_id": "TKT-012",
-    "processed_at": "2026-04-18T06:32:02Z",
-    "worker_id": 3,
-    "triage": {
-      "category": "ORDER_CANCEL",
-      "confidence": 0.9,
-      "provider": "huggingface-bart-mock"
-    },
-    "react_loop": {
-      "iterations": 5,
-      "thoughts": [
-        "I need to gather enough verified evidence for the customer before taking any irreversible action.",
-        "I need to gather enough verified evidence for Carol Mendes before taking any irreversible action.",
-        "I need to gather enough verified evidence for Carol Mendes before taking any irreversible action.",
-        "I need to gather enough verified evidence for Carol Mendes before taking any irreversible action.",
-        "I need to gather enough verified evidence for Carol Mendes before taking any irreversible action."
-      ],
-      "tool_calls": [
-        {
-          "tool": "get_customer",
-          "input": {
-            "email": "carol.mendes@email.com"
-          },
-          "output": {
-            "customer_id": "C003",
-            "name": "Carol Mendes",
-            "email": "carol.mendes@email.com",
-            "tier": "premium",
-            "member_since": "2021-07-22",
-            "total_orders": 18,
-            "total_spent": 2924.0,
-            "notes": "Premium customer. Usually low-friction handling when policy allows.",
-            "found": true
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "get_order",
-          "input": {
-            "order_id": "ORD-1012"
-          },
-          "output": {
-            "order_id": "ORD-1012",
-            "customer_id": "C003",
-            "product_id": "P005",
-            "amount": 109.99,
-            "status": "cancelled",
-            "order_date": "2026-04-18",
-            "delivery_date": null,
-            "return_deadline": null,
-            "refund_status": null,
-            "tracking_number": null,
-            "notes": "Still in payment-authorized and packing stage.",
-            "found": true,
-            "days_since_delivery": null
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "get_product",
-          "input": {
-            "product_id": "P005"
-          },
-          "output": {
-            "product_id": "P005",
-            "name": "KitchenPro Mixer",
-            "category": "home_appliance",
-            "price": 109.99,
-            "warranty_months": 12,
-            "return_window_days": 30,
-            "returnable": true,
-            "notes": "Replacement requests require a human specialist because there is no automated replacement workflow."
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "search_knowledge_base",
-          "input": {
-            "query": "cancel order before shipping processing policy"
-          },
-          "output": {
-            "query": "cancel order before shipping processing policy",
-            "results": [
-              {
-                "section": "Cancellation Policy",
-                "content": "Orders in processing can be cancelled at no charge before shipment. Once an order has shipped, the customer should receive tracking rather than an immediate refund.",
-                "relevance_score": 0.99
-              },
-              {
-                "section": "Tracking And Shipping Updates",
-                "content": "If an order is shipped but not delivered, provide the tracking number and current status. Do not offer a refund for an in-transit package unless another policy exception applies.",
-                "relevance_score": 0.81
-              },
-              {
-                "section": "VIP Exceptions",
-                "content": "VIP notes in the customer profile must be checked before denying an expired return. If a profile note mentions a pre-approval or exception, escalate to confirm the exception rather than rejecting the case automatically.",
-                "relevance_score": 0.57
-              }
-            ],
-            "result_count": 3
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "send_reply",
-          "input": {
-            "ticket_id": "TKT-012",
-            "message": "Hi Carol, I confirmed that order ORD-1012 was still in processing, so I cancelled it before shipment at no charge."
-          },
-          "output": {
-            "ticket_id": "TKT-012",
-            "delivered": true,
-            "message_preview": "Hi Carol, I confirmed that order ORD-1012 was still in processing, so I cancelled it before shipment at no charge.",
-            "timestamp": "2026-04-18T06:32:02Z"
-          },
-          "latency_ms": 0,
-          "error": null
-        }
-      ]
-    },
-    "confidence_final": 0.958,
-    "decision": "RESOLVED",
-    "resolution_type": "AUTO",
-    "flags": [],
-    "llm_providers_used": [
-      "huggingface-bart-mock",
-      "groq-mock"
-    ],
-    "total_latency_ms": 0,
-    "policy_explanation": "Customer tier verified as premium. Order ORD-1012 status is cancelled. Product policy uses a 30-day return window and 12-month warranty. Knowledge base match: Cancellation Policy. The case was handled automatically because the verified facts matched a supported workflow."
-  },
-  {
-    "ticket_id": "TKT-013",
-    "processed_at": "2026-04-18T06:32:02Z",
-    "worker_id": 4,
-    "triage": {
-      "category": "RETURN_REQUEST",
-      "confidence": 0.85,
-      "provider": "huggingface-bart-mock"
-    },
-    "react_loop": {
-      "iterations": 5,
-      "thoughts": [
-        "I need to gather enough verified evidence for the customer before taking any irreversible action.",
-        "I need to gather enough verified evidence for Grace Patel before taking any irreversible action.",
-        "I need to gather enough verified evidence for Grace Patel before taking any irreversible action.",
-        "I need to gather enough verified evidence for Grace Patel before taking any irreversible action.",
-        "I need to gather enough verified evidence for Grace Patel before taking any irreversible action."
-      ],
-      "tool_calls": [
-        {
-          "tool": "get_customer",
-          "input": {
-            "email": "grace.patel@email.com"
-          },
-          "output": {
-            "customer_id": "C007",
-            "name": "Grace Patel",
-            "email": "grace.patel@email.com",
-            "tier": "premium",
-            "member_since": "2020-10-30",
-            "total_orders": 24,
-            "total_spent": 4115.6,
-            "notes": "Premium outdoor and electronics buyer.",
-            "found": true
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "get_order",
-          "input": {
-            "order_id": "ORD-1013"
-          },
-          "output": {
-            "order_id": "ORD-1013",
-            "customer_id": "C007",
-            "product_id": "P008",
-            "amount": 159.99,
-            "status": "delivered",
-            "order_date": "2026-03-05",
-            "delivery_date": "2026-03-10",
-            "return_deadline": "2026-04-09",
-            "refund_status": null,
-            "tracking_number": "TRK-11013",
-            "notes": "registered_online on 2026-03-11",
-            "found": true,
-            "days_since_delivery": 39
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "get_product",
-          "input": {
-            "product_id": "P008"
-          },
-          "output": {
-            "product_id": "P008",
-            "name": "QuietComfort Earbuds",
-            "category": "electronics",
-            "price": 159.99,
-            "warranty_months": 6,
-            "return_window_days": 30,
-            "returnable": true,
-            "notes": "Once a device is registered online it is no longer returnable unless a human approves an exception."
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "check_refund_eligibility",
-          "input": {
-            "order_id": "ORD-1013"
-          },
-          "output": {
-            "order_id": "ORD-1013",
-            "eligible": false,
-            "reason": "Refund is not eligible under the current order and product policy checks.",
-            "amount": 159.99,
-            "policy_flags": [
-              "REGISTERED_ONLINE",
-              "OUT_OF_WINDOW"
-            ],
-            "requires_escalation": false
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "send_reply",
-          "input": {
-            "ticket_id": "TKT-013",
-            "message": "Hi Grace, I reviewed order ORD-1013. I can't approve a return because the return window has expired and the device was registered online, which makes it non-returnable."
-          },
-          "output": {
-            "ticket_id": "TKT-013",
-            "delivered": true,
-            "message_preview": "Hi Grace, I reviewed order ORD-1013. I can't approve a return because the return window has expired and the device was registered online, which makes it non-ret",
-            "timestamp": "2026-04-18T06:32:02Z"
-          },
-          "latency_ms": 0,
-          "error": null
-        }
-      ]
-    },
-    "confidence_final": 0.84,
-    "decision": "RESOLVED",
-    "resolution_type": "AUTO",
-    "flags": [],
-    "llm_providers_used": [
-      "huggingface-bart-mock",
-      "groq-mock"
-    ],
-    "total_latency_ms": 0,
-    "policy_explanation": "Customer tier verified as premium. Order ORD-1013 status is delivered. Product policy uses a 30-day return window and 6-month warranty. Refund is not eligible under the current order and product policy checks. The case was handled automatically because the verified facts matched a supported workflow."
-  },
-  {
-    "ticket_id": "TKT-019",
-    "processed_at": "2026-04-18T06:32:02Z",
-    "worker_id": 5,
-    "triage": {
-      "category": "RETURN_REQUEST",
-      "confidence": 0.85,
-      "provider": "huggingface-bart-mock"
-    },
-    "react_loop": {
-      "iterations": 5,
-      "thoughts": [
-        "I need to gather enough verified evidence for the customer before taking any irreversible action.",
-        "I need to gather enough verified evidence for Irene Park before taking any irreversible action.",
-        "I need to gather enough verified evidence for Irene Park before taking any irreversible action.",
-        "I need to gather enough verified evidence for Irene Park before taking any irreversible action.",
-        "I need to gather enough verified evidence for Irene Park before taking any irreversible action."
-      ],
-      "tool_calls": [
-        {
-          "tool": "get_customer",
-          "input": {
-            "email": "irene.park@email.com"
-          },
-          "output": {
-            "customer_id": "C009",
-            "name": "Irene Park",
-            "email": "irene.park@email.com",
-            "tier": "premium",
-            "member_since": "2019-12-11",
-            "total_orders": 33,
-            "total_spent": 5230.9,
-            "notes": "Reliable customer. Prefers detailed policy explanations.",
-            "found": true
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "get_order",
-          "input": {
-            "order_id": "ORD-1009"
-          },
-          "output": {
-            "order_id": "ORD-1009",
-            "customer_id": "C009",
-            "product_id": "P001",
-            "amount": 129.99,
-            "status": "delivered",
-            "order_date": "2026-03-26",
-            "delivery_date": "2026-04-01",
-            "return_deadline": "2026-05-01",
-            "refund_status": "refunded",
-            "tracking_number": "TRK-11009",
-            "notes": "Refund processed on 2026-04-16.",
-            "found": true,
-            "days_since_delivery": 17
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "get_product",
-          "input": {
-            "product_id": "P001"
-          },
-          "output": {
-            "product_id": "P001",
-            "name": "ProSound Wireless Headphones",
-            "category": "electronics",
-            "price": 129.99,
-            "warranty_months": 12,
-            "return_window_days": 30,
-            "returnable": true,
-            "notes": "Return not accepted if seal is broken unless the item is defective."
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "check_refund_eligibility",
-          "input": {
-            "order_id": "ORD-1009"
-          },
-          "output": {
-            "order_id": "ORD-1009",
-            "eligible": false,
-            "reason": "Refund is not eligible under the current order and product policy checks.",
-            "amount": 129.99,
-            "policy_flags": [
-              "ALREADY_REFUNDED"
-            ],
-            "requires_escalation": false
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "send_reply",
-          "input": {
-            "ticket_id": "TKT-019",
-            "message": "Hi Irene, I reviewed order ORD-1009 and matched it against the current policy. Refund is not eligible under the current order and product policy checks."
-          },
-          "output": {
-            "ticket_id": "TKT-019",
-            "delivered": true,
-            "message_preview": "Hi Irene, I reviewed order ORD-1009 and matched it against the current policy. Refund is not eligible under the current order and product policy checks.",
-            "timestamp": "2026-04-18T06:32:02Z"
-          },
-          "latency_ms": 0,
-          "error": null
-        }
-      ]
-    },
-    "confidence_final": 0.84,
-    "decision": "RESOLVED",
-    "resolution_type": "AUTO",
-    "flags": [],
-    "llm_providers_used": [
-      "huggingface-bart-mock",
-      "groq-mock"
-    ],
-    "total_latency_ms": 0,
-    "policy_explanation": "Customer tier verified as premium. Order ORD-1009 status is delivered. Product policy uses a 30-day return window and 12-month warranty. Refund is not eligible under the current order and product policy checks. The case was handled automatically because the verified facts matched a supported workflow."
-  },
-  {
-    "ticket_id": "TKT-002",
-    "processed_at": "2026-04-18T06:32:06Z",
-    "worker_id": 1,
-    "triage": {
-      "category": "REFUND_REQUEST",
-      "confidence": 0.89,
-      "provider": "huggingface-bart-mock"
-    },
-    "react_loop": {
-      "iterations": 5,
-      "thoughts": [
-        "I need to gather enough verified evidence for the customer before taking any irreversible action.",
-        "I need to gather enough verified evidence for Bob Singh before taking any irreversible action.",
-        "I need to gather enough verified evidence for Bob Singh before taking any irreversible action.",
-        "I need to gather enough verified evidence for Bob Singh before taking any irreversible action.",
-        "I need to gather enough verified evidence for Bob Singh before taking any irreversible action."
-      ],
-      "tool_calls": [
-        {
-          "tool": "get_customer",
-          "input": {
-            "email": "bob.singh@email.com"
-          },
-          "output": {
-            "customer_id": "C002",
-            "name": "Bob Singh",
-            "email": "bob.singh@email.com",
-            "tier": "standard",
-            "member_since": "2024-01-08",
-            "total_orders": 6,
-            "total_spent": 640.2,
-            "notes": "No special exceptions on file.",
-            "found": true
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "get_order",
-          "input": {
-            "order_id": "ORD-1002"
-          },
-          "output": {
-            "order_id": "ORD-1002",
-            "customer_id": "C002",
-            "product_id": "P006",
-            "amount": 249.99,
-            "status": "delivered",
-            "order_date": "2026-03-27",
-            "delivery_date": "2026-03-31",
-            "return_deadline": "2026-04-15",
-            "refund_status": null,
-            "tracking_number": "TRK-11002",
-            "notes": "Delivered in good condition.",
-            "found": true,
-            "days_since_delivery": 18
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "get_product",
-          "input": {
-            "product_id": "P006"
-          },
-          "output": {
-            "product_id": "P006",
-            "name": "PulseX Smartwatch",
-            "category": "electronics",
-            "price": 249.99,
-            "warranty_months": 12,
-            "return_window_days": 15,
-            "returnable": true,
-            "notes": "High-value electronics have a strict 15-day return window."
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "check_refund_eligibility",
-          "input": {
-            "order_id": "ORD-1002"
-          },
-          "output": {
-            "order_id": "ORD-1002",
-            "eligible": false,
-            "reason": "Refund is not eligible under the current order and product policy checks.",
-            "amount": 249.99,
-            "policy_flags": [
-              "OUT_OF_WINDOW"
-            ],
-            "requires_escalation": false
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "send_reply",
-          "input": {
-            "ticket_id": "TKT-002",
-            "message": "Hi Bob, I reviewed order ORD-1002 and matched it against the current policy. Refund is not eligible under the current order and product policy checks."
-          },
-          "output": {
-            "ticket_id": "TKT-002",
-            "delivered": true,
-            "message_preview": "Hi Bob, I reviewed order ORD-1002 and matched it against the current policy. Refund is not eligible under the current order and product policy checks.",
-            "timestamp": "2026-04-18T06:32:06Z"
-          },
-          "latency_ms": 0,
-          "error": null
-        }
-      ]
-    },
-    "confidence_final": 0.856,
-    "decision": "RESOLVED",
-    "resolution_type": "AUTO",
-    "flags": [],
-    "llm_providers_used": [
-      "huggingface-bart-mock",
-      "groq-mock"
-    ],
-    "total_latency_ms": 0,
-    "policy_explanation": "Customer tier verified as standard. Order ORD-1002 status is delivered. Product policy uses a 15-day return window and 12-month warranty. Refund is not eligible under the current order and product policy checks. The case was handled automatically because the verified facts matched a supported workflow."
-  },
-  {
-    "ticket_id": "TKT-004",
-    "processed_at": "2026-04-18T06:32:06Z",
-    "worker_id": 2,
-    "triage": {
-      "category": "REFUND_REQUEST",
-      "confidence": 0.89,
-      "provider": "huggingface-bart-mock"
-    },
-    "react_loop": {
-      "iterations": 6,
-      "thoughts": [
-        "I need to gather enough verified evidence for the customer before taking any irreversible action.",
-        "I need to gather enough verified evidence for David Ross before taking any irreversible action.",
-        "I need to gather enough verified evidence for David Ross before taking any irreversible action.",
-        "I need to gather enough verified evidence for David Ross before taking any irreversible action.",
-        "I need to gather enough verified evidence for David Ross before taking any irreversible action.",
-        "I need to gather enough verified evidence for David Ross before taking any irreversible action."
-      ],
-      "tool_calls": [
-        {
-          "tool": "get_customer",
-          "input": {
-            "email": "david.ross@email.com"
-          },
-          "output": {
-            "customer_id": "C004",
-            "name": "David Ross",
-            "email": "david.ross@email.com",
-            "tier": "standard",
-            "member_since": "2023-11-03",
-            "total_orders": 11,
-            "total_spent": 980.4,
-            "notes": "No manual review history.",
-            "found": true
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "get_order",
-          "input": {
-            "order_id": "ORD-1004"
-          },
-          "output": {
-            "order_id": "ORD-1004",
-            "customer_id": "C004",
-            "product_id": "P002",
-            "amount": 89.99,
-            "status": "delivered",
-            "order_date": "2026-04-03",
-            "delivery_date": "2026-04-08",
-            "return_deadline": "2026-05-08",
-            "refund_status": null,
-            "tracking_number": "TRK-11004",
-            "notes": "Wrong size request. Customer tone is heated.",
-            "found": true,
-            "days_since_delivery": 10
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "get_product",
-          "input": {
-            "product_id": "P002"
-          },
-          "output": {
-            "product_id": "P002",
-            "name": "AeroFit Running Shoes",
-            "category": "apparel",
-            "price": 89.99,
-            "warranty_months": 0,
-            "return_window_days": 30,
-            "returnable": true,
-            "notes": "Unworn apparel can be refunded or exchanged within the return window."
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "check_refund_eligibility",
-          "input": {
-            "order_id": "ORD-1004"
-          },
-          "output": {
-            "order_id": "ORD-1004",
-            "eligible": true,
-            "reason": "Within the allowed policy window. No duplicate refund was found.",
-            "amount": 89.99,
-            "policy_flags": [],
-            "requires_escalation": false
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "issue_refund",
-          "input": {
-            "order_id": "ORD-1004",
-            "amount": 89.99
-          },
-          "output": {
-            "order_id": "ORD-1004",
-            "amount_refunded": 89.99,
-            "transaction_id": "TXN-155c8b45-6b24-4567-8a86-29c5c625a020",
-            "status": "processed",
-            "processing_time": "5-7 business days",
-            "timestamp": "2026-04-18T06:32:06Z"
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "send_reply",
-          "input": {
-            "ticket_id": "TKT-004",
-            "message": "Hi David, I verified order ORD-1004 and confirmed the request qualifies under our policy. I've processed the next step for you and you'll receive confirmation shortly."
-          },
-          "output": {
-            "ticket_id": "TKT-004",
-            "delivered": true,
-            "message_preview": "Hi David, I verified order ORD-1004 and confirmed the request qualifies under our policy. I've processed the next step for you and you'll receive confirmation s",
-            "timestamp": "2026-04-18T06:32:06Z"
-          },
-          "latency_ms": 0,
-          "error": null
-        }
-      ]
-    },
-    "confidence_final": 0.856,
-    "decision": "RESOLVED",
-    "resolution_type": "AUTO",
-    "flags": [
-      "threatening_language"
-    ],
-    "llm_providers_used": [
-      "huggingface-bart-mock",
-      "groq-mock"
-    ],
-    "total_latency_ms": 0,
-    "policy_explanation": "Customer tier verified as standard. Order ORD-1004 status is delivered. Product policy uses a 30-day return window and 0-month warranty. Within the allowed policy window. No duplicate refund was found. The case was handled automatically because the verified facts matched a supported workflow."
-  },
-  {
-    "ticket_id": "TKT-006",
-    "processed_at": "2026-04-18T06:32:06Z",
-    "worker_id": 3,
-    "triage": {
-      "category": "ORDER_CANCEL",
-      "confidence": 0.9,
-      "provider": "huggingface-bart-mock"
-    },
-    "react_loop": {
-      "iterations": 5,
-      "thoughts": [
-        "I need to gather enough verified evidence for the customer before taking any irreversible action.",
-        "I need to gather enough verified evidence for Frank Doyle before taking any irreversible action.",
-        "I need to gather enough verified evidence for Frank Doyle before taking any irreversible action.",
-        "I need to gather enough verified evidence for Frank Doyle before taking any irreversible action.",
-        "I need to gather enough verified evidence for Frank Doyle before taking any irreversible action."
-      ],
-      "tool_calls": [
-        {
-          "tool": "get_customer",
-          "input": {
-            "email": "frank.doyle@email.com"
-          },
-          "output": {
-            "customer_id": "C006",
-            "name": "Frank Doyle",
-            "email": "frank.doyle@email.com",
-            "tier": "standard",
-            "member_since": "2025-09-01",
-            "total_orders": 3,
-            "total_spent": 420.0,
-            "notes": "Newer customer. No exception history.",
-            "found": true
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "get_order",
-          "input": {
-            "order_id": "ORD-1006"
-          },
-          "output": {
-            "order_id": "ORD-1006",
-            "customer_id": "C006",
-            "product_id": "P005",
-            "amount": 109.99,
-            "status": "cancelled",
-            "order_date": "2026-04-17",
-            "delivery_date": null,
-            "return_deadline": null,
-            "refund_status": null,
-            "tracking_number": null,
-            "notes": "Awaiting warehouse pick ticket.",
-            "found": true,
-            "days_since_delivery": null
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "get_product",
-          "input": {
-            "product_id": "P005"
-          },
-          "output": {
-            "product_id": "P005",
-            "name": "KitchenPro Mixer",
-            "category": "home_appliance",
-            "price": 109.99,
-            "warranty_months": 12,
-            "return_window_days": 30,
-            "returnable": true,
-            "notes": "Replacement requests require a human specialist because there is no automated replacement workflow."
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "search_knowledge_base",
-          "input": {
-            "query": "cancel order before shipping processing policy"
-          },
-          "output": {
-            "query": "cancel order before shipping processing policy",
-            "results": [
-              {
-                "section": "Cancellation Policy",
-                "content": "Orders in processing can be cancelled at no charge before shipment. Once an order has shipped, the customer should receive tracking rather than an immediate refund.",
-                "relevance_score": 0.99
-              },
-              {
-                "section": "Tracking And Shipping Updates",
-                "content": "If an order is shipped but not delivered, provide the tracking number and current status. Do not offer a refund for an in-transit package unless another policy exception applies.",
-                "relevance_score": 0.81
-              },
-              {
-                "section": "VIP Exceptions",
-                "content": "VIP notes in the customer profile must be checked before denying an expired return. If a profile note mentions a pre-approval or exception, escalate to confirm the exception rather than rejecting the case automatically.",
-                "relevance_score": 0.57
-              }
-            ],
-            "result_count": 3
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "send_reply",
-          "input": {
-            "ticket_id": "TKT-006",
-            "message": "Hi Frank, I confirmed that order ORD-1006 was still in processing, so I cancelled it before shipment at no charge."
-          },
-          "output": {
-            "ticket_id": "TKT-006",
-            "delivered": true,
-            "message_preview": "Hi Frank, I confirmed that order ORD-1006 was still in processing, so I cancelled it before shipment at no charge.",
-            "timestamp": "2026-04-18T06:32:06Z"
-          },
-          "latency_ms": 0,
-          "error": null
-        }
-      ]
-    },
-    "confidence_final": 0.958,
-    "decision": "RESOLVED",
-    "resolution_type": "AUTO",
-    "flags": [],
-    "llm_providers_used": [
-      "huggingface-bart-mock",
-      "groq-mock"
-    ],
-    "total_latency_ms": 0,
-    "policy_explanation": "Customer tier verified as standard. Order ORD-1006 status is cancelled. Product policy uses a 30-day return window and 12-month warranty. Knowledge base match: Cancellation Policy. The case was handled automatically because the verified facts matched a supported workflow."
-  },
-  {
-    "ticket_id": "TKT-008",
-    "processed_at": "2026-04-18T06:32:06Z",
-    "worker_id": 4,
-    "triage": {
-      "category": "REFUND_REQUEST",
-      "confidence": 0.89,
-      "provider": "huggingface-bart-mock"
-    },
-    "react_loop": {
-      "iterations": 6,
-      "thoughts": [
-        "I need to gather enough verified evidence for the customer before taking any irreversible action.",
-        "I need to gather enough verified evidence for Henry Walker before taking any irreversible action.",
-        "I need to gather enough verified evidence for Henry Walker before taking any irreversible action.",
-        "I need to gather enough verified evidence for Henry Walker before taking any irreversible action.",
-        "I need to gather enough verified evidence for Henry Walker before taking any irreversible action.",
-        "I need to gather enough verified evidence for Henry Walker before taking any irreversible action."
-      ],
-      "tool_calls": [
-        {
-          "tool": "get_customer",
-          "input": {
-            "email": "henry.walker@email.com"
-          },
-          "output": {
-            "customer_id": "C008",
-            "name": "Henry Walker",
-            "email": "henry.walker@email.com",
-            "tier": "standard",
-            "member_since": "2022-06-05",
-            "total_orders": 9,
-            "total_spent": 1182.75,
-            "notes": "Clear delivery evidence usually included in tickets.",
-            "found": true
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "get_order",
-          "input": {
-            "order_id": "ORD-1008"
-          },
-          "output": {
-            "order_id": "ORD-1008",
-            "customer_id": "C008",
-            "product_id": "P001",
-            "amount": 129.99,
-            "status": "delivered",
-            "order_date": "2026-04-06",
-            "delivery_date": "2026-04-10",
-            "return_deadline": "2026-05-10",
-            "refund_status": null,
-            "tracking_number": "TRK-11008",
-            "notes": "damaged_on_arrival photo_received",
-            "found": true,
-            "days_since_delivery": 8
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "get_product",
-          "input": {
-            "product_id": "P001"
-          },
-          "output": {
-            "product_id": "P001",
-            "name": "ProSound Wireless Headphones",
-            "category": "electronics",
-            "price": 129.99,
-            "warranty_months": 12,
-            "return_window_days": 30,
-            "returnable": true,
-            "notes": "Return not accepted if seal is broken unless the item is defective."
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "check_refund_eligibility",
-          "input": {
-            "order_id": "ORD-1008"
-          },
-          "output": {
-            "order_id": "ORD-1008",
-            "eligible": true,
-            "reason": "Damaged on arrival overrides the standard return process.",
-            "amount": 129.99,
-            "policy_flags": [],
-            "requires_escalation": false
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "issue_refund",
-          "input": {
-            "order_id": "ORD-1008",
-            "amount": 129.99
-          },
-          "output": {
-            "order_id": "ORD-1008",
-            "amount_refunded": 129.99,
-            "transaction_id": "TXN-0c9158e1-0f77-4bc6-b892-0d074ee8f424",
-            "status": "processed",
-            "processing_time": "5-7 business days",
-            "timestamp": "2026-04-18T06:32:06Z"
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "send_reply",
-          "input": {
-            "ticket_id": "TKT-008",
-            "message": "Hi Henry, I verified order ORD-1008 and confirmed the request qualifies under our policy. I've processed the next step for you and you'll receive confirmation shortly."
-          },
-          "output": {
-            "ticket_id": "TKT-008",
-            "delivered": true,
-            "message_preview": "Hi Henry, I verified order ORD-1008 and confirmed the request qualifies under our policy. I've processed the next step for you and you'll receive confirmation s",
-            "timestamp": "2026-04-18T06:32:06Z"
-          },
-          "latency_ms": 0,
-          "error": null
-        }
-      ]
-    },
-    "confidence_final": 0.856,
-    "decision": "RESOLVED",
-    "resolution_type": "AUTO",
-    "flags": [],
-    "llm_providers_used": [
-      "huggingface-bart-mock",
-      "groq-mock"
-    ],
-    "total_latency_ms": 0,
-    "policy_explanation": "Customer tier verified as standard. Order ORD-1008 status is delivered. Product policy uses a 30-day return window and 12-month warranty. Damaged on arrival overrides the standard return process. The case was handled automatically because the verified facts matched a supported workflow."
-  },
-  {
-    "ticket_id": "TKT-010",
-    "processed_at": "2026-04-18T06:32:06Z",
-    "worker_id": 5,
-    "triage": {
-      "category": "ORDER_STATUS",
-      "confidence": 0.87,
-      "provider": "huggingface-bart-mock"
-    },
-    "react_loop": {
-      "iterations": 4,
-      "thoughts": [
-        "I need to gather enough verified evidence for the customer before taking any irreversible action.",
-        "I need to gather enough verified evidence for James Carter before taking any irreversible action.",
-        "I need to gather enough verified evidence for James Carter before taking any irreversible action.",
-        "I need to gather enough verified evidence for James Carter before taking any irreversible action."
-      ],
-      "tool_calls": [
-        {
-          "tool": "get_customer",
-          "input": {
-            "email": "james.carter@email.com"
-          },
-          "output": {
-            "customer_id": "C010",
-            "name": "James Carter",
-            "email": "james.carter@email.com",
-            "tier": "standard",
-            "member_since": "2021-08-09",
-            "total_orders": 14,
-            "total_spent": 1760.3,
-            "notes": "Mostly status-check tickets. No exception flags.",
-            "found": true
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "get_order",
-          "input": {
-            "order_id": "ORD-1010"
-          },
-          "output": {
-            "order_id": "ORD-1010",
-            "customer_id": "C010",
-            "product_id": "P007",
-            "amount": 199.99,
-            "status": "shipped",
-            "order_date": "2026-04-15",
-            "delivery_date": null,
-            "return_deadline": null,
-            "refund_status": null,
-            "tracking_number": "TRK-88291",
-            "notes": "Carrier picked up package.",
-            "found": true,
-            "days_since_delivery": null
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "get_product",
-          "input": {
-            "product_id": "P007"
-          },
-          "output": {
-            "product_id": "P007",
-            "name": "HomeGuard Security Camera",
-            "category": "electronics",
-            "price": 199.99,
-            "warranty_months": 12,
-            "return_window_days": 30,
-            "returnable": true,
-            "notes": "Wrong item and tracking investigations are supported within the normal return window."
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "send_reply",
-          "input": {
-            "ticket_id": "TKT-010",
-            "message": "Hi James, I checked order ORD-1010. It is currently shipped and the tracking reference is TRK-88291."
-          },
-          "output": {
-            "ticket_id": "TKT-010",
-            "delivered": true,
-            "message_preview": "Hi James, I checked order ORD-1010. It is currently shipped and the tracking reference is TRK-88291.",
-            "timestamp": "2026-04-18T06:32:06Z"
-          },
-          "latency_ms": 0,
-          "error": null
-        }
-      ]
-    },
-    "confidence_final": 0.848,
-    "decision": "RESOLVED",
-    "resolution_type": "AUTO",
-    "flags": [],
-    "llm_providers_used": [
-      "huggingface-bart-mock",
-      "groq-mock"
-    ],
-    "total_latency_ms": 0,
-    "policy_explanation": "Customer tier verified as standard. Order ORD-1010 status is shipped. Product policy uses a 30-day return window and 12-month warranty. The case was handled automatically because the verified facts matched a supported workflow."
-  },
-  {
-    "ticket_id": "TKT-014",
-    "processed_at": "2026-04-18T06:32:10Z",
-    "worker_id": 1,
-    "triage": {
-      "category": "RETURN_REQUEST",
-      "confidence": 0.85,
-      "provider": "huggingface-bart-mock"
-    },
-    "react_loop": {
-      "iterations": 5,
-      "thoughts": [
-        "I need to gather enough verified evidence for the customer before taking any irreversible action.",
-        "I need to gather enough verified evidence for Henry Walker before taking any irreversible action.",
-        "I need to gather enough verified evidence for Henry Walker before taking any irreversible action.",
-        "I need to gather enough verified evidence for Henry Walker before taking any irreversible action.",
-        "I need to gather enough verified evidence for Henry Walker before taking any irreversible action."
-      ],
-      "tool_calls": [
-        {
-          "tool": "get_customer",
-          "input": {
-            "email": "henry.walker@email.com"
-          },
-          "output": {
-            "customer_id": "C008",
-            "name": "Henry Walker",
-            "email": "henry.walker@email.com",
-            "tier": "standard",
-            "member_since": "2022-06-05",
-            "total_orders": 9,
-            "total_spent": 1182.75,
-            "notes": "Clear delivery evidence usually included in tickets.",
-            "found": true
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "get_order",
-          "input": {
-            "order_id": "ORD-1008"
-          },
-          "output": {
-            "order_id": "ORD-1008",
-            "customer_id": "C008",
-            "product_id": "P001",
-            "amount": 129.99,
-            "status": "delivered",
-            "order_date": "2026-04-06",
-            "delivery_date": "2026-04-10",
-            "return_deadline": "2026-05-10",
-            "refund_status": "refunded",
-            "tracking_number": "TRK-11008",
-            "notes": "damaged_on_arrival photo_received",
-            "found": true,
-            "days_since_delivery": 8
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "get_product",
-          "input": {
-            "product_id": "P001"
-          },
-          "output": {
-            "product_id": "P001",
-            "name": "ProSound Wireless Headphones",
-            "category": "electronics",
-            "price": 129.99,
-            "warranty_months": 12,
-            "return_window_days": 30,
-            "returnable": true,
-            "notes": "Return not accepted if seal is broken unless the item is defective."
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "check_refund_eligibility",
-          "input": {
-            "order_id": "ORD-1008"
-          },
-          "output": {
-            "order_id": "ORD-1008",
-            "eligible": true,
-            "reason": "Damaged on arrival overrides the standard return process.",
-            "amount": 129.99,
-            "policy_flags": [],
-            "requires_escalation": false
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "send_reply",
-          "input": {
-            "ticket_id": "TKT-014",
-            "message": "Hi Henry, I verified order ORD-1008 and confirmed the request qualifies under our policy. I've processed the next step for you and you'll receive confirmation shortly."
-          },
-          "output": {
-            "ticket_id": "TKT-014",
-            "delivered": true,
-            "message_preview": "Hi Henry, I verified order ORD-1008 and confirmed the request qualifies under our policy. I've processed the next step for you and you'll receive confirmation s",
-            "timestamp": "2026-04-18T06:32:10Z"
-          },
-          "latency_ms": 0,
-          "error": null
-        }
-      ]
-    },
-    "confidence_final": 0.84,
-    "decision": "RESOLVED",
-    "resolution_type": "AUTO",
-    "flags": [],
-    "llm_providers_used": [
-      "huggingface-bart-mock",
-      "groq-mock"
-    ],
-    "total_latency_ms": 0,
-    "policy_explanation": "Customer tier verified as standard. Order ORD-1008 status is delivered. Product policy uses a 30-day return window and 12-month warranty. Damaged on arrival overrides the standard return process. The case was handled automatically because the verified facts matched a supported workflow."
-  },
-  {
-    "ticket_id": "TKT-016",
-    "processed_at": "2026-04-18T06:32:10Z",
-    "worker_id": 2,
-    "triage": {
-      "category": "GENERAL_FAQ",
-      "confidence": 0.74,
-      "provider": "huggingface-bart-mock"
-    },
-    "react_loop": {
-      "iterations": 3,
-      "thoughts": [
-        "I need to gather enough verified evidence for the customer before taking any irreversible action.",
-        "I need to gather enough verified evidence for Unknown Customer before taking any irreversible action.",
-        "I need to gather enough verified evidence for Unknown Customer before taking any irreversible action."
-      ],
-      "tool_calls": [
-        {
-          "tool": "get_customer",
-          "input": {
-            "email": "unknown.sender@email.com"
-          },
-          "output": {
-            "customer_id": "",
-            "name": "Unknown Customer",
-            "email": "unknown.sender@email.com",
-            "tier": "unknown",
-            "member_since": "",
-            "total_orders": 0,
-            "total_spent": 0.0,
-            "notes": "",
-            "found": false
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "search_knowledge_base",
-          "input": {
-            "query": "identity verification missing order email lookup policy"
-          },
-          "output": {
-            "query": "identity verification missing order email lookup policy",
-            "results": [
-              {
-                "section": "Customer Identity And Missing Details",
-                "content": "If no customer account can be found, ask for a valid email and order ID or escalate for manual verification. If the ticket is too ambiguous to act on, send a clarifying message instead of taking irreversible action.",
-                "relevance_score": 0.99
-              },
-              {
-                "section": "Cancellation Policy",
-                "content": "Orders in processing can be cancelled at no charge before shipment. Once an order has shipped, the customer should receive tracking rather than an immediate refund.",
-                "relevance_score": 0.69
-              },
-              {
-                "section": "Tracking And Shipping Updates",
-                "content": "If an order is shipped but not delivered, provide the tracking number and current status. Do not offer a refund for an in-transit package unless another policy exception applies.",
-                "relevance_score": 0.69
-              }
-            ],
-            "result_count": 3
-          },
-          "latency_ms": 0,
-          "error": null
-        },
-        {
-          "tool": "escalate",
-          "input": {
-            "ticket_id": "TKT-016",
-            "summary": {
-              "issue_summary": "Customer could not be identified from the provided email.",
-              "what_was_verified": [
-                "Customer lookup returned found=false"
-              ],
-              "what_was_attempted": [
-                "Called get_customer",
-                "Called search_knowledge_base"
-              ],
-              "recommended_path": "Ask the customer for a valid email address and order ID.",
-              "priority": "medium",
-              "confidence_at_escalation": 0.834
-            },
-            "priority": "medium"
-          },
-          "output": {
-            "ticket_id": "TKT-016",
-            "escalation_id": "ESC-82e11b2d-aa00-4a7b-8d84-bb50b0ea22f2",
-            "routed_to": "tier-2-support",
-            "timestamp": "2026-04-18T06:32:10Z"
-          },
-          "latency_ms": 0,
-          "error": null
-        }
-      ]
-    },
-    "confidence_final": 0.834,
-    "decision": "ESCALATED",
-    "resolution_type": "ESCALATED",
-    "flags": [],
-    "llm_providers_used": [
-      "huggingface-bart-mock",
-      "groq-mock"
-    ],
-    "total_latency_ms": 0,
-    "policy_explanation": "Knowledge base match: Customer Identity And Missing Details. The case was escalated because the verified facts required human judgment or a protected workflow."
-  },
-  {
     "ticket_id": "TKT-017",
-    "processed_at": "2026-04-18T06:32:10Z",
-    "worker_id": 3,
+    "processed_at": "2026-04-18T07:18:18Z",
+    "worker_id": 1,
     "triage": {
-      "category": "GENERAL_FAQ",
-      "confidence": 0.74,
+      "category": "REFUND_REQUEST",
+      "confidence": 0.89,
       "provider": "huggingface-bart-mock"
     },
     "react_loop": {
       "iterations": 4,
       "thoughts": [
         "I need to gather enough verified evidence for the customer before taking any irreversible action.",
-        "I need to gather enough verified evidence for David Ross before taking any irreversible action.",
-        "I need to gather enough verified evidence for David Ross before taking any irreversible action.",
-        "I need to gather enough verified evidence for David Ross before taking any irreversible action."
+        "I need to gather enough verified evidence for David Park before taking any irreversible action.",
+        "I need to gather enough verified evidence for David Park before taking any irreversible action.",
+        "I need to gather enough verified evidence for David Park before taking any irreversible action."
       ],
       "tool_calls": [
         {
           "tool": "get_customer",
           "input": {
-            "email": "david.ross@email.com"
+            "email": "david.park@email.com"
           },
           "output": {
             "customer_id": "C004",
-            "name": "David Ross",
-            "email": "david.ross@email.com",
+            "name": "David Park",
+            "email": "david.park@email.com",
+            "phone": "+1-206-555-0177",
             "tier": "standard",
-            "member_since": "2023-11-03",
-            "total_orders": 11,
-            "total_spent": 980.4,
-            "notes": "No manual review history.",
+            "member_since": "2022-01-30",
+            "total_orders": 9,
+            "total_spent": 780.2,
+            "address": {
+              "street": "300 Pine Road",
+              "city": "Seattle",
+              "state": "WA",
+              "zip": "98101"
+            },
+            "notes": "Has raised 1 chargeback dispute in the past \u2014 resolved in ShopWave's favour.",
             "found": true
           },
           "latency_ms": 0,
@@ -2314,7 +46,8 @@
         {
           "tool": "get_order",
           "input": {
-            "order_id": "ORD-9999"
+            "order_id": "ORD-9999",
+            "reference_date": "2024-03-15T11:45:00Z"
           },
           "output": {
             "order_id": "ORD-9999",
@@ -2380,22 +113,22 @@
               ],
               "recommended_path": "Ask the customer to confirm the order number and route to a human specialist.",
               "priority": "high",
-              "confidence_at_escalation": 0.81
+              "confidence_at_escalation": 0.87
             },
             "priority": "high"
           },
           "output": {
             "ticket_id": "TKT-017",
-            "escalation_id": "ESC-595ccf72-fc13-4ab0-bbb8-a06ee12c633d",
+            "escalation_id": "ESC-6f592bf4-705b-462e-8ef2-a045b8e48b2e",
             "routed_to": "tier-2-support",
-            "timestamp": "2026-04-18T06:32:10Z"
+            "timestamp": "2026-04-18T07:18:18Z"
           },
           "latency_ms": 0,
           "error": null
         }
       ]
     },
-    "confidence_final": 0.81,
+    "confidence_final": 0.87,
     "decision": "ESCALATED",
     "resolution_type": "ESCALATED",
     "flags": [
@@ -2410,8 +143,8 @@
   },
   {
     "ticket_id": "TKT-018",
-    "processed_at": "2026-04-18T06:32:10Z",
-    "worker_id": 4,
+    "processed_at": "2026-04-18T07:18:18Z",
+    "worker_id": 1,
     "triage": {
       "category": "REFUND_REQUEST",
       "confidence": 0.89,
@@ -2421,26 +154,33 @@
       "iterations": 5,
       "thoughts": [
         "I need to gather enough verified evidence for the customer before taking any irreversible action.",
-        "I need to gather enough verified evidence for Bob Singh before taking any irreversible action.",
-        "I need to gather enough verified evidence for Bob Singh before taking any irreversible action.",
-        "I need to gather enough verified evidence for Bob Singh before taking any irreversible action.",
-        "I need to gather enough verified evidence for Bob Singh before taking any irreversible action."
+        "I need to gather enough verified evidence for Bob Mendes before taking any irreversible action.",
+        "I need to gather enough verified evidence for Bob Mendes before taking any irreversible action.",
+        "I need to gather enough verified evidence for Bob Mendes before taking any irreversible action.",
+        "I need to gather enough verified evidence for Bob Mendes before taking any irreversible action."
       ],
       "tool_calls": [
         {
           "tool": "get_customer",
           "input": {
-            "email": "bob.singh@email.com"
+            "email": "bob.mendes@email.com"
           },
           "output": {
             "customer_id": "C002",
-            "name": "Bob Singh",
-            "email": "bob.singh@email.com",
+            "name": "Bob Mendes",
+            "email": "bob.mendes@email.com",
+            "phone": "+1-212-555-0198",
             "tier": "standard",
-            "member_since": "2024-01-08",
-            "total_orders": 6,
-            "total_spent": 640.2,
-            "notes": "No special exceptions on file.",
+            "member_since": "2023-10-05",
+            "total_orders": 3,
+            "total_spent": 210.0,
+            "address": {
+              "street": "88 Birch Street",
+              "city": "New York",
+              "state": "NY",
+              "zip": "10001"
+            },
+            "notes": "New customer. No prior refund history.",
             "found": true
           },
           "latency_ms": 0,
@@ -2449,20 +189,21 @@
         {
           "tool": "get_order",
           "input": {
-            "order_id": "ORD-1002"
+            "order_id": "ORD-1002",
+            "reference_date": "2024-03-22T13:00:00Z"
           },
           "output": {
             "order_id": "ORD-1002",
             "customer_id": "C002",
             "product_id": "P006",
+            "quantity": 1,
             "amount": 249.99,
             "status": "delivered",
-            "order_date": "2026-03-27",
-            "delivery_date": "2026-03-31",
-            "return_deadline": "2026-04-15",
+            "order_date": "2024-03-01",
+            "delivery_date": "2024-03-04",
+            "return_deadline": "2024-03-19",
             "refund_status": null,
-            "tracking_number": "TRK-11002",
-            "notes": "Delivered in good condition.",
+            "notes": "High-value item. 15-day return window applies.",
             "found": true,
             "days_since_delivery": 18
           },
@@ -2476,13 +217,13 @@
           },
           "output": {
             "product_id": "P006",
-            "name": "PulseX Smartwatch",
+            "name": "PulseX Smart Watch",
             "category": "electronics",
             "price": 249.99,
             "warranty_months": 12,
             "return_window_days": 15,
             "returnable": true,
-            "notes": "High-value electronics have a strict 15-day return window."
+            "notes": "Only 15-day return window due to high-value electronics policy. Warranty covers hardware defects."
           },
           "latency_ms": 0,
           "error": null
@@ -2490,7 +231,8 @@
         {
           "tool": "check_refund_eligibility",
           "input": {
-            "order_id": "ORD-1002"
+            "order_id": "ORD-1002",
+            "reference_date": "2024-03-22T13:00:00Z"
           },
           "output": {
             "order_id": "ORD-1002",
@@ -2515,7 +257,7 @@
             "ticket_id": "TKT-018",
             "delivered": true,
             "message_preview": "Hi Bob, I reviewed order ORD-1002 and matched it against the current policy. Refund is not eligible under the current order and product policy checks.",
-            "timestamp": "2026-04-18T06:32:10Z"
+            "timestamp": "2026-04-18T07:18:18Z"
           },
           "latency_ms": 0,
           "error": null
@@ -2536,9 +278,723 @@
     "policy_explanation": "Customer tier verified as standard. Order ORD-1002 status is delivered. Product policy uses a 15-day return window and 12-month warranty. Refund is not eligible under the current order and product policy checks. The case was handled automatically because the verified facts matched a supported workflow."
   },
   {
+    "ticket_id": "TKT-011",
+    "processed_at": "2026-04-18T07:18:18Z",
+    "worker_id": 1,
+    "triage": {
+      "category": "RETURN_REQUEST",
+      "confidence": 0.85,
+      "provider": "huggingface-bart-mock"
+    },
+    "react_loop": {
+      "iterations": 5,
+      "thoughts": [
+        "I need to gather enough verified evidence for the customer before taking any irreversible action.",
+        "I need to gather enough verified evidence for Alice Turner before taking any irreversible action.",
+        "I need to gather enough verified evidence for Alice Turner before taking any irreversible action.",
+        "I need to gather enough verified evidence for Alice Turner before taking any irreversible action.",
+        "I need to gather enough verified evidence for Alice Turner before taking any irreversible action."
+      ],
+      "tool_calls": [
+        {
+          "tool": "get_customer",
+          "input": {
+            "email": "alice.turner@email.com"
+          },
+          "output": {
+            "customer_id": "C001",
+            "name": "Alice Turner",
+            "email": "alice.turner@email.com",
+            "phone": "+1-415-555-0101",
+            "tier": "vip",
+            "member_since": "2019-03-12",
+            "total_orders": 47,
+            "total_spent": 6840.5,
+            "address": {
+              "street": "12 Maple Avenue",
+              "city": "San Francisco",
+              "state": "CA",
+              "zip": "94102"
+            },
+            "notes": "Long-standing VIP. Has had 2 refunds in the past year, both approved.",
+            "found": true
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "get_order",
+          "input": {
+            "order_id": "ORD-1011",
+            "reference_date": "2024-03-13T10:30:00Z"
+          },
+          "output": {
+            "order_id": "ORD-1011",
+            "customer_id": "C001",
+            "product_id": "P006",
+            "quantity": 1,
+            "amount": 249.99,
+            "status": "delivered",
+            "order_date": "2024-03-08",
+            "delivery_date": "2024-03-11",
+            "return_deadline": "2024-03-26",
+            "refund_status": null,
+            "notes": "Customer reported receiving wrong colour variant. Correct order was Blue, received Black.",
+            "found": true,
+            "days_since_delivery": 2
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "get_product",
+          "input": {
+            "product_id": "P006"
+          },
+          "output": {
+            "product_id": "P006",
+            "name": "PulseX Smart Watch",
+            "category": "electronics",
+            "price": 249.99,
+            "warranty_months": 12,
+            "return_window_days": 15,
+            "returnable": true,
+            "notes": "Only 15-day return window due to high-value electronics policy. Warranty covers hardware defects."
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "check_refund_eligibility",
+          "input": {
+            "order_id": "ORD-1011",
+            "reference_date": "2024-03-13T10:30:00Z"
+          },
+          "output": {
+            "order_id": "ORD-1011",
+            "eligible": true,
+            "reason": "Within the allowed policy window. No duplicate refund was found.",
+            "amount": 249.99,
+            "policy_flags": [],
+            "requires_escalation": true
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "escalate",
+          "input": {
+            "ticket_id": "TKT-011",
+            "summary": {
+              "issue_summary": "Ticket requires a manual exception or unsupported replacement workflow.",
+              "what_was_verified": [
+                "Within the allowed policy window. No duplicate refund was found."
+              ],
+              "what_was_attempted": [
+                "Called get_customer",
+                "Called get_order",
+                "Called get_product",
+                "Called check_refund_eligibility"
+              ],
+              "recommended_path": "A human agent should review the exception and replacement options.",
+              "priority": "high",
+              "confidence_at_escalation": 0.84
+            },
+            "priority": "high"
+          },
+          "output": {
+            "ticket_id": "TKT-011",
+            "escalation_id": "ESC-4fccc353-e4bf-484f-8fed-4a5f3ffa21fb",
+            "routed_to": "tier-2-support",
+            "timestamp": "2026-04-18T07:18:18Z"
+          },
+          "latency_ms": 0,
+          "error": null
+        }
+      ]
+    },
+    "confidence_final": 0.84,
+    "decision": "ESCALATED",
+    "resolution_type": "ESCALATED",
+    "flags": [],
+    "llm_providers_used": [
+      "huggingface-bart-mock",
+      "groq-mock"
+    ],
+    "total_latency_ms": 0,
+    "policy_explanation": "Customer tier verified as vip. Order ORD-1011 status is delivered. Product policy uses a 15-day return window and 12-month warranty. Within the allowed policy window. No duplicate refund was found. The case was escalated because the verified facts required human judgment or a protected workflow."
+  },
+  {
+    "ticket_id": "TKT-005",
+    "processed_at": "2026-04-18T07:18:18Z",
+    "worker_id": 1,
+    "triage": {
+      "category": "RETURN_REQUEST",
+      "confidence": 0.85,
+      "provider": "huggingface-bart-mock"
+    },
+    "react_loop": {
+      "iterations": 6,
+      "thoughts": [
+        "I need to gather enough verified evidence for the customer before taking any irreversible action.",
+        "I need to gather enough verified evidence for Emma Collins before taking any irreversible action.",
+        "I need to gather enough verified evidence for Emma Collins before taking any irreversible action.",
+        "I need to gather enough verified evidence for Emma Collins before taking any irreversible action.",
+        "I need to gather enough verified evidence for Emma Collins before taking any irreversible action.",
+        "I need to gather enough verified evidence for Emma Collins before taking any irreversible action."
+      ],
+      "tool_calls": [
+        {
+          "tool": "get_customer",
+          "input": {
+            "email": "emma.collins@email.com"
+          },
+          "output": {
+            "customer_id": "C005",
+            "name": "Emma Collins",
+            "email": "emma.collins@email.com",
+            "phone": "+1-512-555-0165",
+            "tier": "vip",
+            "member_since": "2018-11-02",
+            "total_orders": 91,
+            "total_spent": 14220.0,
+            "address": {
+              "street": "7 Sunset Blvd",
+              "city": "Austin",
+              "state": "TX",
+              "zip": "73301"
+            },
+            "notes": "Highest lifetime value customer. Has a standing exception for extended return windows pre-approved by management.",
+            "found": true
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "get_order",
+          "input": {
+            "order_id": "ORD-1005",
+            "reference_date": "2024-03-15T08:45:00Z"
+          },
+          "output": {
+            "order_id": "ORD-1005",
+            "customer_id": "C005",
+            "product_id": "P008",
+            "quantity": 2,
+            "amount": 159.98,
+            "status": "delivered",
+            "order_date": "2023-12-15",
+            "delivery_date": "2023-12-19",
+            "return_deadline": "2024-01-18",
+            "refund_status": null,
+            "notes": "Return window expired. VIP customer with pre-approved extended return exception on file.",
+            "found": true,
+            "days_since_delivery": 87
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "get_product",
+          "input": {
+            "product_id": "P008"
+          },
+          "output": {
+            "product_id": "P008",
+            "name": "BoomBox Mini Bluetooth Speaker",
+            "category": "electronics",
+            "price": 79.99,
+            "warranty_months": 12,
+            "return_window_days": 30,
+            "returnable": true,
+            "notes": "Return not accepted if device has been registered online."
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "check_refund_eligibility",
+          "input": {
+            "order_id": "ORD-1005",
+            "reference_date": "2024-03-15T08:45:00Z"
+          },
+          "output": {
+            "order_id": "ORD-1005",
+            "eligible": false,
+            "reason": "Refund is not eligible under the current order and product policy checks.",
+            "amount": 159.98,
+            "policy_flags": [
+              "OUT_OF_WINDOW"
+            ],
+            "requires_escalation": false
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "search_knowledge_base",
+          "input": {
+            "query": "vip exception expired return pre approval"
+          },
+          "output": {
+            "query": "vip exception expired return pre approval",
+            "results": [
+              {
+                "section": "VIP Exceptions",
+                "content": "VIP notes in the customer profile must be checked before denying an expired return. If a profile note mentions a pre-approval or exception, escalate to confirm the exception rather than rejecting the case automatically.",
+                "relevance_score": 0.99
+              },
+              {
+                "section": "Device Registration Restriction",
+                "content": "Devices registered online are no longer eligible for automatic return approval. If the return window is also expired, explain both reasons clearly.",
+                "relevance_score": 0.81
+              },
+              {
+                "section": "Category-Specific Return Windows",
+                "content": "Standard electronics can be returned within 30 days of delivery. High-value electronics like smartwatches have a 15-day return window only. Outdoor gear such as tents has an extended 60-day return window.",
+                "relevance_score": 0.57
+              }
+            ],
+            "result_count": 3
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "escalate",
+          "input": {
+            "ticket_id": "TKT-005",
+            "summary": {
+              "issue_summary": "Ticket requires a manual exception or unsupported replacement workflow.",
+              "what_was_verified": [
+                "Refund is not eligible under the current order and product policy checks."
+              ],
+              "what_was_attempted": [
+                "Called get_customer",
+                "Called get_order",
+                "Called get_product",
+                "Called check_refund_eligibility",
+                "Called search_knowledge_base"
+              ],
+              "recommended_path": "A human agent should review the exception and replacement options.",
+              "priority": "high",
+              "confidence_at_escalation": 0.938
+            },
+            "priority": "high"
+          },
+          "output": {
+            "ticket_id": "TKT-005",
+            "escalation_id": "ESC-6f79605e-e0a0-4bc6-b275-50a71418b59e",
+            "routed_to": "tier-2-support",
+            "timestamp": "2026-04-18T07:18:18Z"
+          },
+          "latency_ms": 0,
+          "error": null
+        }
+      ]
+    },
+    "confidence_final": 0.938,
+    "decision": "ESCALATED",
+    "resolution_type": "ESCALATED",
+    "flags": [],
+    "llm_providers_used": [
+      "huggingface-bart-mock",
+      "groq-mock"
+    ],
+    "total_latency_ms": 0,
+    "policy_explanation": "Customer tier verified as vip. Order ORD-1005 status is delivered. Product policy uses a 30-day return window and 12-month warranty. Refund is not eligible under the current order and product policy checks. Knowledge base match: VIP Exceptions. The case was escalated because the verified facts required human judgment or a protected workflow."
+  },
+  {
+    "ticket_id": "TKT-016",
+    "processed_at": "2026-04-18T07:18:18Z",
+    "worker_id": 1,
+    "triage": {
+      "category": "REFUND_REQUEST",
+      "confidence": 0.89,
+      "provider": "huggingface-bart-mock"
+    },
+    "react_loop": {
+      "iterations": 3,
+      "thoughts": [
+        "I need to gather enough verified evidence for the customer before taking any irreversible action.",
+        "I need to gather enough verified evidence for Unknown Customer before taking any irreversible action.",
+        "I need to gather enough verified evidence for Unknown Customer before taking any irreversible action."
+      ],
+      "tool_calls": [
+        {
+          "tool": "get_customer",
+          "input": {
+            "email": "unknown.user@email.com"
+          },
+          "output": {
+            "customer_id": "",
+            "name": "Unknown Customer",
+            "email": "unknown.user@email.com",
+            "tier": "unknown",
+            "member_since": "",
+            "total_orders": 0,
+            "total_spent": 0.0,
+            "notes": "",
+            "found": false
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "search_knowledge_base",
+          "input": {
+            "query": "identity verification missing order email lookup policy"
+          },
+          "output": {
+            "query": "identity verification missing order email lookup policy",
+            "results": [
+              {
+                "section": "Customer Identity And Missing Details",
+                "content": "If no customer account can be found, ask for a valid email and order ID or escalate for manual verification. If the ticket is too ambiguous to act on, send a clarifying message instead of taking irreversible action.",
+                "relevance_score": 0.99
+              },
+              {
+                "section": "Cancellation Policy",
+                "content": "Orders in processing can be cancelled at no charge before shipment. Once an order has shipped, the customer should receive tracking rather than an immediate refund.",
+                "relevance_score": 0.69
+              },
+              {
+                "section": "Tracking And Shipping Updates",
+                "content": "If an order is shipped but not delivered, provide the tracking number and current status. Do not offer a refund for an in-transit package unless another policy exception applies.",
+                "relevance_score": 0.69
+              }
+            ],
+            "result_count": 3
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "escalate",
+          "input": {
+            "ticket_id": "TKT-016",
+            "summary": {
+              "issue_summary": "Customer could not be identified from the provided email.",
+              "what_was_verified": [
+                "Customer lookup returned found=false"
+              ],
+              "what_was_attempted": [
+                "Called get_customer",
+                "Called search_knowledge_base"
+              ],
+              "recommended_path": "Ask the customer for a valid email address and order ID.",
+              "priority": "medium",
+              "confidence_at_escalation": 0.894
+            },
+            "priority": "medium"
+          },
+          "output": {
+            "ticket_id": "TKT-016",
+            "escalation_id": "ESC-7fc23df4-7032-4354-b04a-9ca20a0013de",
+            "routed_to": "tier-2-support",
+            "timestamp": "2026-04-18T07:18:18Z"
+          },
+          "latency_ms": 0,
+          "error": null
+        }
+      ]
+    },
+    "confidence_final": 0.894,
+    "decision": "ESCALATED",
+    "resolution_type": "ESCALATED",
+    "flags": [],
+    "llm_providers_used": [
+      "huggingface-bart-mock",
+      "groq-mock"
+    ],
+    "total_latency_ms": 0,
+    "policy_explanation": "Knowledge base match: Customer Identity And Missing Details. The case was escalated because the verified facts required human judgment or a protected workflow."
+  },
+  {
+    "ticket_id": "TKT-015",
+    "processed_at": "2026-04-18T07:18:18Z",
+    "worker_id": 1,
+    "triage": {
+      "category": "REFUND_REQUEST",
+      "confidence": 0.89,
+      "provider": "huggingface-bart-mock"
+    },
+    "react_loop": {
+      "iterations": 5,
+      "thoughts": [
+        "I need to gather enough verified evidence for the customer before taking any irreversible action.",
+        "I need to gather enough verified evidence for Emma Collins before taking any irreversible action.",
+        "I need to gather enough verified evidence for Emma Collins before taking any irreversible action.",
+        "I need to gather enough verified evidence for Emma Collins before taking any irreversible action.",
+        "I need to gather enough verified evidence for Emma Collins before taking any irreversible action."
+      ],
+      "tool_calls": [
+        {
+          "tool": "get_customer",
+          "input": {
+            "email": "emma.collins@email.com"
+          },
+          "output": {
+            "customer_id": "C005",
+            "name": "Emma Collins",
+            "email": "emma.collins@email.com",
+            "phone": "+1-512-555-0165",
+            "tier": "vip",
+            "member_since": "2018-11-02",
+            "total_orders": 91,
+            "total_spent": 14220.0,
+            "address": {
+              "street": "7 Sunset Blvd",
+              "city": "Austin",
+              "state": "TX",
+              "zip": "73301"
+            },
+            "notes": "Highest lifetime value customer. Has a standing exception for extended return windows pre-approved by management.",
+            "found": true
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "get_order",
+          "input": {
+            "order_id": "ORD-1015",
+            "reference_date": "2024-03-15T10:15:00Z"
+          },
+          "output": {
+            "order_id": "ORD-1015",
+            "customer_id": "C005",
+            "product_id": "P003",
+            "quantity": 1,
+            "amount": 199.99,
+            "status": "delivered",
+            "order_date": "2024-02-18",
+            "delivery_date": "2024-02-22",
+            "return_deadline": "2024-03-23",
+            "refund_status": null,
+            "notes": "Item arrived with cracked water tank. Customer sent photo evidence.",
+            "found": true,
+            "days_since_delivery": 22
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "get_product",
+          "input": {
+            "product_id": "P003"
+          },
+          "output": {
+            "product_id": "P003",
+            "name": "BrewMaster 3000 Coffee Maker",
+            "category": "home_appliances",
+            "price": 199.99,
+            "warranty_months": 24,
+            "return_window_days": 30,
+            "returnable": true,
+            "notes": "Warranty covers manufacturing defects only. Does not cover user damage."
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "check_refund_eligibility",
+          "input": {
+            "order_id": "ORD-1015",
+            "reference_date": "2024-03-15T10:15:00Z"
+          },
+          "output": {
+            "order_id": "ORD-1015",
+            "eligible": true,
+            "reason": "Within the allowed policy window. No duplicate refund was found.",
+            "amount": 199.99,
+            "policy_flags": [],
+            "requires_escalation": false
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "escalate",
+          "input": {
+            "ticket_id": "TKT-015",
+            "summary": {
+              "issue_summary": "Ticket requires a manual exception or unsupported replacement workflow.",
+              "what_was_verified": [
+                "Within the allowed policy window. No duplicate refund was found."
+              ],
+              "what_was_attempted": [
+                "Called get_customer",
+                "Called get_order",
+                "Called get_product",
+                "Called check_refund_eligibility"
+              ],
+              "recommended_path": "A human agent should review the exception and replacement options.",
+              "priority": "high",
+              "confidence_at_escalation": 0.856
+            },
+            "priority": "high"
+          },
+          "output": {
+            "ticket_id": "TKT-015",
+            "escalation_id": "ESC-d3b0337e-cc50-4e52-b718-ffa6ae747870",
+            "routed_to": "tier-2-support",
+            "timestamp": "2026-04-18T07:18:18Z"
+          },
+          "latency_ms": 0,
+          "error": null
+        }
+      ]
+    },
+    "confidence_final": 0.856,
+    "decision": "ESCALATED",
+    "resolution_type": "ESCALATED",
+    "flags": [],
+    "llm_providers_used": [
+      "huggingface-bart-mock",
+      "groq-mock"
+    ],
+    "total_latency_ms": 0,
+    "policy_explanation": "Customer tier verified as vip. Order ORD-1015 status is delivered. Product policy uses a 30-day return window and 24-month warranty. Within the allowed policy window. No duplicate refund was found. The case was escalated because the verified facts required human judgment or a protected workflow."
+  },
+  {
+    "ticket_id": "TKT-013",
+    "processed_at": "2026-04-18T07:18:18Z",
+    "worker_id": 1,
+    "triage": {
+      "category": "RETURN_REQUEST",
+      "confidence": 0.85,
+      "provider": "huggingface-bart-mock"
+    },
+    "react_loop": {
+      "iterations": 5,
+      "thoughts": [
+        "I need to gather enough verified evidence for the customer before taking any irreversible action.",
+        "I need to gather enough verified evidence for Grace Patel before taking any irreversible action.",
+        "I need to gather enough verified evidence for Grace Patel before taking any irreversible action.",
+        "I need to gather enough verified evidence for Grace Patel before taking any irreversible action.",
+        "I need to gather enough verified evidence for Grace Patel before taking any irreversible action."
+      ],
+      "tool_calls": [
+        {
+          "tool": "get_customer",
+          "input": {
+            "email": "grace.patel@email.com"
+          },
+          "output": {
+            "customer_id": "C007",
+            "name": "Grace Patel",
+            "email": "grace.patel@email.com",
+            "phone": "+1-617-555-0134",
+            "tier": "premium",
+            "member_since": "2020-08-22",
+            "total_orders": 35,
+            "total_spent": 4890.0,
+            "address": {
+              "street": "56 Willow Way",
+              "city": "Boston",
+              "state": "MA",
+              "zip": "02101"
+            },
+            "notes": "Premium member. Has submitted 4 refund requests \u2014 all legitimate, all approved.",
+            "found": true
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "get_order",
+          "input": {
+            "order_id": "ORD-1013",
+            "reference_date": "2024-03-15T14:00:00Z"
+          },
+          "output": {
+            "order_id": "ORD-1013",
+            "customer_id": "C007",
+            "product_id": "P008",
+            "quantity": 1,
+            "amount": 79.99,
+            "status": "delivered",
+            "order_date": "2024-01-20",
+            "delivery_date": "2024-01-24",
+            "return_deadline": "2024-02-23",
+            "refund_status": null,
+            "notes": "Return window expired. Device was registered online by customer on 2024-01-25. Non-returnable per policy.",
+            "found": true,
+            "days_since_delivery": 51
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "get_product",
+          "input": {
+            "product_id": "P008"
+          },
+          "output": {
+            "product_id": "P008",
+            "name": "BoomBox Mini Bluetooth Speaker",
+            "category": "electronics",
+            "price": 79.99,
+            "warranty_months": 12,
+            "return_window_days": 30,
+            "returnable": true,
+            "notes": "Return not accepted if device has been registered online."
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "check_refund_eligibility",
+          "input": {
+            "order_id": "ORD-1013",
+            "reference_date": "2024-03-15T14:00:00Z"
+          },
+          "output": {
+            "order_id": "ORD-1013",
+            "eligible": false,
+            "reason": "Refund is not eligible under the current order and product policy checks.",
+            "amount": 79.99,
+            "policy_flags": [
+              "OUT_OF_WINDOW"
+            ],
+            "requires_escalation": false
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "send_reply",
+          "input": {
+            "ticket_id": "TKT-013",
+            "message": "Hi Grace, I reviewed order ORD-1013. I can't approve a return because the return window has expired and the device was registered online, which makes it non-returnable."
+          },
+          "output": {
+            "ticket_id": "TKT-013",
+            "delivered": true,
+            "message_preview": "Hi Grace, I reviewed order ORD-1013. I can't approve a return because the return window has expired and the device was registered online, which makes it non-ret",
+            "timestamp": "2026-04-18T07:18:18Z"
+          },
+          "latency_ms": 0,
+          "error": null
+        }
+      ]
+    },
+    "confidence_final": 0.84,
+    "decision": "RESOLVED",
+    "resolution_type": "AUTO",
+    "flags": [],
+    "llm_providers_used": [
+      "huggingface-bart-mock",
+      "groq-mock"
+    ],
+    "total_latency_ms": 0,
+    "policy_explanation": "Customer tier verified as premium. Order ORD-1013 status is delivered. Product policy uses a 30-day return window and 12-month warranty. Refund is not eligible under the current order and product policy checks. The case was handled automatically because the verified facts matched a supported workflow."
+  },
+  {
     "ticket_id": "TKT-020",
-    "processed_at": "2026-04-18T06:32:10Z",
-    "worker_id": 5,
+    "processed_at": "2026-04-18T07:18:18Z",
+    "worker_id": 1,
     "triage": {
       "category": "GENERAL_FAQ",
       "confidence": 0.74,
@@ -2548,24 +1004,31 @@
       "iterations": 3,
       "thoughts": [
         "I need to gather enough verified evidence for the customer before taking any irreversible action.",
-        "I need to gather enough verified evidence for James Carter before taking any irreversible action.",
-        "I need to gather enough verified evidence for James Carter before taking any irreversible action."
+        "I need to gather enough verified evidence for James Wu before taking any irreversible action.",
+        "I need to gather enough verified evidence for James Wu before taking any irreversible action."
       ],
       "tool_calls": [
         {
           "tool": "get_customer",
           "input": {
-            "email": "james.carter@email.com"
+            "email": "james.wu@email.com"
           },
           "output": {
             "customer_id": "C010",
-            "name": "James Carter",
-            "email": "james.carter@email.com",
+            "name": "James Wu",
+            "email": "james.wu@email.com",
+            "phone": "+1-858-555-0199",
             "tier": "standard",
-            "member_since": "2021-08-09",
-            "total_orders": 14,
-            "total_spent": 1760.3,
-            "notes": "Mostly status-check tickets. No exception flags.",
+            "member_since": "2023-03-28",
+            "total_orders": 6,
+            "total_spent": 430.15,
+            "address": {
+              "street": "40 Harbor View",
+              "city": "San Diego",
+              "state": "CA",
+              "zip": "92101"
+            },
+            "notes": "No issues on record.",
             "found": true
           },
           "latency_ms": 0,
@@ -2574,15 +1037,15 @@
         {
           "tool": "search_knowledge_base",
           "input": {
-            "query": "Need help Something is wrong with my order but I did not include any details yet."
+            "query": "my thing is broken pls help hey so the thing i bought isnt working right can you help me out"
           },
           "output": {
-            "query": "Need help Something is wrong with my order but I did not include any details yet.",
+            "query": "my thing is broken pls help hey so the thing i bought isnt working right can you help me out",
             "results": [
               {
-                "section": "Tracking And Shipping Updates",
-                "content": "If an order is shipped but not delivered, provide the tracking number and current status. Do not offer a refund for an in-transit package unless another policy exception applies.",
-                "relevance_score": 0.81
+                "section": "Category-Specific Return Windows",
+                "content": "Standard electronics can be returned within 30 days of delivery. High-value electronics like smartwatches have a 15-day return window only. Outdoor gear such as tents has an extended 60-day return window.",
+                "relevance_score": 0.69
               },
               {
                 "section": "Warranty Coverage",
@@ -2590,8 +1053,8 @@
                 "relevance_score": 0.69
               },
               {
-                "section": "Wrong Item And Exchange Policy",
-                "content": "Wrong item or wrong colour deliveries usually map to an exchange path. If the required remedy is a replacement or exchange that the automated agent cannot perform, escalate to a human specialist.",
+                "section": "Damaged on Arrival",
+                "content": "If an item arrives damaged on arrival and the evidence is credible, the customer may receive a full refund without being asked to mail the item back first.",
                 "relevance_score": 0.69
               }
             ],
@@ -2610,14 +1073,14 @@
             "ticket_id": "TKT-020",
             "delivered": true,
             "message_preview": "Hi James, I\u2019m happy to help. Please reply with your order ID and a short description of the issue so I can review the right order and advise on the next step.",
-            "timestamp": "2026-04-18T06:32:10Z"
+            "timestamp": "2026-04-18T07:18:18Z"
           },
           "latency_ms": 0,
           "error": null
         }
       ]
     },
-    "confidence_final": 0.858,
+    "confidence_final": 0.834,
     "decision": "RESOLVED",
     "resolution_type": "AUTO",
     "flags": [],
@@ -2626,6 +1089,1749 @@
       "groq-mock"
     ],
     "total_latency_ms": 0,
-    "policy_explanation": "Customer tier verified as standard. Knowledge base match: Tracking And Shipping Updates. The case was handled automatically because the verified facts matched a supported workflow."
+    "policy_explanation": "Customer tier verified as standard. Knowledge base match: Category-Specific Return Windows. The case was handled automatically because the verified facts matched a supported workflow."
+  },
+  {
+    "ticket_id": "TKT-008",
+    "processed_at": "2026-04-18T07:18:18Z",
+    "worker_id": 1,
+    "triage": {
+      "category": "REFUND_REQUEST",
+      "confidence": 0.89,
+      "provider": "huggingface-bart-mock"
+    },
+    "react_loop": {
+      "iterations": 6,
+      "thoughts": [
+        "I need to gather enough verified evidence for the customer before taking any irreversible action.",
+        "I need to gather enough verified evidence for Henry Marsh before taking any irreversible action.",
+        "I need to gather enough verified evidence for Henry Marsh before taking any irreversible action.",
+        "I need to gather enough verified evidence for Henry Marsh before taking any irreversible action.",
+        "I need to gather enough verified evidence for Henry Marsh before taking any irreversible action.",
+        "I need to gather enough verified evidence for Henry Marsh before taking any irreversible action."
+      ],
+      "tool_calls": [
+        {
+          "tool": "get_customer",
+          "input": {
+            "email": "henry.marsh@email.com"
+          },
+          "output": {
+            "customer_id": "C008",
+            "name": "Henry Marsh",
+            "email": "henry.marsh@email.com",
+            "phone": "+1-303-555-0188",
+            "tier": "standard",
+            "member_since": "2022-05-19",
+            "total_orders": 14,
+            "total_spent": 1120.6,
+            "address": {
+              "street": "210 Cedar Drive",
+              "city": "Denver",
+              "state": "CO",
+              "zip": "80201"
+            },
+            "notes": "Regular customer. No flags.",
+            "found": true
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "get_order",
+          "input": {
+            "order_id": "ORD-1008",
+            "reference_date": "2024-03-09T09:00:00Z"
+          },
+          "output": {
+            "order_id": "ORD-1008",
+            "customer_id": "C008",
+            "product_id": "P007",
+            "quantity": 1,
+            "amount": 44.99,
+            "status": "delivered",
+            "order_date": "2024-03-05",
+            "delivery_date": "2024-03-08",
+            "return_deadline": "2024-04-07",
+            "refund_status": null,
+            "notes": "Item reported as damaged on arrival by customer via email. No formal claim opened.",
+            "found": true,
+            "days_since_delivery": 1
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "get_product",
+          "input": {
+            "product_id": "P007"
+          },
+          "output": {
+            "product_id": "P007",
+            "name": "LumiDesk LED Desk Lamp",
+            "category": "home",
+            "price": 44.99,
+            "warranty_months": 12,
+            "return_window_days": 30,
+            "returnable": true,
+            "notes": "Standard return policy applies."
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "check_refund_eligibility",
+          "input": {
+            "order_id": "ORD-1008",
+            "reference_date": "2024-03-09T09:00:00Z"
+          },
+          "output": {
+            "order_id": "ORD-1008",
+            "eligible": true,
+            "reason": "Within the allowed policy window. No duplicate refund was found.",
+            "amount": 44.99,
+            "policy_flags": [],
+            "requires_escalation": false
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "issue_refund",
+          "input": {
+            "order_id": "ORD-1008",
+            "amount": 44.99
+          },
+          "output": {
+            "order_id": "ORD-1008",
+            "amount_refunded": 44.99,
+            "transaction_id": "TXN-17fd094b-a115-4980-a4e0-15e7d8a0a81c",
+            "status": "processed",
+            "processing_time": "5-7 business days",
+            "timestamp": "2026-04-18T07:18:18Z"
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "send_reply",
+          "input": {
+            "ticket_id": "TKT-008",
+            "message": "Hi Henry, I verified order ORD-1008 and confirmed the request qualifies under our policy. I've processed the next step for you and you'll receive confirmation shortly."
+          },
+          "output": {
+            "ticket_id": "TKT-008",
+            "delivered": true,
+            "message_preview": "Hi Henry, I verified order ORD-1008 and confirmed the request qualifies under our policy. I've processed the next step for you and you'll receive confirmation s",
+            "timestamp": "2026-04-18T07:18:18Z"
+          },
+          "latency_ms": 0,
+          "error": null
+        }
+      ]
+    },
+    "confidence_final": 0.856,
+    "decision": "RESOLVED",
+    "resolution_type": "AUTO",
+    "flags": [],
+    "llm_providers_used": [
+      "huggingface-bart-mock",
+      "groq-mock"
+    ],
+    "total_latency_ms": 0,
+    "policy_explanation": "Customer tier verified as standard. Order ORD-1008 status is delivered. Product policy uses a 30-day return window and 12-month warranty. Within the allowed policy window. No duplicate refund was found. The case was handled automatically because the verified facts matched a supported workflow."
+  },
+  {
+    "ticket_id": "TKT-006",
+    "processed_at": "2026-04-18T07:18:18Z",
+    "worker_id": 1,
+    "triage": {
+      "category": "ORDER_CANCEL",
+      "confidence": 0.9,
+      "provider": "huggingface-bart-mock"
+    },
+    "react_loop": {
+      "iterations": 5,
+      "thoughts": [
+        "I need to gather enough verified evidence for the customer before taking any irreversible action.",
+        "I need to gather enough verified evidence for Frank Osei before taking any irreversible action.",
+        "I need to gather enough verified evidence for Frank Osei before taking any irreversible action.",
+        "I need to gather enough verified evidence for Frank Osei before taking any irreversible action.",
+        "I need to gather enough verified evidence for Frank Osei before taking any irreversible action."
+      ],
+      "tool_calls": [
+        {
+          "tool": "get_customer",
+          "input": {
+            "email": "frank.osei@email.com"
+          },
+          "output": {
+            "customer_id": "C006",
+            "name": "Frank Osei",
+            "email": "frank.osei@email.com",
+            "phone": "+1-404-555-0112",
+            "tier": "standard",
+            "member_since": "2024-01-14",
+            "total_orders": 1,
+            "total_spent": 49.99,
+            "address": {
+              "street": "19 Elm Street",
+              "city": "Atlanta",
+              "state": "GA",
+              "zip": "30301"
+            },
+            "notes": "Brand new customer. First and only order.",
+            "found": true
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "get_order",
+          "input": {
+            "order_id": "ORD-1006",
+            "reference_date": "2024-03-14T16:00:00Z"
+          },
+          "output": {
+            "order_id": "ORD-1006",
+            "customer_id": "C006",
+            "product_id": "P005",
+            "quantity": 1,
+            "amount": 39.99,
+            "status": "cancelled",
+            "order_date": "2024-03-10",
+            "delivery_date": "2024-03-13",
+            "return_deadline": "2024-04-12",
+            "refund_status": null,
+            "notes": "First order by this customer.",
+            "found": true,
+            "days_since_delivery": 1
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "get_product",
+          "input": {
+            "product_id": "P005"
+          },
+          "output": {
+            "product_id": "P005",
+            "name": "ZenFlow Yoga Mat",
+            "category": "sports",
+            "price": 39.99,
+            "warranty_months": 0,
+            "return_window_days": 30,
+            "returnable": true,
+            "notes": "Non-returnable if used. Hygiene policy applies."
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "search_knowledge_base",
+          "input": {
+            "query": "cancel order before shipping processing policy"
+          },
+          "output": {
+            "query": "cancel order before shipping processing policy",
+            "results": [
+              {
+                "section": "Cancellation Policy",
+                "content": "Orders in processing can be cancelled at no charge before shipment. Once an order has shipped, the customer should receive tracking rather than an immediate refund.",
+                "relevance_score": 0.99
+              },
+              {
+                "section": "Tracking And Shipping Updates",
+                "content": "If an order is shipped but not delivered, provide the tracking number and current status. Do not offer a refund for an in-transit package unless another policy exception applies.",
+                "relevance_score": 0.81
+              },
+              {
+                "section": "VIP Exceptions",
+                "content": "VIP notes in the customer profile must be checked before denying an expired return. If a profile note mentions a pre-approval or exception, escalate to confirm the exception rather than rejecting the case automatically.",
+                "relevance_score": 0.57
+              }
+            ],
+            "result_count": 3
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "send_reply",
+          "input": {
+            "ticket_id": "TKT-006",
+            "message": "Hi Frank, I confirmed that order ORD-1006 was still in processing, so I cancelled it before shipment at no charge."
+          },
+          "output": {
+            "ticket_id": "TKT-006",
+            "delivered": true,
+            "message_preview": "Hi Frank, I confirmed that order ORD-1006 was still in processing, so I cancelled it before shipment at no charge.",
+            "timestamp": "2026-04-18T07:18:18Z"
+          },
+          "latency_ms": 0,
+          "error": null
+        }
+      ]
+    },
+    "confidence_final": 0.958,
+    "decision": "RESOLVED",
+    "resolution_type": "AUTO",
+    "flags": [],
+    "llm_providers_used": [
+      "huggingface-bart-mock",
+      "groq-mock"
+    ],
+    "total_latency_ms": 0,
+    "policy_explanation": "Customer tier verified as standard. Order ORD-1006 status is cancelled. Product policy uses a 30-day return window and 0-month warranty. Knowledge base match: Cancellation Policy. The case was handled automatically because the verified facts matched a supported workflow."
+  },
+  {
+    "ticket_id": "TKT-012",
+    "processed_at": "2026-04-18T07:18:18Z",
+    "worker_id": 1,
+    "triage": {
+      "category": "ORDER_CANCEL",
+      "confidence": 0.9,
+      "provider": "huggingface-bart-mock"
+    },
+    "react_loop": {
+      "iterations": 5,
+      "thoughts": [
+        "I need to gather enough verified evidence for the customer before taking any irreversible action.",
+        "I need to gather enough verified evidence for Carol Nguyen before taking any irreversible action.",
+        "I need to gather enough verified evidence for Carol Nguyen before taking any irreversible action.",
+        "I need to gather enough verified evidence for Carol Nguyen before taking any irreversible action.",
+        "I need to gather enough verified evidence for Carol Nguyen before taking any irreversible action."
+      ],
+      "tool_calls": [
+        {
+          "tool": "get_customer",
+          "input": {
+            "email": "carol.nguyen@email.com"
+          },
+          "output": {
+            "customer_id": "C003",
+            "name": "Carol Nguyen",
+            "email": "carol.nguyen@email.com",
+            "phone": "+1-312-555-0143",
+            "tier": "premium",
+            "member_since": "2021-06-18",
+            "total_orders": 22,
+            "total_spent": 3120.75,
+            "address": {
+              "street": "45 Oak Lane",
+              "city": "Chicago",
+              "state": "IL",
+              "zip": "60601"
+            },
+            "notes": "Premium member. Prefers email communication.",
+            "found": true
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "get_order",
+          "input": {
+            "order_id": "ORD-1012",
+            "reference_date": "2024-03-15T08:00:00Z"
+          },
+          "output": {
+            "order_id": "ORD-1012",
+            "customer_id": "C003",
+            "product_id": "P002",
+            "quantity": 1,
+            "amount": 89.99,
+            "status": "cancelled",
+            "order_date": "2024-03-14",
+            "delivery_date": null,
+            "return_deadline": null,
+            "refund_status": null,
+            "notes": "Order placed but not yet shipped. Customer can cancel free of charge.",
+            "found": true,
+            "days_since_delivery": null
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "get_product",
+          "input": {
+            "product_id": "P002"
+          },
+          "output": {
+            "product_id": "P002",
+            "name": "SwiftRun Pro Running Shoes",
+            "category": "footwear",
+            "price": 89.99,
+            "warranty_months": 0,
+            "return_window_days": 30,
+            "returnable": true,
+            "notes": "Must be unworn and in original packaging. No return if used outdoors."
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "search_knowledge_base",
+          "input": {
+            "query": "cancel order before shipping processing policy"
+          },
+          "output": {
+            "query": "cancel order before shipping processing policy",
+            "results": [
+              {
+                "section": "Cancellation Policy",
+                "content": "Orders in processing can be cancelled at no charge before shipment. Once an order has shipped, the customer should receive tracking rather than an immediate refund.",
+                "relevance_score": 0.99
+              },
+              {
+                "section": "Tracking And Shipping Updates",
+                "content": "If an order is shipped but not delivered, provide the tracking number and current status. Do not offer a refund for an in-transit package unless another policy exception applies.",
+                "relevance_score": 0.81
+              },
+              {
+                "section": "VIP Exceptions",
+                "content": "VIP notes in the customer profile must be checked before denying an expired return. If a profile note mentions a pre-approval or exception, escalate to confirm the exception rather than rejecting the case automatically.",
+                "relevance_score": 0.57
+              }
+            ],
+            "result_count": 3
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "send_reply",
+          "input": {
+            "ticket_id": "TKT-012",
+            "message": "Hi Carol, I confirmed that order ORD-1012 was still in processing, so I cancelled it before shipment at no charge."
+          },
+          "output": {
+            "ticket_id": "TKT-012",
+            "delivered": true,
+            "message_preview": "Hi Carol, I confirmed that order ORD-1012 was still in processing, so I cancelled it before shipment at no charge.",
+            "timestamp": "2026-04-18T07:18:18Z"
+          },
+          "latency_ms": 0,
+          "error": null
+        }
+      ]
+    },
+    "confidence_final": 0.958,
+    "decision": "RESOLVED",
+    "resolution_type": "AUTO",
+    "flags": [],
+    "llm_providers_used": [
+      "huggingface-bart-mock",
+      "groq-mock"
+    ],
+    "total_latency_ms": 0,
+    "policy_explanation": "Customer tier verified as premium. Order ORD-1012 status is cancelled. Product policy uses a 30-day return window and 0-month warranty. Knowledge base match: Cancellation Policy. The case was handled automatically because the verified facts matched a supported workflow."
+  },
+  {
+    "ticket_id": "TKT-001",
+    "processed_at": "2026-04-18T07:18:18Z",
+    "worker_id": 1,
+    "triage": {
+      "category": "WARRANTY_CLAIM",
+      "confidence": 0.91,
+      "provider": "huggingface-bart-mock"
+    },
+    "react_loop": {
+      "iterations": 6,
+      "thoughts": [
+        "I need to gather enough verified evidence for the customer before taking any irreversible action.",
+        "I need to gather enough verified evidence for Alice Turner before taking any irreversible action.",
+        "I need to gather enough verified evidence for Alice Turner before taking any irreversible action.",
+        "I need to gather enough verified evidence for Alice Turner before taking any irreversible action.",
+        "I need to gather enough verified evidence for Alice Turner before taking any irreversible action.",
+        "I need to gather enough verified evidence for Alice Turner before taking any irreversible action."
+      ],
+      "tool_calls": [
+        {
+          "tool": "get_customer",
+          "input": {
+            "email": "alice.turner@email.com"
+          },
+          "output": {
+            "customer_id": "C001",
+            "name": "Alice Turner",
+            "email": "alice.turner@email.com",
+            "phone": "+1-415-555-0101",
+            "tier": "vip",
+            "member_since": "2019-03-12",
+            "total_orders": 47,
+            "total_spent": 6840.5,
+            "address": {
+              "street": "12 Maple Avenue",
+              "city": "San Francisco",
+              "state": "CA",
+              "zip": "94102"
+            },
+            "notes": "Long-standing VIP. Has had 2 refunds in the past year, both approved.",
+            "found": true
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "get_order",
+          "input": {
+            "order_id": "ORD-1001",
+            "reference_date": "2024-03-15T09:12:00Z"
+          },
+          "output": {
+            "order_id": "ORD-1001",
+            "customer_id": "C001",
+            "product_id": "P001",
+            "quantity": 1,
+            "amount": 129.99,
+            "status": "delivered",
+            "order_date": "2024-02-10",
+            "delivery_date": "2024-02-14",
+            "return_deadline": "2024-03-15",
+            "refund_status": null,
+            "notes": "Delivered on time. No issues logged at delivery.",
+            "found": true,
+            "days_since_delivery": 30
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "get_product",
+          "input": {
+            "product_id": "P001"
+          },
+          "output": {
+            "product_id": "P001",
+            "name": "ProSound Wireless Headphones",
+            "category": "electronics",
+            "price": 129.99,
+            "warranty_months": 12,
+            "return_window_days": 30,
+            "returnable": true,
+            "notes": "Return not accepted if seal is broken unless item is defective."
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "search_knowledge_base",
+          "input": {
+            "query": "warranty claim policy defect outside return window"
+          },
+          "output": {
+            "query": "warranty claim policy defect outside return window",
+            "results": [
+              {
+                "section": "Warranty Coverage",
+                "content": "When a defect appears after the return window but inside the product warranty period, the case should be routed to the warranty team. Warranty handling is not the same as a normal refund flow.",
+                "relevance_score": 0.93
+              },
+              {
+                "section": "Category-Specific Return Windows",
+                "content": "Standard electronics can be returned within 30 days of delivery. High-value electronics like smartwatches have a 15-day return window only. Outdoor gear such as tents has an extended 60-day return window.",
+                "relevance_score": 0.69
+              },
+              {
+                "section": "Device Registration Restriction",
+                "content": "Devices registered online are no longer eligible for automatic return approval. If the return window is also expired, explain both reasons clearly.",
+                "relevance_score": 0.69
+              }
+            ],
+            "result_count": 3
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "check_refund_eligibility",
+          "input": {
+            "order_id": "ORD-1001",
+            "reference_date": "2024-03-15T09:12:00Z"
+          },
+          "output": {
+            "order_id": "ORD-1001",
+            "eligible": true,
+            "reason": "Within the allowed policy window. No duplicate refund was found.",
+            "amount": 129.99,
+            "policy_flags": [],
+            "requires_escalation": false
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "escalate",
+          "input": {
+            "ticket_id": "TKT-001",
+            "summary": {
+              "issue_summary": "Warranty path requires manual handling beyond the return flow.",
+              "what_was_verified": [
+                "Warranty months: 12",
+                "Eligibility reason: Within the allowed policy window. No duplicate refund was found."
+              ],
+              "what_was_attempted": [
+                "Called get_customer",
+                "Called get_order",
+                "Called get_product",
+                "Called search_knowledge_base",
+                "Called check_refund_eligibility"
+              ],
+              "recommended_path": "Move this case to the warranty team.",
+              "priority": "medium",
+              "confidence_at_escalation": 0.95
+            },
+            "priority": "medium"
+          },
+          "output": {
+            "ticket_id": "TKT-001",
+            "escalation_id": "ESC-71f2f945-95dd-4885-b55d-413bda9d6bdd",
+            "routed_to": "tier-2-support",
+            "timestamp": "2026-04-18T07:18:18Z"
+          },
+          "latency_ms": 0,
+          "error": null
+        }
+      ]
+    },
+    "confidence_final": 0.95,
+    "decision": "ESCALATED",
+    "resolution_type": "ESCALATED",
+    "flags": [],
+    "llm_providers_used": [
+      "huggingface-bart-mock",
+      "groq-mock"
+    ],
+    "total_latency_ms": 0,
+    "policy_explanation": "Customer tier verified as vip. Order ORD-1001 status is delivered. Product policy uses a 30-day return window and 12-month warranty. Within the allowed policy window. No duplicate refund was found. Knowledge base match: Warranty Coverage. The case was escalated because the verified facts required human judgment or a protected workflow."
+  },
+  {
+    "ticket_id": "TKT-004",
+    "processed_at": "2026-04-18T07:18:18Z",
+    "worker_id": 1,
+    "triage": {
+      "category": "REFUND_REQUEST",
+      "confidence": 0.89,
+      "provider": "huggingface-bart-mock"
+    },
+    "react_loop": {
+      "iterations": 6,
+      "thoughts": [
+        "I need to gather enough verified evidence for the customer before taking any irreversible action.",
+        "I need to gather enough verified evidence for David Park before taking any irreversible action.",
+        "I need to gather enough verified evidence for David Park before taking any irreversible action.",
+        "I need to gather enough verified evidence for David Park before taking any irreversible action.",
+        "I need to gather enough verified evidence for David Park before taking any irreversible action.",
+        "I need to gather enough verified evidence for David Park before taking any irreversible action."
+      ],
+      "tool_calls": [
+        {
+          "tool": "get_customer",
+          "input": {
+            "email": "david.park@email.com"
+          },
+          "output": {
+            "customer_id": "C004",
+            "name": "David Park",
+            "email": "david.park@email.com",
+            "phone": "+1-206-555-0177",
+            "tier": "standard",
+            "member_since": "2022-01-30",
+            "total_orders": 9,
+            "total_spent": 780.2,
+            "address": {
+              "street": "300 Pine Road",
+              "city": "Seattle",
+              "state": "WA",
+              "zip": "98101"
+            },
+            "notes": "Has raised 1 chargeback dispute in the past \u2014 resolved in ShopWave's favour.",
+            "found": true
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "get_order",
+          "input": {
+            "order_id": "ORD-1004",
+            "reference_date": "2024-03-15T10:00:00Z"
+          },
+          "output": {
+            "order_id": "ORD-1004",
+            "customer_id": "C004",
+            "product_id": "P002",
+            "quantity": 1,
+            "amount": 89.99,
+            "status": "delivered",
+            "order_date": "2024-02-20",
+            "delivery_date": "2024-02-24",
+            "return_deadline": "2024-03-25",
+            "refund_status": null,
+            "notes": "Customer requested size exchange via chat but no formal return initiated.",
+            "found": true,
+            "days_since_delivery": 20
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "get_product",
+          "input": {
+            "product_id": "P002"
+          },
+          "output": {
+            "product_id": "P002",
+            "name": "SwiftRun Pro Running Shoes",
+            "category": "footwear",
+            "price": 89.99,
+            "warranty_months": 0,
+            "return_window_days": 30,
+            "returnable": true,
+            "notes": "Must be unworn and in original packaging. No return if used outdoors."
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "check_refund_eligibility",
+          "input": {
+            "order_id": "ORD-1004",
+            "reference_date": "2024-03-15T10:00:00Z"
+          },
+          "output": {
+            "order_id": "ORD-1004",
+            "eligible": true,
+            "reason": "Within the allowed policy window. No duplicate refund was found.",
+            "amount": 89.99,
+            "policy_flags": [],
+            "requires_escalation": false
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "issue_refund",
+          "input": {
+            "order_id": "ORD-1004",
+            "amount": 89.99
+          },
+          "output": {
+            "order_id": "ORD-1004",
+            "amount_refunded": 89.99,
+            "transaction_id": "TXN-cf297c0d-8f40-405a-9efe-ffb21dc7a38d",
+            "status": "processed",
+            "processing_time": "5-7 business days",
+            "timestamp": "2026-04-18T07:18:18Z"
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "send_reply",
+          "input": {
+            "ticket_id": "TKT-004",
+            "message": "Hi David, I verified order ORD-1004 and confirmed the request qualifies under our policy. I've processed the next step for you and you'll receive confirmation shortly."
+          },
+          "output": {
+            "ticket_id": "TKT-004",
+            "delivered": true,
+            "message_preview": "Hi David, I verified order ORD-1004 and confirmed the request qualifies under our policy. I've processed the next step for you and you'll receive confirmation s",
+            "timestamp": "2026-04-18T07:18:18Z"
+          },
+          "latency_ms": 0,
+          "error": null
+        }
+      ]
+    },
+    "confidence_final": 0.856,
+    "decision": "RESOLVED",
+    "resolution_type": "AUTO",
+    "flags": [],
+    "llm_providers_used": [
+      "huggingface-bart-mock",
+      "groq-mock"
+    ],
+    "total_latency_ms": 0,
+    "policy_explanation": "Customer tier verified as standard. Order ORD-1004 status is delivered. Product policy uses a 30-day return window and 0-month warranty. Within the allowed policy window. No duplicate refund was found. The case was handled automatically because the verified facts matched a supported workflow."
+  },
+  {
+    "ticket_id": "TKT-009",
+    "processed_at": "2026-04-18T07:18:18Z",
+    "worker_id": 1,
+    "triage": {
+      "category": "REFUND_REQUEST",
+      "confidence": 0.89,
+      "provider": "huggingface-bart-mock"
+    },
+    "react_loop": {
+      "iterations": 5,
+      "thoughts": [
+        "I need to gather enough verified evidence for the customer before taking any irreversible action.",
+        "I need to gather enough verified evidence for Irene Castillo before taking any irreversible action.",
+        "I need to gather enough verified evidence for Irene Castillo before taking any irreversible action.",
+        "I need to gather enough verified evidence for Irene Castillo before taking any irreversible action.",
+        "I need to gather enough verified evidence for Irene Castillo before taking any irreversible action."
+      ],
+      "tool_calls": [
+        {
+          "tool": "get_customer",
+          "input": {
+            "email": "irene.castillo@email.com"
+          },
+          "output": {
+            "customer_id": "C009",
+            "name": "Irene Castillo",
+            "email": "irene.castillo@email.com",
+            "phone": "+1-713-555-0156",
+            "tier": "premium",
+            "member_since": "2021-02-10",
+            "total_orders": 28,
+            "total_spent": 3670.9,
+            "address": {
+              "street": "88 Rosewood Court",
+              "city": "Houston",
+              "state": "TX",
+              "zip": "77001"
+            },
+            "notes": "Premium member. Has reported 2 damaged item incidents \u2014 both verified.",
+            "found": true
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "get_order",
+          "input": {
+            "order_id": "ORD-1009",
+            "reference_date": "2024-03-15T11:00:00Z"
+          },
+          "output": {
+            "order_id": "ORD-1009",
+            "customer_id": "C009",
+            "product_id": "P001",
+            "quantity": 1,
+            "amount": 129.99,
+            "status": "delivered",
+            "order_date": "2024-02-25",
+            "delivery_date": "2024-02-28",
+            "return_deadline": "2024-03-29",
+            "refund_status": "refunded",
+            "notes": "Refund already processed on 2024-03-02 for this order. Full amount returned.",
+            "found": true,
+            "days_since_delivery": 16
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "get_product",
+          "input": {
+            "product_id": "P001"
+          },
+          "output": {
+            "product_id": "P001",
+            "name": "ProSound Wireless Headphones",
+            "category": "electronics",
+            "price": 129.99,
+            "warranty_months": 12,
+            "return_window_days": 30,
+            "returnable": true,
+            "notes": "Return not accepted if seal is broken unless item is defective."
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "check_refund_eligibility",
+          "input": {
+            "order_id": "ORD-1009",
+            "reference_date": "2024-03-15T11:00:00Z"
+          },
+          "output": {
+            "order_id": "ORD-1009",
+            "eligible": false,
+            "reason": "Refund is not eligible under the current order and product policy checks.",
+            "amount": 129.99,
+            "policy_flags": [
+              "ALREADY_REFUNDED"
+            ],
+            "requires_escalation": false
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "send_reply",
+          "input": {
+            "ticket_id": "TKT-009",
+            "message": "Hi Irene, I checked order ORD-1009 and confirmed that the refund has already been processed. You should see the funds within 5-7 business days."
+          },
+          "output": {
+            "ticket_id": "TKT-009",
+            "delivered": true,
+            "message_preview": "Hi Irene, I checked order ORD-1009 and confirmed that the refund has already been processed. You should see the funds within 5-7 business days.",
+            "timestamp": "2026-04-18T07:18:18Z"
+          },
+          "latency_ms": 0,
+          "error": null
+        }
+      ]
+    },
+    "confidence_final": 0.856,
+    "decision": "RESOLVED",
+    "resolution_type": "AUTO",
+    "flags": [],
+    "llm_providers_used": [
+      "huggingface-bart-mock",
+      "groq-mock"
+    ],
+    "total_latency_ms": 0,
+    "policy_explanation": "Customer tier verified as premium. Order ORD-1009 status is delivered. Product policy uses a 30-day return window and 12-month warranty. Refund is not eligible under the current order and product policy checks. The case was handled automatically because the verified facts matched a supported workflow."
+  },
+  {
+    "ticket_id": "TKT-014",
+    "processed_at": "2026-04-18T07:18:18Z",
+    "worker_id": 1,
+    "triage": {
+      "category": "RETURN_REQUEST",
+      "confidence": 0.85,
+      "provider": "huggingface-bart-mock"
+    },
+    "react_loop": {
+      "iterations": 5,
+      "thoughts": [
+        "I need to gather enough verified evidence for the customer before taking any irreversible action.",
+        "I need to gather enough verified evidence for Henry Marsh before taking any irreversible action.",
+        "I need to gather enough verified evidence for Henry Marsh before taking any irreversible action.",
+        "I need to gather enough verified evidence for Henry Marsh before taking any irreversible action.",
+        "I need to gather enough verified evidence for Henry Marsh before taking any irreversible action."
+      ],
+      "tool_calls": [
+        {
+          "tool": "get_customer",
+          "input": {
+            "email": "henry.marsh@email.com"
+          },
+          "output": {
+            "customer_id": "C008",
+            "name": "Henry Marsh",
+            "email": "henry.marsh@email.com",
+            "phone": "+1-303-555-0188",
+            "tier": "standard",
+            "member_since": "2022-05-19",
+            "total_orders": 14,
+            "total_spent": 1120.6,
+            "address": {
+              "street": "210 Cedar Drive",
+              "city": "Denver",
+              "state": "CO",
+              "zip": "80201"
+            },
+            "notes": "Regular customer. No flags.",
+            "found": true
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "get_order",
+          "input": {
+            "order_id": "ORD-1014",
+            "reference_date": "2024-03-15T12:00:00Z"
+          },
+          "output": {
+            "order_id": "ORD-1014",
+            "customer_id": "C008",
+            "product_id": "P006",
+            "quantity": 1,
+            "amount": 249.99,
+            "status": "delivered",
+            "order_date": "2024-03-01",
+            "delivery_date": "2024-03-04",
+            "return_deadline": "2024-03-19",
+            "refund_status": null,
+            "notes": "Within return window. No issues logged.",
+            "found": true,
+            "days_since_delivery": 11
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "get_product",
+          "input": {
+            "product_id": "P006"
+          },
+          "output": {
+            "product_id": "P006",
+            "name": "PulseX Smart Watch",
+            "category": "electronics",
+            "price": 249.99,
+            "warranty_months": 12,
+            "return_window_days": 15,
+            "returnable": true,
+            "notes": "Only 15-day return window due to high-value electronics policy. Warranty covers hardware defects."
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "check_refund_eligibility",
+          "input": {
+            "order_id": "ORD-1014",
+            "reference_date": "2024-03-15T12:00:00Z"
+          },
+          "output": {
+            "order_id": "ORD-1014",
+            "eligible": true,
+            "reason": "Within the allowed policy window. No duplicate refund was found.",
+            "amount": 249.99,
+            "policy_flags": [],
+            "requires_escalation": true
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "escalate",
+          "input": {
+            "ticket_id": "TKT-014",
+            "summary": {
+              "issue_summary": "Confidence or policy guard triggered escalation.",
+              "what_was_verified": [
+                "Within the allowed policy window. No duplicate refund was found."
+              ],
+              "what_was_attempted": [
+                "Called get_customer",
+                "Called get_order",
+                "Called get_product",
+                "Called check_refund_eligibility"
+              ],
+              "recommended_path": "Manual review recommended.",
+              "priority": "low",
+              "confidence_at_escalation": 0.84
+            },
+            "priority": "low"
+          },
+          "output": {
+            "ticket_id": "TKT-014",
+            "escalation_id": "ESC-778c4015-c32c-421a-8af6-952cd49f88ed",
+            "routed_to": "tier-2-support",
+            "timestamp": "2026-04-18T07:18:18Z"
+          },
+          "latency_ms": 0,
+          "error": null
+        }
+      ]
+    },
+    "confidence_final": 0.84,
+    "decision": "ESCALATED",
+    "resolution_type": "ESCALATED",
+    "flags": [],
+    "llm_providers_used": [
+      "huggingface-bart-mock",
+      "groq-mock"
+    ],
+    "total_latency_ms": 0,
+    "policy_explanation": "Customer tier verified as standard. Order ORD-1014 status is delivered. Product policy uses a 15-day return window and 12-month warranty. Within the allowed policy window. No duplicate refund was found. The case was escalated because the verified facts required human judgment or a protected workflow."
+  },
+  {
+    "ticket_id": "TKT-007",
+    "processed_at": "2026-04-18T07:18:18Z",
+    "worker_id": 1,
+    "triage": {
+      "category": "RETURN_REQUEST",
+      "confidence": 0.85,
+      "provider": "huggingface-bart-mock"
+    },
+    "react_loop": {
+      "iterations": 5,
+      "thoughts": [
+        "I need to gather enough verified evidence for the customer before taking any irreversible action.",
+        "I need to gather enough verified evidence for Grace Patel before taking any irreversible action.",
+        "I need to gather enough verified evidence for Grace Patel before taking any irreversible action.",
+        "I need to gather enough verified evidence for Grace Patel before taking any irreversible action.",
+        "I need to gather enough verified evidence for Grace Patel before taking any irreversible action."
+      ],
+      "tool_calls": [
+        {
+          "tool": "get_customer",
+          "input": {
+            "email": "grace.patel@email.com"
+          },
+          "output": {
+            "customer_id": "C007",
+            "name": "Grace Patel",
+            "email": "grace.patel@email.com",
+            "phone": "+1-617-555-0134",
+            "tier": "premium",
+            "member_since": "2020-08-22",
+            "total_orders": 35,
+            "total_spent": 4890.0,
+            "address": {
+              "street": "56 Willow Way",
+              "city": "Boston",
+              "state": "MA",
+              "zip": "02101"
+            },
+            "notes": "Premium member. Has submitted 4 refund requests \u2014 all legitimate, all approved.",
+            "found": true
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "get_order",
+          "input": {
+            "order_id": "ORD-1007",
+            "reference_date": "2024-03-15T13:20:00Z"
+          },
+          "output": {
+            "order_id": "ORD-1007",
+            "customer_id": "C007",
+            "product_id": "P004",
+            "quantity": 1,
+            "amount": 49.99,
+            "status": "delivered",
+            "order_date": "2024-02-01",
+            "delivery_date": "2024-02-05",
+            "return_deadline": "2024-04-05",
+            "refund_status": null,
+            "notes": "60-day return window applies for this product category.",
+            "found": true,
+            "days_since_delivery": 39
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "get_product",
+          "input": {
+            "product_id": "P004"
+          },
+          "output": {
+            "product_id": "P004",
+            "name": "ErgoLift Laptop Stand",
+            "category": "electronics_accessories",
+            "price": 49.99,
+            "warranty_months": 6,
+            "return_window_days": 60,
+            "returnable": true,
+            "notes": "Extended 60-day return window applies to this product category."
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "check_refund_eligibility",
+          "input": {
+            "order_id": "ORD-1007",
+            "reference_date": "2024-03-15T13:20:00Z"
+          },
+          "output": {
+            "order_id": "ORD-1007",
+            "eligible": true,
+            "reason": "Within the allowed policy window. No duplicate refund was found.",
+            "amount": 49.99,
+            "policy_flags": [],
+            "requires_escalation": false
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "send_reply",
+          "input": {
+            "ticket_id": "TKT-007",
+            "message": "Hi Grace, I verified order ORD-1007 and confirmed the request qualifies under our policy. I've processed the next step for you and you'll receive confirmation shortly."
+          },
+          "output": {
+            "ticket_id": "TKT-007",
+            "delivered": true,
+            "message_preview": "Hi Grace, I verified order ORD-1007 and confirmed the request qualifies under our policy. I've processed the next step for you and you'll receive confirmation s",
+            "timestamp": "2026-04-18T07:18:18Z"
+          },
+          "latency_ms": 0,
+          "error": null
+        }
+      ]
+    },
+    "confidence_final": 0.84,
+    "decision": "RESOLVED",
+    "resolution_type": "AUTO",
+    "flags": [],
+    "llm_providers_used": [
+      "huggingface-bart-mock",
+      "groq-mock"
+    ],
+    "total_latency_ms": 0,
+    "policy_explanation": "Customer tier verified as premium. Order ORD-1007 status is delivered. Product policy uses a 60-day return window and 6-month warranty. Within the allowed policy window. No duplicate refund was found. The case was handled automatically because the verified facts matched a supported workflow."
+  },
+  {
+    "ticket_id": "TKT-003",
+    "processed_at": "2026-04-18T07:18:18Z",
+    "worker_id": 1,
+    "triage": {
+      "category": "WARRANTY_CLAIM",
+      "confidence": 0.91,
+      "provider": "huggingface-bart-mock"
+    },
+    "react_loop": {
+      "iterations": 6,
+      "thoughts": [
+        "I need to gather enough verified evidence for the customer before taking any irreversible action.",
+        "I need to gather enough verified evidence for Carol Nguyen before taking any irreversible action.",
+        "I need to gather enough verified evidence for Carol Nguyen before taking any irreversible action.",
+        "I need to gather enough verified evidence for Carol Nguyen before taking any irreversible action.",
+        "I need to gather enough verified evidence for Carol Nguyen before taking any irreversible action.",
+        "I need to gather enough verified evidence for Carol Nguyen before taking any irreversible action."
+      ],
+      "tool_calls": [
+        {
+          "tool": "get_customer",
+          "input": {
+            "email": "carol.nguyen@email.com"
+          },
+          "output": {
+            "customer_id": "C003",
+            "name": "Carol Nguyen",
+            "email": "carol.nguyen@email.com",
+            "phone": "+1-312-555-0143",
+            "tier": "premium",
+            "member_since": "2021-06-18",
+            "total_orders": 22,
+            "total_spent": 3120.75,
+            "address": {
+              "street": "45 Oak Lane",
+              "city": "Chicago",
+              "state": "IL",
+              "zip": "60601"
+            },
+            "notes": "Premium member. Prefers email communication.",
+            "found": true
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "get_order",
+          "input": {
+            "order_id": "ORD-1003",
+            "reference_date": "2024-03-15T14:30:00Z"
+          },
+          "output": {
+            "order_id": "ORD-1003",
+            "customer_id": "C003",
+            "product_id": "P003",
+            "quantity": 1,
+            "amount": 199.99,
+            "status": "delivered",
+            "order_date": "2024-01-05",
+            "delivery_date": "2024-01-09",
+            "return_deadline": "2024-02-08",
+            "refund_status": null,
+            "notes": "Return window has expired. Warranty still active until 2026-01-09.",
+            "found": true,
+            "days_since_delivery": 66
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "get_product",
+          "input": {
+            "product_id": "P003"
+          },
+          "output": {
+            "product_id": "P003",
+            "name": "BrewMaster 3000 Coffee Maker",
+            "category": "home_appliances",
+            "price": 199.99,
+            "warranty_months": 24,
+            "return_window_days": 30,
+            "returnable": true,
+            "notes": "Warranty covers manufacturing defects only. Does not cover user damage."
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "search_knowledge_base",
+          "input": {
+            "query": "warranty claim policy defect outside return window"
+          },
+          "output": {
+            "query": "warranty claim policy defect outside return window",
+            "results": [
+              {
+                "section": "Warranty Coverage",
+                "content": "When a defect appears after the return window but inside the product warranty period, the case should be routed to the warranty team. Warranty handling is not the same as a normal refund flow.",
+                "relevance_score": 0.93
+              },
+              {
+                "section": "Category-Specific Return Windows",
+                "content": "Standard electronics can be returned within 30 days of delivery. High-value electronics like smartwatches have a 15-day return window only. Outdoor gear such as tents has an extended 60-day return window.",
+                "relevance_score": 0.69
+              },
+              {
+                "section": "Device Registration Restriction",
+                "content": "Devices registered online are no longer eligible for automatic return approval. If the return window is also expired, explain both reasons clearly.",
+                "relevance_score": 0.69
+              }
+            ],
+            "result_count": 3
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "check_refund_eligibility",
+          "input": {
+            "order_id": "ORD-1003",
+            "reference_date": "2024-03-15T14:30:00Z"
+          },
+          "output": {
+            "order_id": "ORD-1003",
+            "eligible": false,
+            "reason": "Refund is not eligible under the current order and product policy checks.",
+            "amount": 199.99,
+            "policy_flags": [
+              "OUT_OF_WINDOW"
+            ],
+            "requires_escalation": false
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "escalate",
+          "input": {
+            "ticket_id": "TKT-003",
+            "summary": {
+              "issue_summary": "Warranty path requires manual handling beyond the return flow.",
+              "what_was_verified": [
+                "Warranty months: 24",
+                "Eligibility reason: Refund is not eligible under the current order and product policy checks."
+              ],
+              "what_was_attempted": [
+                "Called get_customer",
+                "Called get_order",
+                "Called get_product",
+                "Called search_knowledge_base",
+                "Called check_refund_eligibility"
+              ],
+              "recommended_path": "Move this case to the warranty team.",
+              "priority": "medium",
+              "confidence_at_escalation": 0.95
+            },
+            "priority": "medium"
+          },
+          "output": {
+            "ticket_id": "TKT-003",
+            "escalation_id": "ESC-f9a91427-a570-48d3-ab75-e9186ff34f13",
+            "routed_to": "tier-2-support",
+            "timestamp": "2026-04-18T07:18:18Z"
+          },
+          "latency_ms": 0,
+          "error": null
+        }
+      ]
+    },
+    "confidence_final": 0.95,
+    "decision": "ESCALATED",
+    "resolution_type": "ESCALATED",
+    "flags": [],
+    "llm_providers_used": [
+      "huggingface-bart-mock",
+      "groq-mock"
+    ],
+    "total_latency_ms": 0,
+    "policy_explanation": "Customer tier verified as premium. Order ORD-1003 status is delivered. Product policy uses a 30-day return window and 24-month warranty. Refund is not eligible under the current order and product policy checks. Knowledge base match: Warranty Coverage. The case was escalated because the verified facts required human judgment or a protected workflow."
+  },
+  {
+    "ticket_id": "TKT-010",
+    "processed_at": "2026-04-18T07:18:18Z",
+    "worker_id": 1,
+    "triage": {
+      "category": "ORDER_STATUS",
+      "confidence": 0.87,
+      "provider": "huggingface-bart-mock"
+    },
+    "react_loop": {
+      "iterations": 4,
+      "thoughts": [
+        "I need to gather enough verified evidence for the customer before taking any irreversible action.",
+        "I need to gather enough verified evidence for James Wu before taking any irreversible action.",
+        "I need to gather enough verified evidence for James Wu before taking any irreversible action.",
+        "I need to gather enough verified evidence for James Wu before taking any irreversible action."
+      ],
+      "tool_calls": [
+        {
+          "tool": "get_customer",
+          "input": {
+            "email": "james.wu@email.com"
+          },
+          "output": {
+            "customer_id": "C010",
+            "name": "James Wu",
+            "email": "james.wu@email.com",
+            "phone": "+1-858-555-0199",
+            "tier": "standard",
+            "member_since": "2023-03-28",
+            "total_orders": 6,
+            "total_spent": 430.15,
+            "address": {
+              "street": "40 Harbor View",
+              "city": "San Diego",
+              "state": "CA",
+              "zip": "92101"
+            },
+            "notes": "No issues on record.",
+            "found": true
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "get_order",
+          "input": {
+            "order_id": "ORD-1010",
+            "reference_date": "2024-03-15T15:00:00Z"
+          },
+          "output": {
+            "order_id": "ORD-1010",
+            "customer_id": "C010",
+            "product_id": "P003",
+            "quantity": 1,
+            "amount": 199.99,
+            "status": "shipped",
+            "order_date": "2024-03-12",
+            "delivery_date": null,
+            "return_deadline": null,
+            "refund_status": null,
+            "notes": "In transit. Expected delivery 2024-03-16. Tracking: TRK-88291.",
+            "found": true,
+            "days_since_delivery": null
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "get_product",
+          "input": {
+            "product_id": "P003"
+          },
+          "output": {
+            "product_id": "P003",
+            "name": "BrewMaster 3000 Coffee Maker",
+            "category": "home_appliances",
+            "price": 199.99,
+            "warranty_months": 24,
+            "return_window_days": 30,
+            "returnable": true,
+            "notes": "Warranty covers manufacturing defects only. Does not cover user damage."
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "send_reply",
+          "input": {
+            "ticket_id": "TKT-010",
+            "message": "Hi James, I checked order ORD-1010. It is currently shipped and the tracking reference is the carrier portal."
+          },
+          "output": {
+            "ticket_id": "TKT-010",
+            "delivered": true,
+            "message_preview": "Hi James, I checked order ORD-1010. It is currently shipped and the tracking reference is the carrier portal.",
+            "timestamp": "2026-04-18T07:18:18Z"
+          },
+          "latency_ms": 0,
+          "error": null
+        }
+      ]
+    },
+    "confidence_final": 0.848,
+    "decision": "RESOLVED",
+    "resolution_type": "AUTO",
+    "flags": [],
+    "llm_providers_used": [
+      "huggingface-bart-mock",
+      "groq-mock"
+    ],
+    "total_latency_ms": 0,
+    "policy_explanation": "Customer tier verified as standard. Order ORD-1010 status is shipped. Product policy uses a 30-day return window and 24-month warranty. The case was handled automatically because the verified facts matched a supported workflow."
+  },
+  {
+    "ticket_id": "TKT-019",
+    "processed_at": "2026-04-18T07:18:18Z",
+    "worker_id": 1,
+    "triage": {
+      "category": "RETURN_REQUEST",
+      "confidence": 0.85,
+      "provider": "huggingface-bart-mock"
+    },
+    "react_loop": {
+      "iterations": 5,
+      "thoughts": [
+        "I need to gather enough verified evidence for the customer before taking any irreversible action.",
+        "I need to gather enough verified evidence for Irene Castillo before taking any irreversible action.",
+        "I need to gather enough verified evidence for Irene Castillo before taking any irreversible action.",
+        "I need to gather enough verified evidence for Irene Castillo before taking any irreversible action.",
+        "I need to gather enough verified evidence for Irene Castillo before taking any irreversible action."
+      ],
+      "tool_calls": [
+        {
+          "tool": "get_customer",
+          "input": {
+            "email": "irene.castillo@email.com"
+          },
+          "output": {
+            "customer_id": "C009",
+            "name": "Irene Castillo",
+            "email": "irene.castillo@email.com",
+            "phone": "+1-713-555-0156",
+            "tier": "premium",
+            "member_since": "2021-02-10",
+            "total_orders": 28,
+            "total_spent": 3670.9,
+            "address": {
+              "street": "88 Rosewood Court",
+              "city": "Houston",
+              "state": "TX",
+              "zip": "77001"
+            },
+            "notes": "Premium member. Has reported 2 damaged item incidents \u2014 both verified.",
+            "found": true
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "get_order",
+          "input": {
+            "order_id": "ORD-1009",
+            "reference_date": "2024-03-15T16:00:00Z"
+          },
+          "output": {
+            "order_id": "ORD-1009",
+            "customer_id": "C009",
+            "product_id": "P001",
+            "quantity": 1,
+            "amount": 129.99,
+            "status": "delivered",
+            "order_date": "2024-02-25",
+            "delivery_date": "2024-02-28",
+            "return_deadline": "2024-03-29",
+            "refund_status": "refunded",
+            "notes": "Refund already processed on 2024-03-02 for this order. Full amount returned.",
+            "found": true,
+            "days_since_delivery": 16
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "get_product",
+          "input": {
+            "product_id": "P001"
+          },
+          "output": {
+            "product_id": "P001",
+            "name": "ProSound Wireless Headphones",
+            "category": "electronics",
+            "price": 129.99,
+            "warranty_months": 12,
+            "return_window_days": 30,
+            "returnable": true,
+            "notes": "Return not accepted if seal is broken unless item is defective."
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "check_refund_eligibility",
+          "input": {
+            "order_id": "ORD-1009",
+            "reference_date": "2024-03-15T16:00:00Z"
+          },
+          "output": {
+            "order_id": "ORD-1009",
+            "eligible": false,
+            "reason": "Refund is not eligible under the current order and product policy checks.",
+            "amount": 129.99,
+            "policy_flags": [
+              "ALREADY_REFUNDED"
+            ],
+            "requires_escalation": false
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "send_reply",
+          "input": {
+            "ticket_id": "TKT-019",
+            "message": "Hi Irene, I reviewed order ORD-1009 and matched it against the current policy. Refund is not eligible under the current order and product policy checks."
+          },
+          "output": {
+            "ticket_id": "TKT-019",
+            "delivered": true,
+            "message_preview": "Hi Irene, I reviewed order ORD-1009 and matched it against the current policy. Refund is not eligible under the current order and product policy checks.",
+            "timestamp": "2026-04-18T07:18:18Z"
+          },
+          "latency_ms": 0,
+          "error": null
+        }
+      ]
+    },
+    "confidence_final": 0.84,
+    "decision": "RESOLVED",
+    "resolution_type": "AUTO",
+    "flags": [],
+    "llm_providers_used": [
+      "huggingface-bart-mock",
+      "groq-mock"
+    ],
+    "total_latency_ms": 0,
+    "policy_explanation": "Customer tier verified as premium. Order ORD-1009 status is delivered. Product policy uses a 30-day return window and 12-month warranty. Refund is not eligible under the current order and product policy checks. The case was handled automatically because the verified facts matched a supported workflow."
+  },
+  {
+    "ticket_id": "TKT-002",
+    "processed_at": "2026-04-18T07:18:18Z",
+    "worker_id": 1,
+    "triage": {
+      "category": "REFUND_REQUEST",
+      "confidence": 0.89,
+      "provider": "huggingface-bart-mock"
+    },
+    "react_loop": {
+      "iterations": 5,
+      "thoughts": [
+        "I need to gather enough verified evidence for the customer before taking any irreversible action.",
+        "I need to gather enough verified evidence for Bob Mendes before taking any irreversible action.",
+        "I need to gather enough verified evidence for Bob Mendes before taking any irreversible action.",
+        "I need to gather enough verified evidence for Bob Mendes before taking any irreversible action.",
+        "I need to gather enough verified evidence for Bob Mendes before taking any irreversible action."
+      ],
+      "tool_calls": [
+        {
+          "tool": "get_customer",
+          "input": {
+            "email": "bob.mendes@email.com"
+          },
+          "output": {
+            "customer_id": "C002",
+            "name": "Bob Mendes",
+            "email": "bob.mendes@email.com",
+            "phone": "+1-212-555-0198",
+            "tier": "standard",
+            "member_since": "2023-10-05",
+            "total_orders": 3,
+            "total_spent": 210.0,
+            "address": {
+              "street": "88 Birch Street",
+              "city": "New York",
+              "state": "NY",
+              "zip": "10001"
+            },
+            "notes": "New customer. No prior refund history.",
+            "found": true
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "get_order",
+          "input": {
+            "order_id": "ORD-1002",
+            "reference_date": "2024-03-22T11:05:00Z"
+          },
+          "output": {
+            "order_id": "ORD-1002",
+            "customer_id": "C002",
+            "product_id": "P006",
+            "quantity": 1,
+            "amount": 249.99,
+            "status": "delivered",
+            "order_date": "2024-03-01",
+            "delivery_date": "2024-03-04",
+            "return_deadline": "2024-03-19",
+            "refund_status": null,
+            "notes": "High-value item. 15-day return window applies.",
+            "found": true,
+            "days_since_delivery": 18
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "get_product",
+          "input": {
+            "product_id": "P006"
+          },
+          "output": {
+            "product_id": "P006",
+            "name": "PulseX Smart Watch",
+            "category": "electronics",
+            "price": 249.99,
+            "warranty_months": 12,
+            "return_window_days": 15,
+            "returnable": true,
+            "notes": "Only 15-day return window due to high-value electronics policy. Warranty covers hardware defects."
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "check_refund_eligibility",
+          "input": {
+            "order_id": "ORD-1002",
+            "reference_date": "2024-03-22T11:05:00Z"
+          },
+          "output": {
+            "order_id": "ORD-1002",
+            "eligible": false,
+            "reason": "Refund is not eligible under the current order and product policy checks.",
+            "amount": 249.99,
+            "policy_flags": [
+              "OUT_OF_WINDOW"
+            ],
+            "requires_escalation": false
+          },
+          "latency_ms": 0,
+          "error": null
+        },
+        {
+          "tool": "send_reply",
+          "input": {
+            "ticket_id": "TKT-002",
+            "message": "Hi Bob, I reviewed order ORD-1002 and matched it against the current policy. Refund is not eligible under the current order and product policy checks."
+          },
+          "output": {
+            "ticket_id": "TKT-002",
+            "delivered": true,
+            "message_preview": "Hi Bob, I reviewed order ORD-1002 and matched it against the current policy. Refund is not eligible under the current order and product policy checks.",
+            "timestamp": "2026-04-18T07:18:18Z"
+          },
+          "latency_ms": 0,
+          "error": null
+        }
+      ]
+    },
+    "confidence_final": 0.856,
+    "decision": "RESOLVED",
+    "resolution_type": "AUTO",
+    "flags": [],
+    "llm_providers_used": [
+      "huggingface-bart-mock",
+      "groq-mock"
+    ],
+    "total_latency_ms": 0,
+    "policy_explanation": "Customer tier verified as standard. Order ORD-1002 status is delivered. Product policy uses a 15-day return window and 12-month warranty. Refund is not eligible under the current order and product policy checks. The case was handled automatically because the verified facts matched a supported workflow."
   }
 ]

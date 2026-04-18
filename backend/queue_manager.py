@@ -1,7 +1,9 @@
 from __future__ import annotations
 
 import asyncio
+from collections import Counter, defaultdict
 import json
+import re
 from pathlib import Path
 from typing import Any
 
@@ -117,24 +119,89 @@ class QueueManager:
             "tickets": self.store.tickets,
             "workers": self.store.worker_status,
             "stats": self.stats(),
+            "analytics": self.analytics(),
             "started_at": self.store.last_run_started,
             "finished_at": self.store.last_run_finished,
         }
 
     def stats(self) -> dict[str, Any]:
         stats = self.audit_writer.stats()
-        stats["queued"] = sum(1 for ticket in self.store.tickets if ticket["status"] == "QUEUED")
-        stats["processing"] = sum(1 for ticket in self.store.tickets if ticket["status"] == "PROCESSING")
+        stats["queued"] = sum(1 for ticket in self.store.tickets if ticket.get("status") == "QUEUED")
+        stats["processing"] = sum(1 for ticket in self.store.tickets if ticket.get("status") == "PROCESSING")
         return stats
 
     def get_audit(self, ticket_id: str | None = None) -> list[dict[str, Any]] | dict[str, Any] | None:
-        payload = [entry.to_dict() for entry in self.store.audit_entries]
+        payload = self._all_audit_payloads()
         if ticket_id is None:
             return payload
         for entry in payload:
             if entry["ticket_id"] == ticket_id:
                 return entry
-        return None
+        ticket = next((item for item in self.store.tickets if item["ticket_id"] == ticket_id), None)
+        if ticket is None:
+            return None
+        return self._build_audit_preview(ticket)
+
+    def analytics(self) -> dict[str, Any]:
+        tickets = self.store.tickets
+        audit_payload = self._all_audit_payloads()
+        category_counter = Counter(ticket.get("category") or "UNTRIAGED" for ticket in tickets)
+        status_counter = Counter(ticket.get("status", "QUEUED") for ticket in tickets)
+        tier_counter = Counter(f"Tier {ticket.get('tier', 'N/A')}" for ticket in tickets)
+        source_counter = Counter(ticket.get("source", "unknown") for ticket in tickets)
+        timeline_counter = Counter(ticket.get("created_at", "")[:10] for ticket in tickets if ticket.get("created_at"))
+
+        complaint_keywords = {
+            "refund": ("refund", "money back", "reimburse"),
+            "return": ("return", "send back"),
+            "warranty": ("warranty", "stopped working", "defect", "defective"),
+            "shipping": ("where is", "tracking", "shipped", "delivery"),
+            "cancellation": ("cancel", "changed my mind"),
+            "wrong item": ("wrong size", "wrong colour", "wrong color", "wrong item"),
+            "damage": ("damaged", "broken", "cracked"),
+        }
+        complaint_counter: Counter[str] = Counter()
+        for ticket in tickets:
+            text = f"{ticket.get('subject', '')} {ticket.get('body', '')}".lower()
+            matched = False
+            for label, keywords in complaint_keywords.items():
+                if any(keyword in text for keyword in keywords):
+                    complaint_counter[label] += 1
+                    matched = True
+            if not matched:
+                complaint_counter["other"] += 1
+
+        resolution_by_category: dict[str, dict[str, int]] = defaultdict(lambda: {"resolved": 0, "escalated": 0, "dead": 0})
+        for ticket in tickets:
+            category = ticket.get("category") or "UNTRIAGED"
+            status = ticket.get("status", "QUEUED")
+            if status == "RESOLVED":
+                resolution_by_category[category]["resolved"] += 1
+            elif status == "ESCALATED":
+                resolution_by_category[category]["escalated"] += 1
+            elif status == "DEAD":
+                resolution_by_category[category]["dead"] += 1
+
+        top_policy_reasons = []
+        for entry in audit_payload[:6]:
+            top_policy_reasons.append(
+                {
+                    "ticket_id": entry["ticket_id"],
+                    "decision": entry.get("decision", entry.get("resolution_type", "PENDING")),
+                    "policy_explanation": entry.get("policy_explanation", "Pending run"),
+                }
+            )
+
+        return {
+            "status_breakdown": dict(status_counter),
+            "category_breakdown": dict(category_counter),
+            "tier_breakdown": dict(tier_counter),
+            "source_breakdown": dict(source_counter),
+            "complaint_breakdown": dict(complaint_counter),
+            "timeline": [{"date": key, "count": timeline_counter[key]} for key in sorted(timeline_counter)],
+            "resolution_by_category": dict(resolution_by_category),
+            "policy_highlights": top_policy_reasons,
+        }
 
     async def _load_tickets(self) -> None:
         self.queue = asyncio.PriorityQueue()
@@ -147,7 +214,8 @@ class QueueManager:
             await self.queue.put(item)
 
     def _reset_runtime(self) -> None:
-        self.store.tickets = self._load_json(self.settings.data_dir / "tickets.json")
+        raw_tickets = self._load_json(self.settings.data_dir / "tickets.json")
+        self.store.tickets = [self._normalize_ticket(ticket) for ticket in raw_tickets]
         customer_list = self._load_json(self.settings.data_dir / "customers.json")
         order_list = self._load_json(self.settings.data_dir / "orders.json")
         product_list = self._load_json(self.settings.data_dir / "products.json")
@@ -189,14 +257,77 @@ class QueueManager:
         return {
             "type": "ticket_update",
             "ticket_id": ticket["ticket_id"],
-            "status": ticket["status"],
-            "confidence": ticket["confidence"],
-            "decision": ticket["resolution_type"],
+            "status": ticket.get("status", "QUEUED"),
+            "confidence": ticket.get("confidence"),
+            "decision": ticket.get("resolution_type"),
             "worker_id": worker_id,
             "category": ticket.get("category"),
             "tier": ticket.get("tier"),
             "flags": ticket.get("flags", []),
         }
+
+    def _all_audit_payloads(self) -> list[dict[str, Any]]:
+        payload = [entry.to_dict() for entry in self.store.audit_entries]
+        if payload:
+            return payload
+        if self.settings.audit_log_path.exists():
+            try:
+                saved = json.loads(self.settings.audit_log_path.read_text(encoding="utf-8"))
+                if isinstance(saved, list):
+                    return saved
+            except Exception:
+                return []
+        return []
+
+    def _build_audit_preview(self, ticket: dict[str, Any]) -> dict[str, Any]:
+        return {
+            "ticket_id": ticket["ticket_id"],
+            "processed_at": None,
+            "worker_id": ticket.get("assigned_worker"),
+            "triage": {
+                "category": ticket.get("category"),
+                "confidence": ticket.get("confidence"),
+                "provider": "pending",
+            },
+            "react_loop": {
+                "iterations": 0,
+                "thoughts": [],
+                "tool_calls": [],
+            },
+            "confidence_final": ticket.get("confidence"),
+            "decision": ticket.get("status", "QUEUED"),
+            "resolution_type": ticket.get("resolution_type"),
+            "flags": ticket.get("flags", []),
+            "llm_providers_used": [],
+            "total_latency_ms": 0,
+            "policy_explanation": "This ticket has not produced an audit trail yet. Run the agent to generate reasoning details.",
+            "preview": True,
+        }
+
+    def _normalize_ticket(self, ticket: dict[str, Any]) -> dict[str, Any]:
+        normalized = dict(ticket)
+        extracted_order_id = self._extract_order_id(normalized)
+        normalized.setdefault("order_id", extracted_order_id)
+        if not normalized.get("order_id"):
+            normalized["order_id"] = extracted_order_id
+        normalized.setdefault("status", "QUEUED")
+        normalized.setdefault("category", None)
+        normalized.setdefault("confidence", None)
+        normalized.setdefault("assigned_worker", None)
+        normalized.setdefault("retry_count", 0)
+        normalized.setdefault("flags", [])
+        normalized.setdefault("resolution_type", None)
+        normalized.setdefault("resolved_at", None)
+        return normalized
+
+    def _extract_order_id(self, ticket: dict[str, Any]) -> str | None:
+        if ticket.get("order_id"):
+            return ticket["order_id"]
+        haystack = f"{ticket.get('subject', '')} {ticket.get('body', '')}"
+        match = re.search(r"\bORD-\d{4}\b", haystack, re.IGNORECASE)
+        if not match:
+            return None
+        return match.group(0).upper()
 
 
 manager = QueueManager()

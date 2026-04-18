@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import re
 import time
 from copy import deepcopy
 from typing import Any
@@ -188,7 +189,13 @@ class ShopWaveAgent:
         category = state.triage.category
         if (ticket.get("order_id") or category in {"REFUND_REQUEST", "RETURN_REQUEST", "WARRANTY_CLAIM", "ORDER_STATUS", "ORDER_CANCEL"}) and not state.order:
             if order_id:
-                return {"tool": "get_order", "args": {"order_id": order_id}}
+                return {
+                    "tool": "get_order",
+                    "args": {
+                        "order_id": order_id,
+                        "reference_date": state.ticket["created_at"],
+                    },
+                }
             if not state.kb_result:
                 return {"tool": "search_knowledge_base", "args": {"query": "clarifying questions for missing order id"}}
             return {
@@ -244,7 +251,13 @@ class ShopWaveAgent:
         if not state.eligibility:
             if category == "WARRANTY_CLAIM" and not state.kb_result:
                 return {"tool": "search_knowledge_base", "args": {"query": "warranty claim policy defect outside return window"}}
-            return {"tool": "check_refund_eligibility", "args": {"order_id": state.order["order_id"]}}
+            return {
+                "tool": "check_refund_eligibility",
+                "args": {
+                    "order_id": state.order["order_id"],
+                    "reference_date": state.ticket["created_at"],
+                },
+            }
 
         if category == "WARRANTY_CLAIM":
             state.pending_priority = "medium"
@@ -338,12 +351,22 @@ class ShopWaveAgent:
         if not state.kb_result:
             return {"tool": "search_knowledge_base", "args": {"query": state.ticket["subject"]}}
         if not state.order and self._resolved_order_id(state):
-            return {"tool": "get_order", "args": {"order_id": self._resolved_order_id(state)}}
+            return {
+                "tool": "get_order",
+                "args": {
+                    "order_id": self._resolved_order_id(state),
+                    "reference_date": state.ticket["created_at"],
+                },
+            }
         return {"tool": "get_product", "args": {"product_id": state.order["product_id"]}}
 
     def _resolved_order_id(self, state: LoopState) -> str | None:
         if state.ticket.get("order_id"):
             return state.ticket["order_id"]
+        haystack = f"{state.ticket.get('subject', '')} {state.ticket.get('body', '')}"
+        match = re.search(r"\bORD-\d{4}\b", haystack, re.IGNORECASE)
+        if match:
+            return match.group(0).upper()
         if not state.customer or not state.customer.get("found"):
             return None
         customer_id = state.customer["customer_id"]

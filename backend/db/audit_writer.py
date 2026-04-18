@@ -27,9 +27,9 @@ class AuditWriter:
         self.settings.audit_log_path.write_text(json.dumps(payload, indent=2), encoding="utf-8")
 
     def stats(self) -> dict[str, Any]:
-        resolved = sum(1 for ticket in self.store.tickets if ticket["status"] == "RESOLVED")
-        escalated = sum(1 for ticket in self.store.tickets if ticket["status"] == "ESCALATED")
-        dead = sum(1 for ticket in self.store.tickets if ticket["status"] == "DEAD")
+        resolved = sum(1 for ticket in self.store.tickets if ticket.get("status") == "RESOLVED")
+        escalated = sum(1 for ticket in self.store.tickets if ticket.get("status") == "ESCALATED")
+        dead = sum(1 for ticket in self.store.tickets if ticket.get("status") == "DEAD")
         confidences = [entry.confidence_final for entry in self.store.audit_entries]
         avg_confidence = round(sum(confidences) / len(confidences), 3) if confidences else 0.0
         return {

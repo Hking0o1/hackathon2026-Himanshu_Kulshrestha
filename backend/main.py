@@ -56,6 +56,10 @@ def create_app() -> Any:
     async def stats() -> dict[str, Any]:
         return manager.stats()
 
+    @app.get("/analytics")
+    async def analytics() -> dict[str, Any]:
+        return manager.analytics()
+
     @app.post("/run")
     async def run_agent(x_admin_token: str = Header(default="")) -> JSONResponse:
         if x_admin_token != manager.settings.admin_token:

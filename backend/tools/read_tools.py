@@ -31,7 +31,7 @@ class ReadTools:
         return payload
 
     @chaotic_tool
-    async def get_order(self, order_id: str) -> dict[str, Any]:
+    async def get_order(self, order_id: str, reference_date: str | None = None) -> dict[str, Any]:
         order = self.store.orders.get(order_id)
         if not order:
             return {
@@ -53,7 +53,11 @@ class ReadTools:
         payload["found"] = True
         delivery_date = payload.get("delivery_date")
         if delivery_date:
-            delta = datetime.utcnow().date() - datetime.fromisoformat(delivery_date).date()
+            if reference_date:
+                baseline = datetime.fromisoformat(reference_date.replace("Z", "+00:00")).date()
+            else:
+                baseline = datetime.utcnow().date()
+            delta = baseline - datetime.fromisoformat(delivery_date).date()
             payload["days_since_delivery"] = max(delta.days, 0)
         else:
             payload["days_since_delivery"] = None

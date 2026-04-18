@@ -44,10 +44,14 @@ class Settings:
     chaos_seed: int
     database_url: str
     groq_api_key: str
+    groq_model: str
     gemini_api_key: str
+    gemini_model: str
     huggingface_api_key: str
+    huggingface_model: str
     ollama_base_url: str
     ollama_model: str
+    llm_request_timeout: float
 
     @classmethod
     def from_env(cls) -> "Settings":
@@ -77,12 +81,15 @@ class Settings:
                 "postgresql+asyncpg://shopwave:password@localhost:5432/shopwave",
             ),
             groq_api_key=os.getenv("GROQ_API_KEY", ""),
+            groq_model=os.getenv("GROQ_MODEL", "llama-3.3-70b-versatile"),
             gemini_api_key=os.getenv("GEMINI_API_KEY", ""),
+            gemini_model=os.getenv("GEMINI_MODEL", "gemini-2.5-flash"),
             huggingface_api_key=os.getenv("HUGGINGFACE_API_KEY", ""),
+            huggingface_model=os.getenv("HUGGINGFACE_MODEL", "facebook/bart-large-mnli"),
             ollama_base_url=os.getenv("OLLAMA_BASE_URL", "http://localhost:11434"),
             ollama_model=os.getenv("OLLAMA_MODEL", "llama3.2:3b"),
+            llm_request_timeout=_env_float("LLM_REQUEST_TIMEOUT", 20.0),
         )
 
 
 settings = Settings.from_env()
-

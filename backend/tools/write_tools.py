@@ -15,7 +15,7 @@ class WriteTools:
         self.settings = settings
 
     @chaotic_tool
-    async def check_refund_eligibility(self, order_id: str) -> dict[str, Any]:
+    async def check_refund_eligibility(self, order_id: str, reference_date: str | None = None) -> dict[str, Any]:
         order = self.store.orders.get(order_id)
         if not order:
             return {
@@ -55,7 +55,10 @@ class WriteTools:
 
         if order["status"] == "delivered":
             return_deadline = datetime.fromisoformat(order["return_deadline"]).date()
-            today = datetime.utcnow().date()
+            if reference_date:
+                today = datetime.fromisoformat(reference_date.replace("Z", "+00:00")).date()
+            else:
+                today = datetime.utcnow().date()
             if today > return_deadline:
                 policy_flags.append("OUT_OF_WINDOW")
 

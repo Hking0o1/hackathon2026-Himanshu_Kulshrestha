@@ -1,5 +1,5 @@
 function ticketName(ticket) {
-  return ticket.customer_email?.split("@")[0]?.replace(".", " ") || "unknown";
+  return ticket.customer_email?.split("@")[0]?.replaceAll(".", " ") || "unknown";
 }
 
 function tierLabel(tier) {
@@ -31,7 +31,11 @@ function TicketCard({ ticket, onSelect, selected }) {
       <p className="ticket-subject">{ticket.subject}</p>
       <div className="ticket-meta">
         <span>{ticket.category || "Pending triage"}</span>
-        <span>{ticket.flags?.join(", ") || "no flags"}</span>
+        <span>{ticket.order_id || "No order ID"}</span>
+      </div>
+      <div className="ticket-footer">
+        <span className={`status-chip ${ticket.status?.toLowerCase() || "queued"}`}>{ticket.status || "QUEUED"}</span>
+        <span>{ticket.flags?.length ? ticket.flags.join(", ") : "clear"}</span>
       </div>
       <div className={`confidence-bar ${confidenceClass(ticket.confidence)}`}>
         <div style={{ width: `${(ticket.confidence || 0) * 100}%` }} />
@@ -41,31 +45,23 @@ function TicketCard({ ticket, onSelect, selected }) {
 }
 
 export default function TicketBoard({ tickets = [], selectedId, onSelect }) {
-  const columns = ["QUEUED", "PROCESSING", "RESOLVED", "ESCALATED"];
-
   return (
-    <section className="board-grid">
-      {columns.map((column) => (
-        <article key={column} className="board-column">
-          <header>
-            <h3>{column}</h3>
-            <span>{tickets.filter((ticket) => ticket.status === column).length}</span>
-          </header>
-          <div className="ticket-stack">
-            {tickets
-              .filter((ticket) => ticket.status === column)
-              .map((ticket) => (
-                <TicketCard
-                  key={ticket.ticket_id}
-                  ticket={ticket}
-                  onSelect={onSelect}
-                  selected={selectedId === ticket.ticket_id}
-                />
-              ))}
-          </div>
-        </article>
-      ))}
+    <section className="ticket-results">
+      <div className="results-header">
+        <h3>Ticket Search Results</h3>
+        <span>{tickets.length} tickets</span>
+      </div>
+
+      <div className="results-grid">
+        {tickets.map((ticket) => (
+          <TicketCard
+            key={ticket.ticket_id}
+            ticket={ticket}
+            onSelect={onSelect}
+            selected={selectedId === ticket.ticket_id}
+          />
+        ))}
+      </div>
     </section>
   );
 }
-

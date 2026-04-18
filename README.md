@@ -4,8 +4,8 @@ ShopWave Auto-Agent is a hackathon-ready autonomous support resolution system fo
 
 ## What is in this repo
 
-- `backend/`: FastAPI app, queue manager, agent loop, tool layer, mock provider wrappers, and audit writer
-- `frontend/`: React + Vite dashboard with SSE-driven board, stats, worker lanes, and audit panel
+- `backend/`: FastAPI app, queue manager, agent loop, tool layer, live provider wrappers, analytics, and audit writer
+- `frontend/`: React + Vite dashboard with search, analytics charts, worker lanes, and audit panel
 - `cli/run_agent.py`: run, inspect, and export the agent from the terminal
 - `backend/data/`: ticket, customer, order, product, and knowledge-base fixtures
 - `failure_modes.md`, `codeflow.md`, `agent.md`: future-maintenance docs
@@ -77,6 +77,7 @@ python cli/run_agent.py export
 - `GET /tickets`
 - `GET /audit`
 - `GET /audit/{ticket_id}`
+- `GET /analytics`
 - `GET /stats`
 - `GET /stream`
 - `POST /run` with header `x-admin-token`
@@ -85,9 +86,13 @@ python cli/run_agent.py export
 
 | Variable | Purpose |
 | --- | --- |
-| `GROQ_API_KEY` | Optional future live reasoning provider |
-| `GEMINI_API_KEY` | Optional future escalation-summary provider |
-| `HUGGINGFACE_API_KEY` | Optional future live triage provider |
+| `GROQ_API_KEY` | Live Groq reasoning provider |
+| `GROQ_MODEL` | Groq chat model name |
+| `GEMINI_API_KEY` | Live Gemini escalation-summary provider |
+| `GEMINI_MODEL` | Gemini model name |
+| `HUGGINGFACE_API_KEY` | Live Hugging Face zero-shot triage provider |
+| `HUGGINGFACE_MODEL` | Hugging Face model name |
+| `LLM_REQUEST_TIMEOUT` | Timeout for live provider requests |
 | `OLLAMA_BASE_URL` | Optional local fallback base URL |
 | `OLLAMA_MODEL` | Optional local fallback model name |
 | `DATABASE_URL` | Optional Postgres target |
@@ -111,5 +116,5 @@ python cli/run_agent.py export
 
 ## Notes
 
-- The current implementation keeps the provider boundaries from the TRD but uses deterministic local heuristics so the project runs offline without live model credentials.
+- The provider layer now attempts real Hugging Face, Groq, Gemini, and Ollama calls when configured, and falls back locally when those providers are unavailable.
 - Optional Postgres writes are attempted only when an async Postgres driver is available.
