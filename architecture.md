@@ -4,11 +4,38 @@ This document describes the overall architecture of the ShopWave Auto-Agent repo
 
 ## High-level architecture
 
-The project is composed of three main layers:
-
-- `backend/`: FastAPI application, runtime queue manager, agent orchestration, tool layer, analytics, and audit export.
-- `frontend/`: React + Vite dashboard with live SSE updates, ticket search, analytics, audit visualization, dark mode, and JSON batch upload support.
-- `cli/`: Terminal interface for running the agent, inspecting queue status, auditing tickets, and exporting logs.
+```bash
+┌─────────────────────────────────────────────────────────────────────┐
+│                        ShopWave Auto-Agent                          │
+│                                                                     │
+│  tickets.json ──► FastAPI Startup ──► asyncio.PriorityQueue         │
+│                          │              (tier-ordered, heapq)       │
+│                          │                                          │
+│                    Worker Pool (N=5 concurrent workers)             │
+│                    asyncio.gather(*[worker() for _ in range(5)])    │
+│                          │                                          │
+│           ┌──────────────┼──────────────┐                           │
+│           │              │              │                           │
+│      [Worker 1]    [Worker 2]    [Worker N]                         │
+│           │                                                         │
+│    STAGE 1: Triage                                                  │
+│    HuggingFace BART ──► category label + confidence                 │
+│           │                                                         │
+│    STAGE 2: ReAct Loop (Groq / Ollama fallback)                     │
+│    THOUGHT ──► TOOL CALL ──► OBSERVATION ──► THOUGHT ──► ...        │
+│    [min 3 tool calls enforced, max 8 iterations, irreversibility]   │
+│           │                                                         │
+│    STAGE 3: Decision Gate                                           │
+│    confidence < 0.6 OR policy_violated ──► Gemini escalate          │
+│    confidence ≥ 0.6 AND policy_ok ──► send_reply + resolve          │
+│           │                                                         │
+│    STAGE 4: Audit Writer                                            │
+│    Groq structured output ──► Postgres + audit_log.json             │
+│                                                                     │
+│  REST API (FastAPI) ──► React Dashboard (SSE live updates)          │
+│  CLI Tool (argparse + rich) ──► Colour-coded parallel streams       │
+└─────────────────────────────────────────────────────────────────────┘
+```
 
 ## Backend architecture
 
