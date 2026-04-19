@@ -13,27 +13,32 @@ The project is composed of three main layers:
 ## Backend architecture
 
 ### Runtime store and data loading
+
 - Ticket and fixture data are stored under `backend/data/`.
 - At startup, the runtime loads tickets, customers, orders, products, and policy knowledge fixtures into memory.
 - `backend/queue_manager.py` builds an `asyncio.PriorityQueue` and enqueues tickets using an inverted tier priority rule so higher-priority tickets execute first.
 
 ### Worker pool and execution
+
 - A pool of concurrent asyncio workers processes tickets from the queue.
 - Each worker executes the agent flow and emits runtime events through an internal pub/sub event broker.
 - Events include run status, ticket updates, tool calls, and completion summaries.
 
 ### Agent / ReAct workflow
+
 - `backend/agent/triage.py` assigns a ticket category.
 - `backend/agent/react_loop.py` orchestrates the reasoning loop and tool execution.
 - `backend/agent/confidence.py` computes a deterministic confidence score based on tool outcomes and context.
 - `backend/agent/decision_gate.py` decides whether a ticket resolves automatically or escalates.
 
 ### Tool layer
+
 - `backend/tools/read_tools.py` provides read-only access to customers, orders, products, and policy data.
 - `backend/tools/write_tools.py` performs actions such as refunds, reply generation, and escalation decisions.
 - Guardrails are enforced so irreversible actions are only executed when upstream validation passes.
 
 ### API and streaming
+
 - The backend exposes FastAPI endpoints for ticket snapshots, analytics, audit data, and SSE streaming.
 - `backend/main.py` serves the dashboard data and allows the frontend to subscribe to live updates.
 - The backend also exposes a ticket upload endpoint for JSON batch submission.
@@ -66,12 +71,14 @@ The project is composed of three main layers:
 ## Data contracts
 
 ### SSE events
+
 - `snapshot`: full ticket and analytics state payload.
 - `ticket_update`: incremental ticket status updates.
 - `run_started`: signal that the workflow has started.
 - `run_complete`: final summary and statistics.
 
 ### API contracts
+
 - `GET /tickets`: ticket snapshot
 - `POST /tickets/upload`: upload ticket JSON batch
 - `GET /audit`: audit log list
@@ -84,13 +91,16 @@ The project is composed of three main layers:
 ## Deployment and local development
 
 ### Backend
+
 - Start the backend with `uvicorn backend.main:app --reload`.
 - The frontend defaults to API host `http://localhost:8000`.
 
 ### Frontend
+
 - Install dependencies and run the dashboard from `frontend/` with `npm install` and `npm run dev`.
 
 ### Docker
+
 - Build and launch the full stack using `docker compose up --build`.
 
 ## Notes
