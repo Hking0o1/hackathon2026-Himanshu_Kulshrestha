@@ -2,10 +2,18 @@ function pretty(value) {
   return JSON.stringify(value, null, 2);
 }
 
+function getEscalationSummary(audit) {
+  const escalateCall = audit?.react_loop?.tool_calls?.find(
+    (tool) => tool.tool === "escalate" && tool.output?.summary,
+  );
+  return audit?.escalation_summary ?? escalateCall?.output?.summary ?? null;
+}
+
 export default function AuditPanel({ audit, selectedTicket }) {
   const thoughts = audit?.react_loop?.thoughts ?? [];
   const toolCalls = audit?.react_loop?.tool_calls ?? [];
   const providers = audit?.llm_providers_used ?? [];
+  const escalationSummary = getEscalationSummary(audit);
 
   if (!selectedTicket) {
     return (
@@ -33,6 +41,45 @@ export default function AuditPanel({ audit, selectedTicket }) {
         {audit?.policy_explanation ||
           "This ticket has not produced a full audit entry yet. Once the run completes, the reasoning chain will appear here."}
       </p>
+
+      {escalationSummary ? (
+        <section className="summary-panel">
+          <h4>Escalation summary</h4>
+          <article className="summary-card">
+            <p>{escalationSummary.issue_summary}</p>
+            <div className="summary-grid">
+              <div>
+                <strong>Verified</strong>
+                <ul>
+                  {(escalationSummary.what_was_verified || []).map((item, index) => (
+                    <li key={`verified-${index}`}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <strong>Attempted</strong>
+                <ul>
+                  {(escalationSummary.what_was_attempted || []).map((item, index) => (
+                    <li key={`attempted-${index}`}>{item}</li>
+                  ))}
+                </ul>
+              </div>
+              <div>
+                <strong>Recommended path</strong>
+                <p>{escalationSummary.recommended_path}</p>
+              </div>
+              <div>
+                <strong>Priority</strong>
+                <p>{escalationSummary.priority}</p>
+              </div>
+              <div>
+                <strong>Confidence</strong>
+                <p>{escalationSummary.confidence_at_escalation ?? audit?.confidence_final ?? "n/a"}</p>
+              </div>
+            </div>
+          </article>
+        </section>
+      ) : null}
 
       <section className="panel-grid">
         <article className="metric-tile">

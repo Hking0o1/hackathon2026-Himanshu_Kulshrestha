@@ -3,4 +3,5 @@ uvicorn
 httpx
 pydantic-settings
 rich
+python-multipart
 

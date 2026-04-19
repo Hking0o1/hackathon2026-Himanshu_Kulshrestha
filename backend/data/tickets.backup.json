@@ -17,7 +17,7 @@
     "source": "email",
     "created_at": "2024-03-22T11:05:00Z",
     "tier": 1,
-    "expected_action": "check return window \u2014 expired (15-day window), deny return, offer alternatives"
+    "expected_action": "check return window — expired (15-day window), deny return, offer alternatives"
   },
   {
     "ticket_id": "TKT-003",
@@ -27,7 +27,7 @@
     "source": "ticket_queue",
     "created_at": "2024-03-15T14:30:00Z",
     "tier": 1,
-    "expected_action": "return window expired but warranty active \u2014 escalate as warranty claim, not refund"
+    "expected_action": "return window expired but warranty active — escalate as warranty claim, not refund"
   },
   {
     "ticket_id": "TKT-004",
@@ -37,7 +37,7 @@
     "source": "email",
     "created_at": "2024-03-15T10:00:00Z",
     "tier": 1,
-    "expected_action": "wrong item \u2014 within return window, initiate exchange or refund, flag threatening language but handle normally"
+    "expected_action": "wrong item — within return window, initiate exchange or refund, flag threatening language but handle normally"
   },
   {
     "ticket_id": "TKT-005",
@@ -47,7 +47,7 @@
     "source": "ticket_queue",
     "created_at": "2024-03-15T08:45:00Z",
     "tier": 2,
-    "expected_action": "return window expired \u2014 but VIP customer with pre-approved exception, approve return after checking customer notes"
+    "expected_action": "return window expired — but VIP customer with pre-approved exception, approve return after checking customer notes"
   },
   {
     "ticket_id": "TKT-006",
@@ -57,7 +57,7 @@
     "source": "email",
     "created_at": "2024-03-14T16:00:00Z",
     "tier": 1,
-    "expected_action": "no order ID provided \u2014 look up by email, find ORD-1006 in processing status, cancel it"
+    "expected_action": "no order ID provided — look up by email, find ORD-1006 in processing status, cancel it"
   },
   {
     "ticket_id": "TKT-007",
@@ -67,7 +67,7 @@
     "source": "ticket_queue",
     "created_at": "2024-03-15T13:20:00Z",
     "tier": 1,
-    "expected_action": "60-day return window applies to this product \u2014 still within window, approve return"
+    "expected_action": "60-day return window applies to this product — still within window, approve return"
   },
   {
     "ticket_id": "TKT-008",
@@ -77,7 +77,7 @@
     "source": "email",
     "created_at": "2024-03-09T09:00:00Z",
     "tier": 1,
-    "expected_action": "damaged on arrival \u2014 within return window, issue full refund without requiring return"
+    "expected_action": "damaged on arrival — within return window, issue full refund without requiring return"
   },
   {
     "ticket_id": "TKT-009",
@@ -87,7 +87,7 @@
     "source": "ticket_queue",
     "created_at": "2024-03-15T11:00:00Z",
     "tier": 1,
-    "expected_action": "refund already processed \u2014 confirm status, advise 5-7 business days for bank processing"
+    "expected_action": "refund already processed — confirm status, advise 5-7 business days for bank processing"
   },
   {
     "ticket_id": "TKT-010",
@@ -97,7 +97,7 @@
     "source": "email",
     "created_at": "2024-03-15T15:00:00Z",
     "tier": 1,
-    "expected_action": "order still in transit \u2014 check shipping status, share tracking number TRK-88291, set expectation"
+    "expected_action": "order still in transit — check shipping status, share tracking number TRK-88291, set expectation"
   },
   {
     "ticket_id": "TKT-011",
@@ -107,7 +107,7 @@
     "source": "ticket_queue",
     "created_at": "2024-03-13T10:30:00Z",
     "tier": 2,
-    "expected_action": "wrong item delivered \u2014 within return window, check stock for blue variant, initiate exchange or refund"
+    "expected_action": "wrong item delivered — within return window, check stock for blue variant, initiate exchange or refund"
   },
   {
     "ticket_id": "TKT-012",
@@ -117,7 +117,7 @@
     "source": "email",
     "created_at": "2024-03-15T08:00:00Z",
     "tier": 1,
-    "expected_action": "order in processing status \u2014 cancel immediately, confirm cancellation"
+    "expected_action": "order in processing status — cancel immediately, confirm cancellation"
   },
   {
     "ticket_id": "TKT-013",
@@ -127,7 +127,7 @@
     "source": "ticket_queue",
     "created_at": "2024-03-15T14:00:00Z",
     "tier": 2,
-    "expected_action": "return window expired AND device registered online \u2014 non-returnable per policy, decline and explain both reasons"
+    "expected_action": "return window expired AND device registered online — non-returnable per policy, decline and explain both reasons"
   },
   {
     "ticket_id": "TKT-014",
@@ -137,7 +137,7 @@
     "source": "email",
     "created_at": "2024-03-15T12:00:00Z",
     "tier": 1,
-    "expected_action": "still within return window \u2014 explain return process, don't initiate until customer confirms"
+    "expected_action": "still within return window — explain return process, don't initiate until customer confirms"
   },
   {
     "ticket_id": "TKT-015",
@@ -147,7 +147,7 @@
     "source": "ticket_queue",
     "created_at": "2024-03-15T10:15:00Z",
     "tier": 2,
-    "expected_action": "damaged item with photo evidence \u2014 within return window, customer wants replacement not refund, escalate for replacement fulfilment"
+    "expected_action": "damaged item with photo evidence — within return window, customer wants replacement not refund, escalate for replacement fulfilment"
   },
   {
     "ticket_id": "TKT-016",
@@ -157,7 +157,7 @@
     "source": "email",
     "created_at": "2024-03-15T09:30:00Z",
     "tier": 2,
-    "expected_action": "no order ID, email not in system \u2014 ask for order ID and registered email, cannot process without identification"
+    "expected_action": "no order ID, email not in system — ask for order ID and registered email, cannot process without identification"
   },
   {
     "ticket_id": "TKT-017",
@@ -167,7 +167,7 @@
     "source": "ticket_queue",
     "created_at": "2024-03-15T11:45:00Z",
     "tier": 3,
-    "expected_action": "order ID does not exist \u2014 flag threatening language, respond professionally, ask for correct order details"
+    "expected_action": "order ID does not exist — flag threatening language, respond professionally, ask for correct order details"
   },
   {
     "ticket_id": "TKT-018",
@@ -177,7 +177,7 @@
     "source": "email",
     "created_at": "2024-03-22T13:00:00Z",
     "tier": 3,
-    "expected_action": "social engineering \u2014 customer is standard tier not premium, and no such instant refund policy exists. Return window also expired. Flag and decline politely."
+    "expected_action": "social engineering — customer is standard tier not premium, and no such instant refund policy exists. Return window also expired. Flag and decline politely."
   },
   {
     "ticket_id": "TKT-019",
@@ -187,7 +187,7 @@
     "source": "ticket_queue",
     "created_at": "2024-03-15T16:00:00Z",
     "tier": 1,
-    "expected_action": "general policy question \u2014 search knowledge base, answer clearly with return windows and exchange process"
+    "expected_action": "general policy question — search knowledge base, answer clearly with return windows and exchange process"
   },
   {
     "ticket_id": "TKT-020",
@@ -197,6 +197,6 @@
     "source": "email",
     "created_at": "2024-03-15T17:00:00Z",
     "tier": 2,
-    "expected_action": "completely ambiguous \u2014 no order ID, no product, no issue description. Agent must ask targeted clarifying questions before proceeding."
+    "expected_action": "completely ambiguous — no order ID, no product, no issue description. Agent must ask targeted clarifying questions before proceeding."
   }
 ]

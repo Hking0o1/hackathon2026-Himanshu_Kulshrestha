@@ -7,7 +7,7 @@ from typing import Any
 from backend.queue_manager import manager
 
 try:
-    from fastapi import FastAPI, Header, HTTPException
+    from fastapi import FastAPI, Header, HTTPException, UploadFile, File
     from fastapi.middleware.cors import CORSMiddleware
     from fastapi.responses import JSONResponse, StreamingResponse
 except ImportError:  # pragma: no cover - optional runtime dependency
@@ -66,6 +66,23 @@ def create_app() -> Any:
             raise HTTPException(status_code=401, detail="Invalid ADMIN_TOKEN")
         stats = await manager.run_all()
         return JSONResponse(stats)
+
+    @app.post("/tickets/upload")
+    async def upload_tickets(file: UploadFile = File(...), x_admin_token: str = Header(default="")) -> JSONResponse:
+        if x_admin_token != manager.settings.admin_token:
+            raise HTTPException(status_code=401, detail="Invalid ADMIN_TOKEN")
+        content = await file.read()
+        try:
+            tickets = json.loads(content)
+        except json.JSONDecodeError as exc:
+            raise HTTPException(status_code=400, detail=f"Invalid JSON: {exc}")
+        if not isinstance(tickets, list):
+            raise HTTPException(status_code=400, detail="Ticket file must be a JSON array of ticket objects.")
+        ticket_path = manager.settings.data_dir / "tickets.json"
+        ticket_path.write_text(json.dumps(tickets, indent=2), encoding="utf-8")
+        manager._reset_runtime()
+        await manager.events.publish({"type": "snapshot", **manager.snapshot()})
+        return JSONResponse({"saved": str(ticket_path), "count": len(tickets)})
 
     @app.get("/stream")
     async def stream() -> StreamingResponse:

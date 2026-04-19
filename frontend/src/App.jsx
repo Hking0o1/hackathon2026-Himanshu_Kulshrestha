@@ -1,4 +1,4 @@
-import { startTransition, useDeferredValue, useEffect, useMemo, useState } from "react";
+import { startTransition, useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
 import AnalyticsPanel from "./components/AnalyticsPanel";
 import AuditPanel from "./components/AuditPanel";
 import SearchToolbar from "./components/SearchToolbar";
@@ -8,6 +8,7 @@ import WorkerStatus from "./components/WorkerStatus";
 import { useSSE } from "./hooks/useSSE";
 
 const API_URL = import.meta.env.VITE_API_URL || "http://localhost:8000";
+const ADMIN_TOKEN = import.meta.env.VITE_API_ADMIN_TOKEN || "change_me_in_production";
 
 async function fetchJson(url) {
   const response = await fetch(url);
@@ -24,6 +25,11 @@ export default function App() {
   const [query, setQuery] = useState("");
   const [statusFilter, setStatusFilter] = useState("ALL");
   const [categoryFilter, setCategoryFilter] = useState("ALL");
+  const [runInProgress, setRunInProgress] = useState(false);
+  const [runError, setRunError] = useState(null);
+  const [uploadStatus, setUploadStatus] = useState(null);
+  const [darkMode, setDarkMode] = useState(false);
+  const uploadRef = useRef(null);
 
   useEffect(() => {
     fetchJson(`${API_URL}/tickets`)
@@ -62,6 +68,18 @@ export default function App() {
       });
   }, [selectedId]);
 
+  useEffect(() => {
+    const mediaQuery = window.matchMedia?.("(prefers-color-scheme: dark)");
+    setDarkMode(mediaQuery?.matches ?? false);
+    const listener = (event) => setDarkMode(event.matches);
+    mediaQuery?.addEventListener?.("change", listener);
+    return () => mediaQuery?.removeEventListener?.("change", listener);
+  }, []);
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("dark", darkMode);
+  }, [darkMode]);
+
   const connected = useSSE((event) => {
     startTransition(() => {
       if (event.type === "snapshot") {
@@ -85,7 +103,11 @@ export default function App() {
         }));
         return;
       }
+      if (event.type === "run_started") {
+        setRunInProgress(true);
+      }
       if (event.type === "run_complete") {
+        setRunInProgress(false);
         setSnapshot((current) => ({
           ...current,
           stats: event,
@@ -134,16 +156,107 @@ export default function App() {
     [snapshot.tickets, selectedId],
   );
 
+  const runAgent = async () => {
+    setRunError(null);
+    try {
+      setRunInProgress(true);
+      const response = await fetch(`${API_URL}/run`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "x-admin-token": ADMIN_TOKEN,
+        },
+      });
+      if (!response.ok) {
+        const errorBody = await response.text();
+        throw new Error(`Run failed: ${response.status} ${errorBody}`);
+      }
+      await response.json();
+    } catch (error) {
+      console.error("Failed to start run", error);
+      setRunError(error instanceof Error ? error.message : "Unable to start run");
+      setRunInProgress(false);
+    }
+  };
+
+  const uploadTickets = async (file) => {
+    setUploadStatus("Uploading ticket batch...");
+    setRunError(null);
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      const response = await fetch(`${API_URL}/tickets/upload`, {
+        method: "POST",
+        headers: {
+          "x-admin-token": ADMIN_TOKEN,
+        },
+        body: formData,
+      });
+      if (!response.ok) {
+        const errorBody = await response.text();
+        throw new Error(`Upload failed: ${response.status} ${errorBody}`);
+      }
+      const data = await response.json();
+      setUploadStatus(`Uploaded ${data.count} tickets. Reloading snapshot...`);
+      const snapshotData = await fetchJson(`${API_URL}/tickets`);
+      startTransition(() => setSnapshot(snapshotData));
+    } catch (error) {
+      console.error("Ticket upload failed", error);
+      setUploadStatus(error instanceof Error ? error.message : "Unable to upload tickets");
+    }
+  };
+
+  const handleUploadChange = (event) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      uploadTickets(file);
+    }
+  };
+
   return (
     <main className="app-shell">
       <section className="hero">
+        <div className="hero-top">
+          <button className="theme-toggle" type="button" onClick={() => setDarkMode((value) => !value)}>
+            {darkMode ? "Switch to light" : "Switch to dark"}
+          </button>
+        </div>
         <div className="hero-copy-block">
-          <p className="eyebrow">ShopWave Auto-Agent</p>
-          <h1>Support operations, complaint analysis, and live audit flow in one workspace.</h1>
-          <p className="hero-copy">
+          <p>Support operations, complaint analysis, and live audit flow in one workspace.</p>
+          <h1 className="eyebrow">ShopWave Auto-Agent</h1>
+          <h6 className="hero-copy">
             Search tickets, inspect complaint patterns, watch worker activity, and open any ticket’s reasoning trace
             without the UI breaking when audit data is still pending.
-          </p>
+          </h6>
+        </div>
+      </section>
+
+      <section className="run-control">
+        <div className="run-control-left">
+          <h2>Launch support automation</h2>
+          <p>Start the agent from the UI and watch the live backend stream update ticket progress in real time.</p>
+          <div className="upload-row">
+            <label className="upload-button" htmlFor="ticket-file-input">
+              Upload tickets JSON
+              <input
+                id="ticket-file-input"
+                type="file"
+                accept="application/json"
+                ref={uploadRef}
+                onChange={handleUploadChange}
+              />
+            </label>
+            {uploadStatus && <span className="upload-copy">{uploadStatus}</span>}
+          </div>
+        </div>
+        <div className="run-control-right">
+          <button className={`run-button ${runInProgress ? "running" : ""}`} onClick={runAgent} disabled={runInProgress || !connected}>
+            {runInProgress ? "Run in progress…" : "Start workflow"}
+          </button>
+          <span className={`run-pill ${runInProgress ? "active" : "idle"}`}>
+            {runInProgress ? "Processing tickets" : connected ? "Ready to run" : "Waiting for stream"}
+          </span>
+          {runError && <p className="error-copy">{runError}</p>}
         </div>
       </section>
 

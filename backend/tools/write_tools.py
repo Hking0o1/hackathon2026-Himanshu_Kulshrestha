@@ -128,6 +128,8 @@ class WriteTools:
             "escalation_id": f"ESC-{uuid.uuid4()}",
             "routed_to": "tier-2-support",
             "timestamp": datetime.utcnow().replace(microsecond=0).isoformat() + "Z",
+            "summary": summary,
+            "priority": priority,
         }
-        self.store.escalations.append(payload | {"summary": summary, "priority": priority})
+        self.store.escalations.append(payload)
         return payload

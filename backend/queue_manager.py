@@ -75,7 +75,10 @@ class QueueManager:
 
     async def worker(self, worker_id: int) -> None:
         while True:
-            item = await self.queue.get()
+            try:
+                item = await self.queue.get()
+            except asyncio.CancelledError:
+                break
             ticket = item.ticket
             self.store.worker_status[worker_id] = {"ticket_id": ticket["ticket_id"], "status": "PROCESSING"}
             ticket["assigned_worker"] = worker_id

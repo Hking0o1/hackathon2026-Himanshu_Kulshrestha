@@ -5,6 +5,21 @@ from dataclasses import dataclass
 from pathlib import Path
 
 
+def _load_dotenv_file() -> None:
+    root_dir = Path(__file__).resolve().parents[1]
+    env_path = root_dir / ".env"
+    if not env_path.exists():
+        return
+    for raw_line in env_path.read_text(encoding="utf-8").splitlines():
+        line = raw_line.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        key, value = line.split("=", 1)
+        key = key.strip()
+        value = value.strip().strip('"').strip("'")
+        os.environ.setdefault(key, value)
+
+
 def _env_bool(name: str, default: bool) -> bool:
     raw = os.getenv(name)
     if raw is None:
@@ -90,6 +105,5 @@ class Settings:
             ollama_model=os.getenv("OLLAMA_MODEL", "llama3.2:3b"),
             llm_request_timeout=_env_float("LLM_REQUEST_TIMEOUT", 20.0),
         )
-
-
+_load_dotenv_file()
 settings = Settings.from_env()
