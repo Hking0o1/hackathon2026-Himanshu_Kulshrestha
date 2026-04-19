@@ -10,11 +10,13 @@
 - Add real provider integrations inside `backend/llm/` without changing the queue, tool, or audit contracts.
 - Add more tool types in `backend/tools/` only if the TRD or product scope truly requires them.
 - Expand the dashboard by adding new components under `frontend/src/components/` while keeping the SSE snapshot and update events backward compatible.
+- Preserve the current dashboard hooks for theme state, ticket upload, and SSE event streaming when changing frontend layout or analytics charts.
 
 ## Files that define the current behavior
 - `backend/agent/react_loop.py`: branch logic and tool sequencing.
 - `backend/tools/write_tools.py`: refund policy engine and irreversible actions.
 - `backend/queue_manager.py`: worker pool, event broker, and data loading.
+- `cli/run_agent.py`: terminal command interface, colored header banner, and run/status/audit/stats/export commands.
 - `backend/data/*.json` plus `backend/data/knowledge_base.md`: source-of-truth fixtures for the mock environment.
 
 ## Safe update checklist
@@ -22,4 +24,5 @@
 2. Run `python cli/run_agent.py run`.
 3. Verify `audit_log.json` still exports successfully.
 4. Confirm the expected escalations are still `TKT-003`, `TKT-005`, `TKT-011`, `TKT-015`, `TKT-016`, and `TKT-017`.
-5. If you change the API contract, update both the frontend consumer and these docs in the same pass.
+5. Verify the frontend still loads and the theme toggle works in both light and dark mode.
+6. If you change the API contract, update both the frontend consumer and these docs in the same pass.

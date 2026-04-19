@@ -5,8 +5,8 @@ ShopWave Auto-Agent is a hackathon-ready autonomous support resolution system fo
 ## What is in this repo
 
 - `backend/`: FastAPI app, queue manager, agent loop, tool layer, live provider wrappers, analytics, and audit writer
-- `frontend/`: React + Vite dashboard with search, analytics charts, worker lanes, and audit panel
-- `cli/run_agent.py`: run, inspect, and export the agent from the terminal
+- `frontend/`: React + Vite dashboard with search, analytics charts, worker lanes, audit panel, dark mode, and ticket JSON upload support
+- `cli/run_agent.py`: run, inspect, and export the agent from the terminal with a rich colored banner
 - `backend/data/`: ticket, customer, order, product, and knowledge-base fixtures
 - `failure_modes.md`, `codeflow.md`, `agent.md`: future-maintenance docs
 
@@ -75,6 +75,7 @@ python cli/run_agent.py export
 
 - `GET /health`
 - `GET /tickets`
+- `POST /tickets/upload` (upload a ticket JSON batch)
 - `GET /audit`
 - `GET /audit/{ticket_id}`
 - `GET /analytics`
@@ -113,6 +114,8 @@ python cli/run_agent.py export
 - Backend modules compile cleanly with `python -m py_compile`
 - `python cli/run_agent.py run` completes successfully
 - `audit_log.json` is generated from the full 20-ticket run
+- Frontend dashboard supports the new theme toggle and ticket upload control
+- CLI commands render the new colored ASCII banner consistently
 
 ## Notes
 

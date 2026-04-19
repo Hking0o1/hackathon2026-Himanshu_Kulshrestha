@@ -20,6 +20,8 @@
 - Mock datasets for all 20 tickets and the supporting customers, orders, products, and policy knowledge base.
 - Outcome alignment so the run resolves and escalates the same ticket set described in the TRD.
 - React dashboard shell for ticket board, live stats, worker lanes, and audit inspection.
+- Frontend theme toggle, dark mode styling, and file upload support for ticket JSON batches.
+- Rich CLI header with a colored ASCII banner and consistent command headers for every `cli/run_agent.py` command.
 - Delivery docs: `README.md`, `failure_modes.md`, `codeflow.md`, and `agent.md`.
 
 ## Key assumptions
