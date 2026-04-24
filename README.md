@@ -2,6 +2,8 @@
 
 ShopWave Auto-Agent is a hackathon-ready autonomous support resolution system for the ShopWave e-commerce platform. It ingests 20 mock customer tickets, prioritizes them with `asyncio.PriorityQueue`, resolves eligible cases through a guarded ReAct-style workflow, escalates edge cases, and exports a full `audit_log.json`.
 
+![CLI banner](assets/images/cli-banner.png)
+
 ## What is in this repo
 
 - `backend/`: FastAPI app, queue manager, agent loop, tool layer, live provider wrappers, analytics, and audit writer
@@ -70,6 +72,14 @@ python cli/run_agent.py audit TKT-001
 python cli/run_agent.py stats
 python cli/run_agent.py export
 ```
+
+### Frontend: resolved tickets
+
+![Resolved tickets](assets/images/resolved-tickets.png)
+
+### Frontend: escalated tickets
+
+![Escalated tickets](assets/images/escalated-tickets.png)
 
 ## API endpoints
 
